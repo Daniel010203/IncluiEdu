@@ -1,0 +1,1609 @@
+# Sistema Escolar de Acompanhamento Comportamental e Desenvolvimento de Alunos Autistas
+
+> **Projeto:** Sistema Web Escolar para Acompanhamento de Alunos Autistas
+> **Status:** Em fase de Engenharia de Software
+> **Versão:** 1.0.0
+> **Backend:** Python + FastAPI
+> **Banco de Dados:** PostgreSQL
+> **Arquitetura:** REST API + aplicação Web
+> **Metodologia:** Engenharia de Software + desenvolvimento incremental
+
+---
+
+## 1. Visão Geral
+
+O projeto consiste no desenvolvimento de uma aplicação web destinada a escolas para registro, organização e acompanhamento de observações realizadas durante a rotina escolar de alunos autistas.
+
+A aplicação permitirá que profissionais autorizados registrem informações estruturadas sobre situações observadas durante o período escolar, incluindo contexto, atividade, comportamento observado, intensidade, duração aproximada, estratégias utilizadas e resultado observado.
+
+O sistema terá como finalidade transformar registros que normalmente ficam dispersos em cadernos, mensagens, planilhas ou relatórios em uma **base de dados histórica, estruturada e consultável**.
+
+A partir dessa base será possível disponibilizar informações para:
+
+* Escola;
+* Professores;
+* Profissionais de apoio;
+* Responsáveis legais;
+* Profissionais autorizados;
+* Gestores escolares.
+
+O sistema não terá como objetivo realizar diagnóstico médico ou psicológico.
+
+Seu objetivo será **registrar e organizar observações ocorridas no ambiente escolar**.
+
+---
+
+# 2. Problema
+
+Durante a rotina escolar, diversas informações importantes sobre o comportamento e a participação dos alunos podem ser registradas de maneira não estruturada.
+
+Exemplos:
+
+* anotações em papel;
+* mensagens;
+* planilhas;
+* relatórios individuais;
+* comunicação verbal;
+* registros isolados realizados por diferentes profissionais.
+
+Esse modelo dificulta:
+
+* recuperação do histórico;
+* padronização dos registros;
+* análise temporal;
+* identificação de padrões;
+* comunicação entre escola e responsáveis;
+* geração de indicadores;
+* acompanhamento longitudinal.
+
+Além disso, informações importantes podem ficar fragmentadas entre diferentes profissionais.
+
+O sistema pretende solucionar esse problema por meio de uma plataforma centralizada.
+
+---
+
+# 3. Objetivo Geral
+
+Desenvolver uma aplicação web capaz de registrar, armazenar, consultar e apresentar dados estruturados referentes às observações realizadas durante a rotina escolar de alunos autistas.
+
+---
+
+# 4. Objetivos Específicos
+
+O sistema deverá permitir:
+
+1. Cadastrar escolas.
+2. Cadastrar usuários.
+3. Controlar permissões de acesso.
+4. Cadastrar alunos.
+5. Cadastrar responsáveis.
+6. Associar alunos às respectivas turmas.
+7. Registrar observações escolares.
+8. Classificar o contexto da observação.
+9. Registrar eventos observados.
+10. Registrar intensidade.
+11. Registrar duração aproximada.
+12. Registrar estratégias utilizadas.
+13. Registrar resultado observado.
+14. Consultar histórico.
+15. Filtrar registros por período.
+16. Gerar indicadores.
+17. Gerar relatórios.
+18. Permitir acesso controlado aos responsáveis.
+19. Registrar ações relevantes dos usuários.
+20. Manter histórico e rastreabilidade dos dados.
+
+---
+
+# 5. Princípio Fundamental do Sistema
+
+O sistema deverá trabalhar com o conceito de:
+
+> **Observação escolar estruturada.**
+
+A aplicação não deverá interpretar automaticamente uma observação como diagnóstico ou condição clínica.
+
+### Exemplo adequado
+
+```text
+Contexto:
+Atividade pedagógica
+
+Evento observado:
+Dificuldade durante transição de atividade
+
+Intensidade:
+3
+
+Duração aproximada:
+10 minutos
+
+Estratégia utilizada:
+Acompanhamento individual
+
+Resultado:
+Retorno à atividade
+
+Observação:
+Aluno necessitou de suporte adicional durante a mudança da atividade.
+```
+
+### Exemplo inadequado
+
+```text
+O aluno possui determinado transtorno ou comportamento
+e apresenta tendência clínica para determinada condição.
+```
+
+Esse tipo de conclusão não faz parte do escopo do sistema.
+
+---
+
+# 6. Público-Alvo
+
+## 6.1 Escolas
+
+Instituições responsáveis pelo acompanhamento escolar dos alunos.
+
+## 6.2 Professores
+
+Profissionais responsáveis por atividades pedagógicas e acompanhamento diário.
+
+## 6.3 Profissionais de apoio
+
+Profissionais que acompanham o aluno durante sua rotina escolar.
+
+## 6.4 Responsáveis
+
+Pais ou responsáveis legais que tenham autorização para acessar as informações.
+
+## 6.5 Profissionais autorizados
+
+Profissionais externos que possuam autorização adequada para consultar determinadas informações.
+
+## 6.6 Gestores
+
+Usuários responsáveis pela administração da instituição.
+
+---
+
+# 7. Perfis de Usuário
+
+O sistema deverá utilizar controle de acesso baseado em papéis.
+
+## 7.1 Administrador
+
+Permissões:
+
+* administrar escola;
+* cadastrar usuários;
+* configurar permissões;
+* cadastrar turmas;
+* cadastrar alunos;
+* visualizar relatórios;
+* consultar auditoria.
+
+## 7.2 Professor
+
+Permissões:
+
+* visualizar alunos autorizados;
+* registrar observações;
+* consultar histórico permitido;
+* visualizar informações necessárias para suas atividades.
+
+## 7.3 Profissional de Apoio
+
+Permissões:
+
+* visualizar alunos autorizados;
+* registrar observações;
+* consultar histórico autorizado.
+
+## 7.4 Responsável
+
+Permissões:
+
+* visualizar informações autorizadas;
+* consultar histórico;
+* acompanhar registros;
+* visualizar relatórios disponibilizados.
+
+## 7.5 Profissional Externo
+
+Permissões restritas aos alunos e informações explicitamente autorizadas.
+
+## 7.6 Auditor
+
+Permissões:
+
+* consultar logs;
+* consultar eventos de segurança;
+* verificar alterações;
+* verificar acessos.
+
+---
+
+# 8. Escopo do Produto
+
+## 8.1 Dentro do Escopo
+
+* autenticação;
+* autorização;
+* gestão de usuários;
+* gestão de escolas;
+* gestão de turmas;
+* gestão de alunos;
+* gestão de responsáveis;
+* registro de observações;
+* histórico;
+* filtros;
+* relatórios;
+* dashboard;
+* auditoria;
+* controle de acesso;
+* API REST;
+* banco de dados relacional;
+* documentação técnica.
+
+## 8.2 Fora do Escopo Inicial
+
+Não fará parte do MVP:
+
+* diagnóstico médico;
+* diagnóstico psicológico;
+* prescrição terapêutica;
+* prescrição de medicamentos;
+* substituição de profissionais especializados;
+* emissão de laudos médicos;
+* avaliação clínica automática;
+* diagnóstico baseado em inteligência artificial.
+
+---
+
+# 9. Arquitetura de Alto Nível
+
+A arquitetura inicial será baseada em uma aplicação Web utilizando API REST.
+
+```text
+                    USUÁRIO
+                       |
+                       v
+              +----------------+
+              |   FRONTEND     |
+              |  Web Browser   |
+              +-------+--------+
+                      |
+                      | HTTP/HTTPS
+                      v
+              +----------------+
+              |    FASTAPI     |
+              |    REST API    |
+              +-------+--------+
+                      |
+        +-------------+-------------+
+        |             |             |
+        v             v             v
+   Autenticação   Regras de      Serviços
+                  Negócio
+        |             |             |
+        +-------------+-------------+
+                      |
+                      v
+              +----------------+
+              |   SQLAlchemy   |
+              |      ORM       |
+              +-------+--------+
+                      |
+                      v
+              +----------------+
+              |   PostgreSQL   |
+              +----------------+
+```
+
+---
+
+# 10. Tecnologias
+
+## Backend
+
+* Python
+* FastAPI
+* Pydantic
+* SQLAlchemy
+* Alembic
+
+## Banco de Dados
+
+* PostgreSQL
+
+## Testes
+
+* Pytest
+* HTTPX
+
+## Segurança
+
+* OAuth2/JWT
+* Hash de senhas
+* RBAC
+* Controle de sessão
+* Auditoria
+
+## Infraestrutura
+
+* Docker
+* Docker Compose
+
+## Versionamento
+
+* Git
+* GitHub
+
+## CI/CD
+
+* GitHub Actions
+
+## Documentação
+
+* Markdown
+* OpenAPI
+* Swagger UI
+
+---
+
+# 11. Arquitetura do Backend
+
+A aplicação será organizada utilizando separação de responsabilidades.
+
+```text
+app/
+│
+├── api/
+│   ├── auth.py
+│   ├── users.py
+│   ├── schools.py
+│   ├── students.py
+│   ├── observations.py
+│   └── reports.py
+│
+├── core/
+│   ├── config.py
+│   ├── database.py
+│   └── security.py
+│
+├── models/
+│   ├── user.py
+│   ├── school.py
+│   ├── student.py
+│   ├── classroom.py
+│   ├── observation.py
+│   └── audit.py
+│
+├── schemas/
+│   ├── user.py
+│   ├── school.py
+│   ├── student.py
+│   └── observation.py
+│
+├── repositories/
+│   ├── user.py
+│   ├── student.py
+│   └── observation.py
+│
+├── services/
+│   ├── authentication.py
+│   ├── student.py
+│   └── observation.py
+│
+└── main.py
+```
+
+---
+
+# 12. Modelo Conceitual Inicial
+
+As principais entidades identificadas são:
+
+```text
+ESCOLA
+   |
+   +---- USUÁRIO
+   |
+   +---- TURMA
+   |
+   +---- ALUNO
+             |
+             +---- RESPONSÁVEL
+             |
+             +---- PROFISSIONAL
+             |
+             +---- OBSERVAÇÃO
+                         |
+                         +---- CONTEXTO
+                         |
+                         +---- EVENTO
+                         |
+                         +---- ESTRATÉGIA
+                         |
+                         +---- RESULTADO
+```
+
+---
+
+# 13. Entidades Principais
+
+## 13.1 Escola
+
+Representa a instituição de ensino.
+
+Principais atributos:
+
+* id;
+* nome;
+* CNPJ;
+* endereço;
+* telefone;
+* e-mail;
+* status;
+* data de criação.
+
+---
+
+## 13.2 Usuário
+
+Representa uma pessoa que possui acesso ao sistema.
+
+Atributos:
+
+* id;
+* nome;
+* e-mail;
+* senha_hash;
+* perfil;
+* status;
+* data de criação;
+* último acesso.
+
+---
+
+## 13.3 Aluno
+
+Representa o estudante acompanhado pela instituição.
+
+Atributos mínimos:
+
+* id;
+* identificação interna;
+* nome;
+* data de nascimento;
+* turma;
+* escola;
+* status.
+
+O sistema deverá seguir o princípio de minimização de dados, evitando armazenar informações pessoais desnecessárias.
+
+---
+
+## 13.4 Responsável
+
+Representa o responsável legal associado ao aluno.
+
+Atributos:
+
+* id;
+* nome;
+* e-mail;
+* telefone;
+* relacionamento;
+* status.
+
+---
+
+## 13.5 Turma
+
+Representa uma turma escolar.
+
+Atributos:
+
+* id;
+* nome;
+* ano letivo;
+* série;
+* turno;
+* escola.
+
+---
+
+# 14. Registro de Observação
+
+Essa será uma das principais entidades do sistema.
+
+Uma observação deverá possuir:
+
+```text
+id
+student_id
+user_id
+data
+hora
+contexto
+evento
+intensidade
+duracao
+estrategia
+resultado
+observacao_livre
+created_at
+updated_at
+```
+
+---
+
+# 15. Contexto da Observação
+
+Exemplos:
+
+* chegada;
+* sala de aula;
+* atividade pedagógica;
+* recreio;
+* alimentação;
+* educação física;
+* transição;
+* atividade em grupo;
+* atividade individual;
+* saída;
+* ambiente externo.
+
+Esses valores deverão ser parametrizáveis.
+
+---
+
+# 16. Evento Observado
+
+O sistema deverá permitir categorizar eventos de forma estruturada.
+
+Exemplos:
+
+* dificuldade de transição;
+* necessidade de suporte;
+* interação social;
+* alteração de rotina;
+* dificuldade durante atividade;
+* participação em atividade;
+* interação positiva;
+* comunicação;
+* solicitação de ajuda;
+* outro.
+
+A lista definitiva deverá ser validada com profissionais da área educacional.
+
+---
+
+# 17. Intensidade
+
+A intensidade deverá utilizar uma escala previamente definida.
+
+Exemplo inicial:
+
+```text
+1 = Baixa
+2 = Moderada
+3 = Alta
+```
+
+A escala poderá ser alterada posteriormente conforme validação do domínio.
+
+---
+
+# 18. Duração
+
+O sistema deverá permitir registrar duração aproximada do evento.
+
+Exemplo:
+
+```text
+Duração:
+10 minutos
+```
+
+Preferencialmente armazenada numericamente no banco:
+
+```text
+duration_minutes = 10
+```
+
+Isso permitirá análises futuras.
+
+---
+
+# 19. Estratégia Utilizada
+
+Exemplos:
+
+* orientação verbal;
+* acompanhamento individual;
+* alteração da atividade;
+* pausa;
+* apoio visual;
+* mediação;
+* mudança de ambiente;
+* outra.
+
+As opções deverão ser configuráveis.
+
+---
+
+# 20. Resultado
+
+Exemplos:
+
+* retorno à atividade;
+* participação retomada;
+* necessidade de acompanhamento;
+* atividade concluída;
+* atividade parcialmente concluída;
+* outro.
+
+---
+
+# 21. Requisitos Funcionais
+
+## RF01 — Autenticação
+
+O sistema deverá permitir que usuários autenticados acessem a plataforma.
+
+## RF02 — Autorização
+
+O sistema deverá verificar as permissões do usuário antes de disponibilizar informações ou funcionalidades.
+
+## RF03 — Cadastro de escola
+
+O administrador deverá poder cadastrar uma escola.
+
+## RF04 — Cadastro de usuários
+
+Usuários autorizados deverão poder cadastrar novos usuários.
+
+## RF05 — Cadastro de alunos
+
+Usuários autorizados deverão poder cadastrar alunos.
+
+## RF06 — Associação de aluno
+
+O sistema deverá permitir associar o aluno a uma escola e turma.
+
+## RF07 — Cadastro de responsáveis
+
+O sistema deverá permitir associar responsáveis aos alunos.
+
+## RF08 — Registro de observação
+
+Usuários autorizados deverão registrar observações.
+
+## RF09 — Histórico
+
+O sistema deverá disponibilizar o histórico autorizado do aluno.
+
+## RF10 — Filtros
+
+O sistema deverá permitir filtrar observações por:
+
+* aluno;
+* período;
+* contexto;
+* evento;
+* intensidade;
+* profissional.
+
+## RF11 — Dashboard
+
+O sistema deverá apresentar indicadores agregados.
+
+## RF12 — Relatórios
+
+O sistema deverá permitir geração de relatórios.
+
+## RF13 — Auditoria
+
+O sistema deverá registrar eventos relevantes de segurança e alteração.
+
+## RF14 — Controle de acesso
+
+O sistema deverá restringir informações conforme perfil e autorização.
+
+---
+
+# 22. Requisitos Não Funcionais
+
+## RNF01 — Segurança
+
+As informações deverão ser protegidas contra acesso não autorizado.
+
+## RNF02 — Performance
+
+A API deverá responder adequadamente às operações previstas para o MVP.
+
+## RNF03 — Escalabilidade
+
+A arquitetura deverá permitir crescimento futuro.
+
+## RNF04 — Disponibilidade
+
+O sistema deverá possuir mecanismos de recuperação e backup.
+
+## RNF05 — Manutenibilidade
+
+O código deverá seguir padrões de organização e separação de responsabilidades.
+
+## RNF06 — Testabilidade
+
+As principais regras de negócio deverão possuir testes automatizados.
+
+## RNF07 — Documentação
+
+A API deverá possuir documentação OpenAPI.
+
+## RNF08 — Observabilidade
+
+Eventos importantes deverão ser registrados em logs.
+
+---
+
+# 23. Segurança
+
+A segurança será tratada como requisito arquitetural.
+
+Principais mecanismos:
+
+* HTTPS;
+* hash seguro de senha;
+* JWT/OAuth2;
+* controle de acesso baseado em função;
+* validação de entrada;
+* proteção contra SQL Injection;
+* controle de sessão;
+* logs;
+* auditoria;
+* princípio do menor privilégio;
+* segregação de dados;
+* backups;
+* gerenciamento seguro de secrets.
+
+---
+
+# 24. Controle de Acesso
+
+O sistema deverá utilizar RBAC:
+
+```text
+RBAC
+ |
+ +-- ADMIN
+ |
+ +-- PROFESSOR
+ |
+ +-- PROFISSIONAL_APOIO
+ |
+ +-- RESPONSAVEL
+ |
+ +-- PROFISSIONAL_EXTERNO
+ |
+ +-- AUDITOR
+```
+
+O acesso aos dados deverá considerar não apenas o papel do usuário, mas também a relação do usuário com a escola e o aluno.
+
+---
+
+# 25. Auditoria
+
+A aplicação deverá possuir uma estrutura de auditoria.
+
+Exemplos:
+
+```text
+LOGIN
+LOGOUT
+CREATE
+UPDATE
+DELETE
+VIEW_SENSITIVE_DATA
+EXPORT_REPORT
+CHANGE_PERMISSION
+```
+
+Cada evento poderá armazenar:
+
+```text
+user_id
+action
+resource
+resource_id
+timestamp
+ip_address
+user_agent
+```
+
+---
+
+# 26. Privacidade e LGPD
+
+O sistema deverá ser desenvolvido considerando Privacy by Design.
+
+Princípios:
+
+* finalidade;
+* adequação;
+* necessidade;
+* transparência;
+* segurança;
+* prevenção;
+* não discriminação;
+* responsabilização.
+
+Deverá ser evitado o armazenamento de dados que não sejam necessários para a finalidade do sistema.
+
+Também deverão existir mecanismos para:
+
+* controle de acesso;
+* rastreabilidade;
+* gestão de permissões;
+* revisão de acessos;
+* auditoria;
+* proteção de informações sensíveis.
+
+A implementação definitiva das regras de tratamento de dados deverá ser validada juridicamente e pela instituição responsável pelo sistema.
+
+---
+
+# 27. Banco de Dados
+
+O banco principal será PostgreSQL.
+
+Estrutura conceitual inicial:
+
+```text
+schools
+users
+students
+guardians
+professionals
+classrooms
+school_years
+
+student_guardians
+student_professionals
+student_classrooms
+
+observations
+observation_contexts
+observation_events
+observation_strategies
+observation_results
+
+audit_logs
+access_permissions
+consents
+```
+
+---
+
+# 28. Estratégia de Dados
+
+Um dos diferenciais do sistema será manter os dados de observação estruturados.
+
+Em vez de armazenar somente:
+
+```text
+"Aluno teve dificuldade durante a atividade."
+```
+
+O sistema armazenará:
+
+```text
+context = "atividade_pedagogica"
+
+event = "dificuldade_transicao"
+
+intensity = 2
+
+duration_minutes = 10
+
+strategy = "acompanhamento_individual"
+
+result = "retorno_atividade"
+```
+
+Além disso, poderá existir:
+
+```text
+notes = "..."
+```
+
+Essa abordagem permitirá análises posteriores.
+
+---
+
+# 29. Indicadores
+
+O sistema poderá futuramente apresentar:
+
+### Indicadores gerais
+
+* quantidade de observações;
+* observações por período;
+* observações por contexto;
+* observações por evento;
+* distribuição de intensidade;
+* duração média;
+* estratégias utilizadas;
+* resultados registrados.
+
+### Indicadores temporais
+
+* diário;
+* semanal;
+* mensal;
+* anual.
+
+---
+
+# 30. Dashboard
+
+O dashboard poderá conter:
+
+```text
++------------------+------------------+
+| Observações      | Eventos          |
+|       32         |       14         |
++------------------+------------------+
+
++------------------+------------------+
+| Duração média    | Alta intensidade |
+|      12 min      |        4         |
++------------------+------------------+
+
++-------------------------------------+
+| Observações por período             |
+|                                     |
+|       gráfico                       |
+|                                     |
++-------------------------------------+
+```
+
+Os indicadores deverão ser descritivos e não deverão ser apresentados como diagnóstico clínico.
+
+---
+
+# 31. API REST
+
+Exemplos de endpoints:
+
+## Autenticação
+
+```http
+POST /api/v1/auth/login
+POST /api/v1/auth/refresh
+POST /api/v1/auth/logout
+```
+
+## Usuários
+
+```http
+GET    /api/v1/users
+POST   /api/v1/users
+GET    /api/v1/users/{id}
+PATCH  /api/v1/users/{id}
+DELETE /api/v1/users/{id}
+```
+
+## Alunos
+
+```http
+GET    /api/v1/students
+POST   /api/v1/students
+GET    /api/v1/students/{id}
+PATCH  /api/v1/students/{id}
+```
+
+## Observações
+
+```http
+GET    /api/v1/observations
+POST   /api/v1/observations
+GET    /api/v1/observations/{id}
+PATCH  /api/v1/observations/{id}
+DELETE /api/v1/observations/{id}
+```
+
+## Relatórios
+
+```http
+GET /api/v1/reports/students/{id}
+GET /api/v1/reports/observations
+GET /api/v1/dashboard
+```
+
+---
+
+# 32. Versionamento da API
+
+A API deverá utilizar versionamento.
+
+Exemplo:
+
+```text
+/api/v1/
+```
+
+No futuro:
+
+```text
+/api/v2/
+```
+
+Isso permitirá evolução da API sem quebrar consumidores existentes.
+
+---
+
+# 33. Testes
+
+O projeto deverá possuir testes em diferentes níveis.
+
+## Testes unitários
+
+Validar regras individuais.
+
+## Testes de integração
+
+Validar:
+
+```text
+API
+ ↓
+Service
+ ↓
+Repository
+ ↓
+PostgreSQL
+```
+
+## Testes de API
+
+Validar endpoints.
+
+## Testes de segurança
+
+Validar:
+
+* autenticação;
+* autorização;
+* acesso indevido;
+* privilégios.
+
+---
+
+# 34. Docker
+
+O ambiente deverá ser containerizado.
+
+Arquitetura inicial:
+
+```text
+Docker Compose
+ |
+ +-- API
+ |
+ +-- PostgreSQL
+```
+
+Posteriormente poderão ser adicionados:
+
+```text
+Redis
+Celery
+Nginx
+Monitoring
+```
+
+conforme necessidade.
+
+---
+
+# 35. Git e GitHub
+
+O projeto deverá utilizar Git.
+
+Estratégia sugerida:
+
+```text
+main
+ |
+ +-- develop
+      |
+      +-- feature/authentication
+      +-- feature/students
+      +-- feature/observations
+      +-- feature/dashboard
+```
+
+Commits deverão ser objetivos.
+
+Exemplos:
+
+```text
+feat: implement student registration
+feat: add observation endpoint
+fix: validate observation permissions
+test: add observation service tests
+docs: update API documentation
+refactor: improve observation repository
+```
+
+---
+
+# 36. CI/CD
+
+Futuramente será implementado:
+
+```text
+GitHub
+   |
+   v
+Pull Request
+   |
+   v
+GitHub Actions
+   |
+   +-- Lint
+   |
+   +-- Tests
+   |
+   +-- Security checks
+   |
+   +-- Build Docker
+   |
+   v
+Deploy
+```
+
+---
+
+# 37. Estrutura do Projeto
+
+```text
+school-autism-platform/
+│
+├── app/
+│   ├── api/
+│   ├── core/
+│   ├── models/
+│   ├── schemas/
+│   ├── repositories/
+│   ├── services/
+│   └── main.py
+│
+├── tests/
+│
+├── migrations/
+│
+├── docs/
+│
+├── scripts/
+│
+├── .env.example
+├── .gitignore
+├── Dockerfile
+├── docker-compose.yml
+├── requirements.txt
+└── README.md
+```
+
+---
+
+# 38. Roadmap de Desenvolvimento
+
+## Fase 0 — Análise do Sistema Atual
+
+* analisar projeto PHP existente;
+* identificar funcionalidades;
+* identificar código reaproveitável;
+* identificar funcionalidades obsoletas;
+* definir estratégia de migração/reengenharia.
+
+## Fase 1 — Engenharia de Requisitos
+
+* elaborar SRS;
+* identificar stakeholders;
+* definir requisitos;
+* definir regras de negócio;
+* definir escopo.
+
+## Fase 2 — Casos de Uso
+
+* criar atores;
+* criar casos de uso;
+* criar diagramas;
+* definir fluxos principais;
+* definir exceções.
+
+## Fase 3 — Arquitetura
+
+* definir arquitetura;
+* definir camadas;
+* definir tecnologias;
+* definir padrões;
+* definir segurança.
+
+## Fase 4 — Modelagem de Dados
+
+* modelo conceitual;
+* modelo lógico;
+* modelo físico;
+* normalização;
+* relacionamentos;
+* índices.
+
+## Fase 5 — Segurança e LGPD
+
+* RBAC;
+* autenticação;
+* autorização;
+* auditoria;
+* privacidade;
+* minimização de dados.
+
+## Fase 6 — Backend
+
+* configurar Python;
+* configurar FastAPI;
+* configurar SQLAlchemy;
+* configurar PostgreSQL;
+* configurar Alembic.
+
+## Fase 7 — Autenticação
+
+* usuários;
+* login;
+* tokens;
+* permissões;
+* recuperação de acesso.
+
+## Fase 8 — Gestão Escolar
+
+* escolas;
+* turmas;
+* usuários;
+* alunos;
+* responsáveis.
+
+## Fase 9 — Observações
+
+* contexto;
+* evento;
+* intensidade;
+* duração;
+* estratégia;
+* resultado;
+* histórico.
+
+## Fase 10 — Dashboard
+
+* KPIs;
+* gráficos;
+* filtros;
+* relatórios.
+
+## Fase 11 — Testes
+
+* unitários;
+* integração;
+* API;
+* segurança.
+
+## Fase 12 — Docker
+
+* Dockerfile;
+* Docker Compose;
+* variáveis de ambiente.
+
+## Fase 13 — CI/CD
+
+* GitHub Actions;
+* testes automatizados;
+* build;
+* deploy.
+
+## Fase 14 — Produção
+
+* infraestrutura;
+* banco;
+* HTTPS;
+* backups;
+* monitoramento.
+
+## Fase 15 — Analytics
+
+Futuramente:
+
+* análise estatística;
+* séries temporais;
+* Power BI;
+* Data Warehouse;
+* Data Lake;
+* Machine Learning, somente quando houver justificativa e governança adequada.
+
+---
+
+# 39. MVP
+
+A primeira versão deverá conter:
+
+```text
+[ ] Autenticação
+[ ] Usuários
+[ ] Escolas
+[ ] Turmas
+[ ] Alunos
+[ ] Responsáveis
+[ ] Registro de observações
+[ ] Histórico
+[ ] Filtros
+[ ] Dashboard básico
+[ ] Auditoria
+[ ] API REST
+[ ] PostgreSQL
+[ ] Testes
+[ ] Docker
+[ ] Documentação
+```
+
+---
+
+# 40. Critérios de Aceitação do MVP
+
+O MVP será considerado funcional quando:
+
+1. Um administrador puder criar uma escola.
+2. Um administrador puder criar usuários.
+3. Usuários puderem autenticar-se.
+4. Permissões forem respeitadas.
+5. Um aluno puder ser cadastrado.
+6. Um responsável puder ser associado ao aluno.
+7. Um profissional autorizado puder registrar uma observação.
+8. A observação puder ser consultada posteriormente.
+9. O histórico puder ser filtrado.
+10. O responsável autorizado puder visualizar as informações disponibilizadas.
+11. Ações relevantes forem registradas em auditoria.
+12. Os dados forem armazenados no PostgreSQL.
+13. A API possuir documentação OpenAPI.
+14. Os principais componentes possuírem testes automatizados.
+15. O sistema puder ser executado utilizando Docker.
+
+---
+
+# 41. Evolução Futura
+
+Após o MVP, o projeto poderá evoluir para:
+
+```text
+                    SISTEMA
+                       |
+          +------------+------------+
+          |            |            |
+       Escola         Pais      Profissionais
+          |
+          v
+       Registros
+          |
+          v
+      PostgreSQL
+          |
+          v
+       Analytics
+          |
+     +----+----+
+     |         |
+ Dashboard   Reports
+     |
+     v
+ Data Warehouse
+     |
+     v
+ Data Analytics
+```
+
+Possíveis evoluções:
+
+* aplicativo mobile;
+* notificações;
+* relatórios avançados;
+* integração com sistemas escolares;
+* exportação de dados;
+* Power BI;
+* Data Warehouse;
+* APIs externas;
+* inteligência artificial para tarefas auxiliares e não diagnósticas;
+* análise de séries temporais.
+
+---
+
+# 42. Princípios de Engenharia
+
+O projeto deverá seguir os seguintes princípios:
+
+### SOLID
+
+As responsabilidades deverão ser separadas.
+
+### Clean Code
+
+O código deverá priorizar legibilidade e manutenção.
+
+### DRY
+
+Evitar duplicação desnecessária.
+
+### KISS
+
+Evitar complexidade sem necessidade.
+
+### Separation of Concerns
+
+Cada camada deverá possuir responsabilidade clara.
+
+### Security by Design
+
+Segurança desde a arquitetura.
+
+### Privacy by Design
+
+Privacidade desde a concepção.
+
+### Test Driven Quality
+
+Os testes deverão fazer parte do ciclo de desenvolvimento.
+
+---
+
+# 43. Decisão Arquitetural Inicial
+
+A decisão inicial é utilizar:
+
+```text
+Python
+   +
+FastAPI
+   +
+PostgreSQL
+   +
+SQLAlchemy
+   +
+Alembic
+   +
+Pydantic
+   +
+Pytest
+   +
+Docker
+   +
+GitHub Actions
+```
+
+A escolha poderá ser revisada durante a arquitetura detalhada caso novos requisitos justifiquem outra tecnologia.
+
+---
+
+# 44. Estratégia de Desenvolvimento
+
+O desenvolvimento será incremental.
+
+Cada funcionalidade deverá passar pelo seguinte ciclo:
+
+```text
+Requisito
+   ↓
+Regra de negócio
+   ↓
+Modelagem
+   ↓
+Implementação
+   ↓
+Teste
+   ↓
+Code Review
+   ↓
+Documentação
+   ↓
+Git Commit
+```
+
+O objetivo não será apenas produzir código funcional, mas construir um sistema que demonstre práticas profissionais de Engenharia de Software.
+
+---
+
+# 45. Resultado Esperado
+
+Ao final do projeto teremos uma plataforma web capaz de:
+
+* centralizar registros escolares;
+* estruturar observações;
+* facilitar comunicação entre escola e responsáveis;
+* manter histórico;
+* gerar indicadores;
+* controlar acessos;
+* registrar auditoria;
+* proteger dados;
+* disponibilizar API;
+* utilizar PostgreSQL;
+* possuir testes automatizados;
+* ser executada em Docker;
+* possuir documentação técnica;
+* estar preparada para evolução futura.
+
+---
+
+# 46. Próxima Etapa
+
+Após este documento, o projeto deverá avançar para:
+
+> **FASE 0 — Análise e Reengenharia do Sistema Existente**
+
+Nesta fase serão analisados os componentes existentes no projeto PHP e será definido:
+
+1. O que será mantido conceitualmente.
+2. O que será descartado.
+3. O que poderá ser reaproveitado.
+4. O que deverá ser reescrito.
+5. Como será realizada a transição para Python.
+6. Como será estruturada a nova aplicação.
+7. Quais funcionalidades farão parte do MVP.
+
+Após a conclusão da Fase 0, será desenvolvido o:
+
+> **FASE 1 — SRS (Software Requirements Specification)**
+
+que será a especificação oficial dos requisitos do novo sistema.
+
+---
+
+## Status do Projeto
+
+**Em desenvolvimento — Engenharia de Software**
+
+```text
+FASE 0  ███░░░░░░░  Análise do sistema atual
+FASE 1  ░░░░░░░░░░  Engenharia de requisitos
+FASE 2  ░░░░░░░░░░  Casos de uso
+FASE 3  ░░░░░░░░░░  Arquitetura
+FASE 4  ░░░░░░░░░░  Banco de dados
+FASE 5  ░░░░░░░░░░  Segurança/LGPD
+FASE 6  ░░░░░░░░░░  Backend
+FASE 7  ░░░░░░░░░░  Autenticação
+FASE 8  ░░░░░░░░░░  Gestão escolar
+FASE 9  ░░░░░░░░░░  Observações
+FASE 10 ░░░░░░░░░░  Dashboard
+FASE 11 ░░░░░░░░░░  Testes
+FASE 12 ░░░░░░░░░░  Docker
+FASE 13 ░░░░░░░░░░  CI/CD
+FASE 14 ░░░░░░░░░░  Produção
+FASE 15 ░░░░░░░░░░  Analytics
+```
+
+---
+
+## Licença
+
+A licença do projeto deverá ser definida antes da disponibilização da versão pública.
+
+---
+
+## Observação
+
+Este sistema é uma ferramenta tecnológica de apoio ao acompanhamento escolar.
+
+Os dados registrados não devem ser utilizados isoladamente para diagnóstico, avaliação clínica ou tomada de decisões que dependam de profissionais habilitados.
+
+As regras definitivas relacionadas a tratamento de dados pessoais, consentimento, compartilhamento, retenção e direitos dos titulares deverão ser definidas com apoio jurídico e institucional adequado.
