@@ -1,4 +1,4 @@
-🧩 Sistema Escolar de Acompanhamento de Alunos Autistas
+🧩 IncluiEdu — Sistema de Acompanhamento Educacional Inclusivo
 
 «Projeto em desenvolvimento 🚧»
 
