@@ -1,877 +1,751 @@
-# Sistema Escolar de Acompanhamento Comportamental e Desenvolvimento de Alunos Autistas
+SRS — Software Requirements Specification
 
-> **Projeto:** Sistema Web Escolar para Acompanhamento de Alunos Autistas
-> **Status:** Em fase de Engenharia de Software
-> **Versão:** 1.0.0
-> **Backend:** Python + FastAPI
-> **Banco de Dados:** PostgreSQL
-> **Arquitetura:** REST API + aplicação Web
-> **Metodologia:** Engenharia de Software + desenvolvimento incremental
+Plataforma SaaS de Registro, Acompanhamento e Análise de Informações
 
----
-
-## 1. Visão Geral
-
-O projeto consiste no desenvolvimento de uma aplicação web destinada a escolas para registro, organização e acompanhamento de observações realizadas durante a rotina escolar de alunos autistas.
-
-A aplicação permitirá que profissionais autorizados registrem informações estruturadas sobre situações observadas durante o período escolar, incluindo contexto, atividade, comportamento observado, intensidade, duração aproximada, estratégias utilizadas e resultado observado.
-
-O sistema terá como finalidade transformar registros que normalmente ficam dispersos em cadernos, mensagens, planilhas ou relatórios em uma **base de dados histórica, estruturada e consultável**.
-
-A partir dessa base será possível disponibilizar informações para:
-
-* Escola;
-* Professores;
-* Profissionais de apoio;
-* Responsáveis legais;
-* Profissionais autorizados;
-* Gestores escolares.
-
-O sistema não terá como objetivo realizar diagnóstico médico ou psicológico.
-
-Seu objetivo será **registrar e organizar observações ocorridas no ambiente escolar**.
+Projeto: Plataforma SaaS de Registro, Acompanhamento e Análise
+Versão: 2.0.0
+Status: Em desenvolvimento
+Fase: FASE 1 — Engenharia de Requisitos
+Arquitetura: SaaS Multi-Tenant
+Backend: Python + FastAPI
+Frontend: React + TypeScript
+Banco de Dados: PostgreSQL
+ORM: SQLAlchemy
+Cache: Redis
+Containerização: Docker
+Controle de versão: Git/GitHub
 
 ---
 
-# 2. Problema
+1. Controle do Documento
 
-Durante a rotina escolar, diversas informações importantes sobre o comportamento e a participação dos alunos podem ser registradas de maneira não estruturada.
-
-Exemplos:
-
-* anotações em papel;
-* mensagens;
-* planilhas;
-* relatórios individuais;
-* comunicação verbal;
-* registros isolados realizados por diferentes profissionais.
-
-Esse modelo dificulta:
-
-* recuperação do histórico;
-* padronização dos registros;
-* análise temporal;
-* identificação de padrões;
-* comunicação entre escola e responsáveis;
-* geração de indicadores;
-* acompanhamento longitudinal.
-
-Além disso, informações importantes podem ficar fragmentadas entre diferentes profissionais.
-
-O sistema pretende solucionar esse problema por meio de uma plataforma centralizada.
+Campo| Informação
+Documento| Software Requirements Specification
+Sigla| SRS
+Versão| 2.0.0
+Status| Em desenvolvimento
+Tipo| Especificação de Requisitos
+Arquitetura| SaaS Multi-Tenant
+Backend| Python / FastAPI
+Frontend| React / TypeScript
+Banco| PostgreSQL
+ORM| SQLAlchemy
+Cache| Redis
 
 ---
 
-# 3. Objetivo Geral
+2. Histórico de Versões
 
-Desenvolver uma aplicação web capaz de registrar, armazenar, consultar e apresentar dados estruturados referentes às observações realizadas durante a rotina escolar de alunos autistas.
-
----
-
-# 4. Objetivos Específicos
-
-O sistema deverá permitir:
-
-1. Cadastrar escolas.
-2. Cadastrar usuários.
-3. Controlar permissões de acesso.
-4. Cadastrar alunos.
-5. Cadastrar responsáveis.
-6. Associar alunos às respectivas turmas.
-7. Registrar observações escolares.
-8. Classificar o contexto da observação.
-9. Registrar eventos observados.
-10. Registrar intensidade.
-11. Registrar duração aproximada.
-12. Registrar estratégias utilizadas.
-13. Registrar resultado observado.
-14. Consultar histórico.
-15. Filtrar registros por período.
-16. Gerar indicadores.
-17. Gerar relatórios.
-18. Permitir acesso controlado aos responsáveis.
-19. Registrar ações relevantes dos usuários.
-20. Manter histórico e rastreabilidade dos dados.
+Versão| Descrição
+1.0.0| Sistema inicialmente orientado ao acompanhamento escolar
+2.0.0| Refatoração para arquitetura SaaS multi-tenant
 
 ---
 
-# 5. Princípio Fundamental do Sistema
+3. Introdução
 
-O sistema deverá trabalhar com o conceito de:
+Este documento especifica os requisitos da Plataforma SaaS de Registro, Acompanhamento e Análise de Informações.
 
-> **Observação escolar estruturada.**
+A plataforma será desenvolvida como um sistema web multi-tenant capaz de atender diferentes organizações e segmentos de negócio.
 
-A aplicação não deverá interpretar automaticamente uma observação como diagnóstico ou condição clínica.
+O primeiro domínio de negócio será o acompanhamento escolar, especialmente o registro estruturado de observações realizadas durante a rotina de alunos autistas.
 
-### Exemplo adequado
-
-```text
-Contexto:
-Atividade pedagógica
-
-Evento observado:
-Dificuldade durante transição de atividade
-
-Intensidade:
-3
-
-Duração aproximada:
-10 minutos
-
-Estratégia utilizada:
-Acompanhamento individual
-
-Resultado:
-Retorno à atividade
-
-Observação:
-Aluno necessitou de suporte adicional durante a mudança da atividade.
-```
-
-### Exemplo inadequado
-
-```text
-O aluno possui determinado transtorno ou comportamento
-e apresenta tendência clínica para determinada condição.
-```
-
-Esse tipo de conclusão não faz parte do escopo do sistema.
+A arquitetura será desenvolvida de maneira modular, permitindo a inclusão futura de novos domínios sem necessidade de reconstrução completa do núcleo da plataforma.
 
 ---
 
-# 6. Público-Alvo
+4. Visão do Produto
 
-## 6.1 Escolas
+A plataforma será disponibilizada como Software as a Service (SaaS).
 
-Instituições responsáveis pelo acompanhamento escolar dos alunos.
+Os usuários poderão:
 
-## 6.2 Professores
+1. Criar uma conta;
+2. Criar ou ingressar em uma organização;
+3. Configurar seu ambiente;
+4. Convidar usuários;
+5. Definir permissões;
+6. Utilizar módulos disponíveis;
+7. Registrar informações;
+8. Consultar históricos;
+9. Gerar relatórios;
+10. Visualizar indicadores.
 
-Profissionais responsáveis por atividades pedagógicas e acompanhamento diário.
-
-## 6.3 Profissionais de apoio
-
-Profissionais que acompanham o aluno durante sua rotina escolar.
-
-## 6.4 Responsáveis
-
-Pais ou responsáveis legais que tenham autorização para acessar as informações.
-
-## 6.5 Profissionais autorizados
-
-Profissionais externos que possuam autorização adequada para consultar determinadas informações.
-
-## 6.6 Gestores
-
-Usuários responsáveis pela administração da instituição.
+A plataforma deverá manter isolamento lógico entre organizações.
 
 ---
 
-# 7. Perfis de Usuário
+5. Conceito de Multi-Tenancy
 
-O sistema deverá utilizar controle de acesso baseado em papéis.
-
-## 7.1 Administrador
-
-Permissões:
-
-* administrar escola;
-* cadastrar usuários;
-* configurar permissões;
-* cadastrar turmas;
-* cadastrar alunos;
-* visualizar relatórios;
-* consultar auditoria.
-
-## 7.2 Professor
-
-Permissões:
-
-* visualizar alunos autorizados;
-* registrar observações;
-* consultar histórico permitido;
-* visualizar informações necessárias para suas atividades.
-
-## 7.3 Profissional de Apoio
-
-Permissões:
-
-* visualizar alunos autorizados;
-* registrar observações;
-* consultar histórico autorizado.
-
-## 7.4 Responsável
-
-Permissões:
-
-* visualizar informações autorizadas;
-* consultar histórico;
-* acompanhar registros;
-* visualizar relatórios disponibilizados.
-
-## 7.5 Profissional Externo
-
-Permissões restritas aos alunos e informações explicitamente autorizadas.
-
-## 7.6 Auditor
-
-Permissões:
-
-* consultar logs;
-* consultar eventos de segurança;
-* verificar alterações;
-* verificar acessos.
-
----
-
-# 8. Escopo do Produto
-
-## 8.1 Dentro do Escopo
-
-* autenticação;
-* autorização;
-* gestão de usuários;
-* gestão de escolas;
-* gestão de turmas;
-* gestão de alunos;
-* gestão de responsáveis;
-* registro de observações;
-* histórico;
-* filtros;
-* relatórios;
-* dashboard;
-* auditoria;
-* controle de acesso;
-* API REST;
-* banco de dados relacional;
-* documentação técnica.
-
-## 8.2 Fora do Escopo Inicial
-
-Não fará parte do MVP:
-
-* diagnóstico médico;
-* diagnóstico psicológico;
-* prescrição terapêutica;
-* prescrição de medicamentos;
-* substituição de profissionais especializados;
-* emissão de laudos médicos;
-* avaliação clínica automática;
-* diagnóstico baseado em inteligência artificial.
-
----
-
-# 9. Arquitetura de Alto Nível
-
-A arquitetura inicial será baseada em uma aplicação Web utilizando API REST.
-
-```text
-                    USUÁRIO
-                       |
-                       v
-              +----------------+
-              |   FRONTEND     |
-              |  Web Browser   |
-              +-------+--------+
-                      |
-                      | HTTP/HTTPS
-                      v
-              +----------------+
-              |    FASTAPI     |
-              |    REST API    |
-              +-------+--------+
-                      |
-        +-------------+-------------+
-        |             |             |
-        v             v             v
-   Autenticação   Regras de      Serviços
-                  Negócio
-        |             |             |
-        +-------------+-------------+
-                      |
-                      v
-              +----------------+
-              |   SQLAlchemy   |
-              |      ORM       |
-              +-------+--------+
-                      |
-                      v
-              +----------------+
-              |   PostgreSQL   |
-              +----------------+
-```
-
----
-
-# 10. Tecnologias
-
-## Backend
-
-* Python
-* FastAPI
-* Pydantic
-* SQLAlchemy
-* Alembic
-
-## Banco de Dados
-
-* PostgreSQL
-
-## Testes
-
-* Pytest
-* HTTPX
-
-## Segurança
-
-* OAuth2/JWT
-* Hash de senhas
-* RBAC
-* Controle de sessão
-* Auditoria
-
-## Infraestrutura
-
-* Docker
-* Docker Compose
-
-## Versionamento
-
-* Git
-* GitHub
-
-## CI/CD
-
-* GitHub Actions
-
-## Documentação
-
-* Markdown
-* OpenAPI
-* Swagger UI
-
----
-
-# 11. Arquitetura do Backend
-
-A aplicação será organizada utilizando separação de responsabilidades.
-
-```text
-app/
-│
-├── api/
-│   ├── auth.py
-│   ├── users.py
-│   ├── schools.py
-│   ├── students.py
-│   ├── observations.py
-│   └── reports.py
-│
-├── core/
-│   ├── config.py
-│   ├── database.py
-│   └── security.py
-│
-├── models/
-│   ├── user.py
-│   ├── school.py
-│   ├── student.py
-│   ├── classroom.py
-│   ├── observation.py
-│   └── audit.py
-│
-├── schemas/
-│   ├── user.py
-│   ├── school.py
-│   ├── student.py
-│   └── observation.py
-│
-├── repositories/
-│   ├── user.py
-│   ├── student.py
-│   └── observation.py
-│
-├── services/
-│   ├── authentication.py
-│   ├── student.py
-│   └── observation.py
-│
-└── main.py
-```
-
----
-
-# 12. Modelo Conceitual Inicial
-
-As principais entidades identificadas são:
-
-```text
-ESCOLA
-   |
-   +---- USUÁRIO
-   |
-   +---- TURMA
-   |
-   +---- ALUNO
-             |
-             +---- RESPONSÁVEL
-             |
-             +---- PROFISSIONAL
-             |
-             +---- OBSERVAÇÃO
-                         |
-                         +---- CONTEXTO
-                         |
-                         +---- EVENTO
-                         |
-                         +---- ESTRATÉGIA
-                         |
-                         +---- RESULTADO
-```
-
----
-
-# 13. Entidades Principais
-
-## 13.1 Escola
-
-Representa a instituição de ensino.
-
-Principais atributos:
-
-* id;
-* nome;
-* CNPJ;
-* endereço;
-* telefone;
-* e-mail;
-* status;
-* data de criação.
-
----
-
-## 13.2 Usuário
-
-Representa uma pessoa que possui acesso ao sistema.
-
-Atributos:
-
-* id;
-* nome;
-* e-mail;
-* senha_hash;
-* perfil;
-* status;
-* data de criação;
-* último acesso.
-
----
-
-## 13.3 Aluno
-
-Representa o estudante acompanhado pela instituição.
-
-Atributos mínimos:
-
-* id;
-* identificação interna;
-* nome;
-* data de nascimento;
-* turma;
-* escola;
-* status.
-
-O sistema deverá seguir o princípio de minimização de dados, evitando armazenar informações pessoais desnecessárias.
-
----
-
-## 13.4 Responsável
-
-Representa o responsável legal associado ao aluno.
-
-Atributos:
-
-* id;
-* nome;
-* e-mail;
-* telefone;
-* relacionamento;
-* status.
-
----
-
-## 13.5 Turma
-
-Representa uma turma escolar.
-
-Atributos:
-
-* id;
-* nome;
-* ano letivo;
-* série;
-* turno;
-* escola.
-
----
-
-# 14. Registro de Observação
-
-Essa será uma das principais entidades do sistema.
-
-Uma observação deverá possuir:
-
-```text
-id
-student_id
-user_id
-data
-hora
-contexto
-evento
-intensidade
-duracao
-estrategia
-resultado
-observacao_livre
-created_at
-updated_at
-```
-
----
-
-# 15. Contexto da Observação
-
-Exemplos:
-
-* chegada;
-* sala de aula;
-* atividade pedagógica;
-* recreio;
-* alimentação;
-* educação física;
-* transição;
-* atividade em grupo;
-* atividade individual;
-* saída;
-* ambiente externo.
-
-Esses valores deverão ser parametrizáveis.
-
----
-
-# 16. Evento Observado
-
-O sistema deverá permitir categorizar eventos de forma estruturada.
-
-Exemplos:
-
-* dificuldade de transição;
-* necessidade de suporte;
-* interação social;
-* alteração de rotina;
-* dificuldade durante atividade;
-* participação em atividade;
-* interação positiva;
-* comunicação;
-* solicitação de ajuda;
-* outro.
-
-A lista definitiva deverá ser validada com profissionais da área educacional.
-
----
-
-# 17. Intensidade
-
-A intensidade deverá utilizar uma escala previamente definida.
-
-Exemplo inicial:
-
-```text
-1 = Baixa
-2 = Moderada
-3 = Alta
-```
-
-A escala poderá ser alterada posteriormente conforme validação do domínio.
-
----
-
-# 18. Duração
-
-O sistema deverá permitir registrar duração aproximada do evento.
+Cada organização será considerada um tenant da plataforma.
 
 Exemplo:
 
-```text
-Duração:
-10 minutos
-```
+                    PLATAFORMA SaaS
+                           |
+          +----------------+----------------+
+          |                |                |
+          v                v                v
+     Tenant A          Tenant B          Tenant C
+       Escola           Clínica           Empresa
+          |                |                |
+       Usuários         Usuários         Usuários
+          |                |                |
+       Registros        Registros        Registros
 
-Preferencialmente armazenada numericamente no banco:
-
-```text
-duration_minutes = 10
-```
-
-Isso permitirá análises futuras.
+Os dados de um tenant não poderão ser acessados por usuários pertencentes a outro tenant, salvo mecanismos de integração explicitamente autorizados.
 
 ---
 
-# 19. Estratégia Utilizada
+6. Problema de Negócio
+
+Organizações de diferentes segmentos utilizam registros manuais, planilhas e sistemas fragmentados para armazenar informações relacionadas a pessoas, ocorrências, observações, atividades e acompanhamento.
+
+Essa fragmentação dificulta:
+
+- padronização;
+- histórico;
+- rastreabilidade;
+- análise;
+- geração de indicadores;
+- compartilhamento controlado;
+- gestão de usuários;
+- segurança;
+- escalabilidade.
+
+A plataforma pretende fornecer uma infraestrutura centralizada para registro e acompanhamento estruturado.
+
+---
+
+7. Objetivo Geral
+
+Desenvolver uma plataforma SaaS multi-tenant capaz de permitir que organizações criem ambientes próprios para registrar, acompanhar, consultar e analisar informações estruturadas relacionadas às suas operações.
+
+---
+
+8. Objetivos Específicos
+
+A plataforma deverá:
+
+1. Permitir cadastro de usuários.
+2. Permitir criação de organizações.
+3. Implementar isolamento entre tenants.
+4. Implementar autenticação.
+5. Implementar autorização.
+6. Implementar gerenciamento de usuários.
+7. Implementar controle de papéis.
+8. Permitir configuração de módulos.
+9. Permitir registro estruturado de informações.
+10. Permitir consulta histórica.
+11. Permitir geração de relatórios.
+12. Permitir criação de indicadores.
+13. Implementar auditoria.
+14. Implementar mecanismos de segurança.
+15. Permitir evolução para diferentes domínios.
+16. Permitir futura implementação de planos e assinaturas.
+
+---
+
+9. Objetivo do Primeiro Domínio
+
+O primeiro domínio será:
+
+«Módulo de Acompanhamento Escolar»
+
+Esse módulo permitirá que instituições de ensino registrem observações relacionadas à rotina escolar de alunos autistas.
+
+O módulo será implementado sobre o núcleo SaaS.
+
+                SaaS CORE
+                   |
+          +--------+--------+
+          |                 |
+      Educação          Futuro
+          |
+      Acompanhamento
+        Escolar
+
+---
+
+10. Público-Alvo
+
+A plataforma será projetada para diferentes organizações.
 
 Exemplos:
 
-* orientação verbal;
-* acompanhamento individual;
-* alteração da atividade;
-* pausa;
-* apoio visual;
-* mediação;
-* mudança de ambiente;
-* outra.
+- instituições de ensino;
+- clínicas;
+- empresas;
+- organizações sociais;
+- equipes profissionais;
+- consultorias;
+- outros segmentos que necessitem de registro estruturado.
 
-As opções deverão ser configuráveis.
-
----
-
-# 20. Resultado
-
-Exemplos:
-
-* retorno à atividade;
-* participação retomada;
-* necessidade de acompanhamento;
-* atividade concluída;
-* atividade parcialmente concluída;
-* outro.
+O primeiro público-alvo será composto por instituições de ensino.
 
 ---
 
-# 21. Requisitos Funcionais
+11. Stakeholders
 
-## RF01 — Autenticação
+11.1 Proprietário da Organização
 
-O sistema deverá permitir que usuários autenticados acessem a plataforma.
+Responsável pelo ambiente da organização dentro da plataforma.
 
-## RF02 — Autorização
+11.2 Administrador
 
-O sistema deverá verificar as permissões do usuário antes de disponibilizar informações ou funcionalidades.
+Responsável pela configuração e administração do tenant.
 
-## RF03 — Cadastro de escola
+11.3 Usuário Operacional
 
-O administrador deverá poder cadastrar uma escola.
+Utiliza os módulos e registra informações.
 
-## RF04 — Cadastro de usuários
+11.4 Gestor
 
-Usuários autorizados deverão poder cadastrar novos usuários.
+Consulta informações e indicadores.
 
-## RF05 — Cadastro de alunos
+11.5 Responsável Externo
 
-Usuários autorizados deverão poder cadastrar alunos.
+Pode receber acesso controlado a informações específicas.
 
-## RF06 — Associação de aluno
+11.6 Administrador da Plataforma
 
-O sistema deverá permitir associar o aluno a uma escola e turma.
+Responsável pela administração global do SaaS.
 
-## RF07 — Cadastro de responsáveis
+11.7 Equipe Técnica
+
+Responsável pelo desenvolvimento, manutenção e infraestrutura.
+
+---
+
+12. Conceito de Organização
+
+A entidade "Organization" representará a organização cliente.
+
+Exemplo:
+
+Organization
+│
+├── Users
+├── Roles
+├── Permissions
+├── Modules
+├── Records
+├── Reports
+└── Settings
+
+Cada organização possuirá seu próprio ambiente lógico.
+
+---
+
+13. Modelo de Usuário
+
+Um usuário poderá participar de uma ou mais organizações.
+
+Exemplo:
+
+User
+ |
+ +---- Membership ---- Organization A
+ |                       Role: ADMIN
+ |
+ +---- Membership ---- Organization B
+                         Role: ANALYST
+
+Isso permite maior flexibilidade para consultores, profissionais externos e administradores.
+
+---
+
+14. Membership
+
+A relação entre usuário e organização será representada por uma entidade intermediária:
+
+User
+ |
+ +---- Membership
+           |
+           +---- Organization
+           |
+           +---- Role
+           |
+           +---- Status
+
+A entidade deverá controlar:
+
+- usuário;
+- organização;
+- papel;
+- status;
+- data de entrada;
+- data de saída;
+- permissões adicionais.
+
+---
+
+15. Arquitetura Funcional
+
+A plataforma será dividida em:
+
+PLATAFORMA
+│
+├── Identity
+│
+├── Organizations
+│
+├── Memberships
+│
+├── Roles & Permissions
+│
+├── Modules
+│
+├── Records
+│
+├── Reports
+│
+├── Notifications
+│
+├── Audit
+│
+├── Billing
+│
+└── Integrations
+
+O módulo educacional será:
+
+Education
+│
+├── Students
+├── Classrooms
+├── Guardians
+├── Professionals
+├── Observations
+└── Reports
+
+---
+
+16. Arquitetura Técnica
+
+A solução deverá utilizar:
+
+                    INTERNET
+                        |
+                        v
+                React + TypeScript
+                        |
+                      HTTPS
+                        |
+                        v
+                    FastAPI
+                        |
+        +---------------+---------------+
+        |               |               |
+        v               v               v
+   PostgreSQL        Redis           Workers
+                                        |
+                                      Celery
+
+---
+
+17. Stack Tecnológica
+
+Backend
+
+- Python
+- FastAPI
+- Pydantic
+- SQLAlchemy
+- Alembic
+
+Frontend
+
+- React
+- TypeScript
+- Vite
+
+Banco de Dados
+
+- PostgreSQL
+
+Cache e infraestrutura assíncrona
+
+- Redis
+- Celery, quando necessário
+
+Testes
+
+- Pytest
+- HTTPX
+
+Infraestrutura
+
+- Docker
+- Docker Compose
+
+CI/CD
+
+- GitHub Actions
+
+---
+
+18. Requisitos Funcionais — SaaS Core
+
+RF-CORE-001 — Cadastro de Usuário
+
+O sistema deverá permitir que uma pessoa crie uma conta.
+
+RF-CORE-002 — Autenticação
+
+O sistema deverá autenticar usuários.
+
+RF-CORE-003 — Recuperação de Acesso
+
+O sistema deverá permitir recuperação segura da conta.
+
+RF-CORE-004 — Criação de Organização
+
+O sistema deverá permitir que usuários autorizados criem uma organização.
+
+RF-CORE-005 — Membership
+
+O sistema deverá permitir associar usuários a organizações.
+
+RF-CORE-006 — Convite de Usuários
+
+Administradores deverão poder convidar usuários para uma organização.
+
+RF-CORE-007 — Gerenciamento de Papéis
+
+Administradores deverão poder atribuir papéis aos membros.
+
+RF-CORE-008 — Controle de Permissões
+
+O sistema deverá validar permissões antes de disponibilizar recursos.
+
+RF-CORE-009 — Isolamento de Tenant
+
+O sistema deverá impedir acesso não autorizado entre organizações.
+
+RF-CORE-010 — Configuração da Organização
+
+Administradores deverão poder configurar informações básicas da organização.
+
+RF-CORE-011 — Ativação de Módulos
+
+A organização poderá utilizar módulos disponíveis conforme sua configuração.
+
+RF-CORE-012 — Auditoria
+
+A plataforma deverá registrar ações relevantes realizadas pelos usuários.
+
+---
+
+19. Requisitos Funcionais — Módulo Educacional
+
+RF-EDU-001 — Cadastro de Aluno
+
+O sistema deverá permitir cadastrar alunos.
+
+RF-EDU-002 — Cadastro de Turmas
+
+O sistema deverá permitir cadastrar turmas.
+
+RF-EDU-003 — Associação de Aluno
+
+O sistema deverá permitir associar alunos a turmas.
+
+RF-EDU-004 — Responsáveis
 
 O sistema deverá permitir associar responsáveis aos alunos.
 
-## RF08 — Registro de observação
+RF-EDU-005 — Profissionais
+
+O sistema deverá permitir associar profissionais autorizados.
+
+RF-EDU-006 — Registro de Observação
 
 Usuários autorizados deverão registrar observações.
 
-## RF09 — Histórico
+RF-EDU-007 — Contexto
 
-O sistema deverá disponibilizar o histórico autorizado do aluno.
+O sistema deverá permitir classificar o contexto da observação.
 
-## RF10 — Filtros
+RF-EDU-008 — Evento
 
-O sistema deverá permitir filtrar observações por:
+O sistema deverá permitir categorizar o evento observado.
 
-* aluno;
-* período;
-* contexto;
-* evento;
-* intensidade;
-* profissional.
+RF-EDU-009 — Intensidade
 
-## RF11 — Dashboard
+O sistema deverá permitir registrar intensidade.
 
-O sistema deverá apresentar indicadores agregados.
+RF-EDU-010 — Duração
 
-## RF12 — Relatórios
+O sistema deverá permitir registrar duração aproximada.
 
-O sistema deverá permitir geração de relatórios.
+RF-EDU-011 — Estratégia
 
-## RF13 — Auditoria
+O sistema deverá permitir registrar estratégia utilizada.
 
-O sistema deverá registrar eventos relevantes de segurança e alteração.
+RF-EDU-012 — Resultado
 
-## RF14 — Controle de acesso
+O sistema deverá permitir registrar resultado observado.
 
-O sistema deverá restringir informações conforme perfil e autorização.
+RF-EDU-013 — Histórico
 
----
+O sistema deverá disponibilizar histórico autorizado.
 
-# 22. Requisitos Não Funcionais
+RF-EDU-014 — Indicadores
 
-## RNF01 — Segurança
+O sistema deverá disponibilizar indicadores descritivos.
 
-As informações deverão ser protegidas contra acesso não autorizado.
+RF-EDU-015 — Relatórios
 
-## RNF02 — Performance
-
-A API deverá responder adequadamente às operações previstas para o MVP.
-
-## RNF03 — Escalabilidade
-
-A arquitetura deverá permitir crescimento futuro.
-
-## RNF04 — Disponibilidade
-
-O sistema deverá possuir mecanismos de recuperação e backup.
-
-## RNF05 — Manutenibilidade
-
-O código deverá seguir padrões de organização e separação de responsabilidades.
-
-## RNF06 — Testabilidade
-
-As principais regras de negócio deverão possuir testes automatizados.
-
-## RNF07 — Documentação
-
-A API deverá possuir documentação OpenAPI.
-
-## RNF08 — Observabilidade
-
-Eventos importantes deverão ser registrados em logs.
+O sistema deverá permitir gerar relatórios.
 
 ---
 
-# 23. Segurança
+20. Requisitos Funcionais — Futuro
 
-A segurança será tratada como requisito arquitetural.
+Os seguintes requisitos não fazem parte do MVP:
 
-Principais mecanismos:
+RF-FUT-001 — Assinaturas
 
-* HTTPS;
-* hash seguro de senha;
-* JWT/OAuth2;
-* controle de acesso baseado em função;
-* validação de entrada;
-* proteção contra SQL Injection;
-* controle de sessão;
-* logs;
-* auditoria;
-* princípio do menor privilégio;
-* segregação de dados;
-* backups;
-* gerenciamento seguro de secrets.
+O sistema deverá permitir planos comerciais.
 
----
+RF-FUT-002 — Billing
 
-# 24. Controle de Acesso
+O sistema deverá permitir gerenciamento de cobrança.
 
-O sistema deverá utilizar RBAC:
+RF-FUT-003 — Limites de Uso
 
-```text
-RBAC
- |
- +-- ADMIN
- |
- +-- PROFESSOR
- |
- +-- PROFISSIONAL_APOIO
- |
- +-- RESPONSAVEL
- |
- +-- PROFISSIONAL_EXTERNO
- |
- +-- AUDITOR
-```
+Planos poderão possuir limites de utilização.
 
-O acesso aos dados deverá considerar não apenas o papel do usuário, mas também a relação do usuário com a escola e o aluno.
+RF-FUT-004 — Integrações
+
+A plataforma poderá disponibilizar APIs para sistemas externos.
+
+RF-FUT-005 — Marketplace de Módulos
+
+A plataforma poderá permitir contratação de módulos adicionais.
 
 ---
 
-# 25. Auditoria
+21. Multi-Tenancy
 
-A aplicação deverá possuir uma estrutura de auditoria.
+A arquitetura inicial utilizará:
 
-Exemplos:
+«Shared Database + Shared Schema + tenant_id»
 
-```text
+As principais entidades de negócio deverão possuir referência à organização.
+
+Exemplo:
+
+students
+
+id
+tenant_id
+name
+created_at
+updated_at
+
+O backend deverá garantir o isolamento dos dados.
+
+---
+
+22. Regra Fundamental de Tenant
+
+Toda operação deverá respeitar:
+
+tenant_do_usuario == tenant_do_recurso
+
+Exceto quando existir uma permissão explícita para acesso cross-tenant.
+
+O acesso cross-tenant não será permitido por padrão.
+
+---
+
+23. Requisitos de Segurança
+
+RNF-SEC-001
+
+Senhas não deverão ser armazenadas em texto puro.
+
+RNF-SEC-002
+
+A aplicação deverá utilizar comunicação HTTPS em produção.
+
+RNF-SEC-003
+
+O sistema deverá implementar autenticação segura.
+
+RNF-SEC-004
+
+O sistema deverá implementar autorização.
+
+RNF-SEC-005
+
+O sistema deverá implementar RBAC.
+
+RNF-SEC-006
+
+O sistema deverá validar dados de entrada.
+
+RNF-SEC-007
+
+O sistema deverá proteger contra acesso entre tenants.
+
+RNF-SEC-008
+
+O sistema deverá registrar eventos de segurança relevantes.
+
+RNF-SEC-009
+
+Segredos deverão ser armazenados através de variáveis de ambiente ou mecanismo seguro.
+
+RNF-SEC-010
+
+Tokens deverão possuir mecanismos de expiração e renovação seguros.
+
+---
+
+24. Controle de Acesso
+
+O modelo inicial será RBAC.
+
+ROLE
+ |
+ +-- PERMISSIONS
+
+Exemplo:
+
+ADMIN
+ ├── users:create
+ ├── users:update
+ ├── users:delete
+ ├── students:create
+ ├── students:view
+ └── reports:view
+
+O RBAC poderá posteriormente ser complementado por regras baseadas em atributos.
+
+---
+
+25. Privacidade e LGPD
+
+A plataforma deverá considerar privacidade desde sua concepção.
+
+Princípios:
+
+- finalidade;
+- adequação;
+- necessidade;
+- transparência;
+- segurança;
+- prevenção;
+- não discriminação;
+- responsabilização.
+
+A plataforma deverá permitir que cada organização gerencie seus dados conforme sua finalidade e responsabilidades legais.
+
+A definição jurídica de bases legais, retenção, consentimento e compartilhamento deverá ser validada pelos responsáveis jurídicos e institucionais.
+
+---
+
+26. Minimização de Dados
+
+A plataforma deverá evitar coleta de dados desnecessários.
+
+Cada módulo deverá definir:
+
+- finalidade do dado;
+- necessidade;
+- responsável;
+- retenção;
+- acesso;
+- compartilhamento.
+
+---
+
+27. Auditoria
+
+A plataforma deverá possuir "AuditLog".
+
+Exemplo:
+
+audit_logs
+
+id
+tenant_id
+user_id
+action
+resource_type
+resource_id
+timestamp
+ip_address
+user_agent
+metadata
+
+Eventos:
+
 LOGIN
 LOGOUT
 CREATE
 UPDATE
 DELETE
-VIEW_SENSITIVE_DATA
-EXPORT_REPORT
-CHANGE_PERMISSION
-```
-
-Cada evento poderá armazenar:
-
-```text
-user_id
-action
-resource
-resource_id
-timestamp
-ip_address
-user_agent
-```
+VIEW
+EXPORT
+INVITE
+ROLE_CHANGE
+PERMISSION_CHANGE
 
 ---
 
-# 26. Privacidade e LGPD
+28. Requisitos de Dados
 
-O sistema deverá ser desenvolvido considerando Privacy by Design.
+Os dados deverão ser:
 
-Princípios:
+- consistentes;
+- íntegros;
+- rastreáveis;
+- protegidos;
+- relacionados corretamente;
+- armazenados com timestamps;
+- submetidos a regras de validação.
 
-* finalidade;
-* adequação;
-* necessidade;
-* transparência;
-* segurança;
-* prevenção;
-* não discriminação;
-* responsabilização.
-
-Deverá ser evitado o armazenamento de dados que não sejam necessários para a finalidade do sistema.
-
-Também deverão existir mecanismos para:
-
-* controle de acesso;
-* rastreabilidade;
-* gestão de permissões;
-* revisão de acessos;
-* auditoria;
-* proteção de informações sensíveis.
-
-A implementação definitiva das regras de tratamento de dados deverá ser validada juridicamente e pela instituição responsável pelo sistema.
+O banco deverá utilizar constraints e relacionamentos para preservar integridade.
 
 ---
 
-# 27. Banco de Dados
+29. Entidades do SaaS Core
 
-O banco principal será PostgreSQL.
+Modelo inicial:
 
-Estrutura conceitual inicial:
-
-```text
-schools
 users
+organizations
+memberships
+roles
+permissions
+role_permissions
+modules
+organization_modules
+audit_logs
+notifications
+
+Futuramente:
+
+plans
+subscriptions
+subscription_items
+usage_metrics
+billing_events
+
+---
+
+30. Entidades do Módulo Educacional
+
 students
-guardians
-professionals
 classrooms
 school_years
+guardians
+professionals
 
 student_guardians
 student_professionals
@@ -883,727 +757,860 @@ observation_events
 observation_strategies
 observation_results
 
-audit_logs
-access_permissions
-consents
-```
-
 ---
 
-# 28. Estratégia de Dados
+31. Estrutura Genérica de Registro
 
-Um dos diferenciais do sistema será manter os dados de observação estruturados.
+O núcleo da plataforma deverá permitir que diferentes módulos trabalhem com registros.
 
-Em vez de armazenar somente:
+Conceitualmente:
 
-```text
-"Aluno teve dificuldade durante a atividade."
-```
-
-O sistema armazenará:
-
-```text
-context = "atividade_pedagogica"
-
-event = "dificuldade_transicao"
-
-intensity = 2
-
-duration_minutes = 10
-
-strategy = "acompanhamento_individual"
-
-result = "retorno_atividade"
-```
-
-Além disso, poderá existir:
-
-```text
-notes = "..."
-```
-
-Essa abordagem permitirá análises posteriores.
-
----
-
-# 29. Indicadores
-
-O sistema poderá futuramente apresentar:
-
-### Indicadores gerais
-
-* quantidade de observações;
-* observações por período;
-* observações por contexto;
-* observações por evento;
-* distribuição de intensidade;
-* duração média;
-* estratégias utilizadas;
-* resultados registrados.
-
-### Indicadores temporais
-
-* diário;
-* semanal;
-* mensal;
-* anual.
-
----
-
-# 30. Dashboard
-
-O dashboard poderá conter:
-
-```text
-+------------------+------------------+
-| Observações      | Eventos          |
-|       32         |       14         |
-+------------------+------------------+
-
-+------------------+------------------+
-| Duração média    | Alta intensidade |
-|      12 min      |        4         |
-+------------------+------------------+
-
-+-------------------------------------+
-| Observações por período             |
-|                                     |
-|       gráfico                       |
-|                                     |
-+-------------------------------------+
-```
-
-Os indicadores deverão ser descritivos e não deverão ser apresentados como diagnóstico clínico.
-
----
-
-# 31. API REST
-
-Exemplos de endpoints:
-
-## Autenticação
-
-```http
-POST /api/v1/auth/login
-POST /api/v1/auth/refresh
-POST /api/v1/auth/logout
-```
-
-## Usuários
-
-```http
-GET    /api/v1/users
-POST   /api/v1/users
-GET    /api/v1/users/{id}
-PATCH  /api/v1/users/{id}
-DELETE /api/v1/users/{id}
-```
-
-## Alunos
-
-```http
-GET    /api/v1/students
-POST   /api/v1/students
-GET    /api/v1/students/{id}
-PATCH  /api/v1/students/{id}
-```
-
-## Observações
-
-```http
-GET    /api/v1/observations
-POST   /api/v1/observations
-GET    /api/v1/observations/{id}
-PATCH  /api/v1/observations/{id}
-DELETE /api/v1/observations/{id}
-```
-
-## Relatórios
-
-```http
-GET /api/v1/reports/students/{id}
-GET /api/v1/reports/observations
-GET /api/v1/dashboard
-```
-
----
-
-# 32. Versionamento da API
-
-A API deverá utilizar versionamento.
-
-Exemplo:
-
-```text
-/api/v1/
-```
-
-No futuro:
-
-```text
-/api/v2/
-```
-
-Isso permitirá evolução da API sem quebrar consumidores existentes.
-
----
-
-# 33. Testes
-
-O projeto deverá possuir testes em diferentes níveis.
-
-## Testes unitários
-
-Validar regras individuais.
-
-## Testes de integração
-
-Validar:
-
-```text
-API
- ↓
-Service
- ↓
-Repository
- ↓
-PostgreSQL
-```
-
-## Testes de API
-
-Validar endpoints.
-
-## Testes de segurança
-
-Validar:
-
-* autenticação;
-* autorização;
-* acesso indevido;
-* privilégios.
-
----
-
-# 34. Docker
-
-O ambiente deverá ser containerizado.
-
-Arquitetura inicial:
-
-```text
-Docker Compose
- |
- +-- API
- |
- +-- PostgreSQL
-```
-
-Posteriormente poderão ser adicionados:
-
-```text
-Redis
-Celery
-Nginx
-Monitoring
-```
-
-conforme necessidade.
-
----
-
-# 35. Git e GitHub
-
-O projeto deverá utilizar Git.
-
-Estratégia sugerida:
-
-```text
-main
- |
- +-- develop
+Organization
       |
-      +-- feature/authentication
-      +-- feature/students
-      +-- feature/observations
-      +-- feature/dashboard
-```
+      v
+Domain
+      |
+      v
+Subject
+      |
+      v
+Record
+      |
+      +---- Category
+      +---- Context
+      +---- Event
+      +---- Attributes
+      +---- Timestamp
 
-Commits deverão ser objetivos.
+O modelo definitivo será definido na FASE 4 — Modelagem de Dados.
+
+---
+
+32. Requisitos de Interface
+
+A aplicação web deverá possuir:
+
+- autenticação;
+- dashboard;
+- menu contextual;
+- gerenciamento de organização;
+- gerenciamento de usuários;
+- gerenciamento de permissões;
+- telas dos módulos;
+- formulários;
+- filtros;
+- relatórios;
+- notificações.
+
+A interface deverá ser responsiva.
+
+---
+
+33. Frontend
+
+O frontend será desenvolvido utilizando:
+
+React
++
+TypeScript
++
+Vite
+
+O frontend consumirá a API REST do FastAPI.
+
+Não deverá possuir acesso direto ao PostgreSQL.
+
+React
+  |
+  | HTTPS / REST
+  v
+FastAPI
+  |
+  v
+PostgreSQL
+
+---
+
+34. API
+
+A API deverá ser versionada.
+
+Padrão:
+
+/api/v1/
 
 Exemplos:
 
-```text
-feat: implement student registration
-feat: add observation endpoint
-fix: validate observation permissions
-test: add observation service tests
-docs: update API documentation
-refactor: improve observation repository
-```
+POST /api/v1/auth/login
+
+GET /api/v1/organizations
+POST /api/v1/organizations
+
+GET /api/v1/memberships
+POST /api/v1/memberships
+
+GET /api/v1/students
+POST /api/v1/students
+
+GET /api/v1/observations
+POST /api/v1/observations
 
 ---
 
-# 36. CI/CD
+35. Requisitos de API
 
-Futuramente será implementado:
+A API deverá:
 
-```text
-GitHub
+- utilizar HTTP corretamente;
+- utilizar JSON;
+- possuir versionamento;
+- possuir autenticação;
+- possuir autorização;
+- validar payloads;
+- retornar códigos HTTP adequados;
+- possuir documentação OpenAPI;
+- implementar paginação quando necessário;
+- implementar filtros;
+- implementar ordenação quando necessário.
+
+---
+
+36. Requisitos de Performance
+
+A aplicação deverá ser projetada para suportar crescimento gradual.
+
+A arquitetura deverá permitir:
+
+1 tenant
+      ↓
+100 tenants
+      ↓
+1.000 tenants
+      ↓
+10.000+ tenants
+
+A capacidade real deverá ser determinada através de testes de carga e métricas de produção.
+
+Não serão estabelecidos números arbitrários de capacidade sem testes.
+
+---
+
+37. Cache
+
+Redis poderá ser utilizado para:
+
+- cache;
+- rate limiting;
+- dados temporários;
+- sessões quando necessário;
+- filas.
+
+O Redis não será considerado fonte primária dos dados.
+
+A fonte oficial continuará sendo o PostgreSQL.
+
+---
+
+38. Processamento Assíncrono
+
+Tarefas demoradas poderão ser executadas em background.
+
+Exemplos:
+
+- geração de relatórios;
+- exportação de grandes volumes;
+- envio de notificações;
+- processamento de arquivos;
+- tarefas de integração.
+
+Arquitetura:
+
+FastAPI
    |
    v
+Redis
+   |
+   v
+Worker
+   |
+   v
+Processamento
+
+Celery será introduzido quando existir necessidade real.
+
+---
+
+39. Observabilidade
+
+A plataforma deverá evoluir para possuir:
+
+- logs estruturados;
+- métricas;
+- tracing;
+- monitoramento;
+- alertas.
+
+Tecnologias poderão incluir futuramente:
+
+- OpenTelemetry;
+- Prometheus;
+- Grafana.
+
+Essas ferramentas não fazem parte do MVP inicial.
+
+---
+
+40. Testes
+
+O sistema deverá possuir:
+
+Testes unitários
+
+Para regras de negócio.
+
+Testes de integração
+
+Para integração entre componentes.
+
+Testes de API
+
+Para endpoints.
+
+Testes de autorização
+
+Para validar isolamento entre tenants.
+
+Testes de segurança
+
+Para validar cenários de acesso indevido.
+
+Testes de regressão
+
+Para evitar quebra de funcionalidades existentes.
+
+---
+
+41. Docker
+
+O ambiente deverá ser reproduzível através de containers.
+
+MVP:
+
+docker-compose
+ |
+ +-- api
+ |
+ +-- postgres
+
+Evolução:
+
+docker-compose
+ |
+ +-- api
+ +-- postgres
+ +-- redis
+ +-- worker
+
+---
+
+42. CI/CD
+
+O pipeline deverá executar:
+
+Git Push
+   ↓
 Pull Request
-   |
-   v
-GitHub Actions
-   |
-   +-- Lint
-   |
-   +-- Tests
-   |
-   +-- Security checks
-   |
-   +-- Build Docker
-   |
-   v
+   ↓
+Lint
+   ↓
+Tests
+   ↓
+Security Checks
+   ↓
+Build
+   ↓
 Deploy
-```
+
+GitHub Actions será utilizado.
 
 ---
 
-# 37. Estrutura do Projeto
+43. Requisitos de Manutenibilidade
 
-```text
-school-autism-platform/
-│
-├── app/
-│   ├── api/
-│   ├── core/
-│   ├── models/
-│   ├── schemas/
-│   ├── repositories/
-│   ├── services/
-│   └── main.py
-│
-├── tests/
-│
-├── migrations/
-│
-├── docs/
-│
-├── scripts/
-│
-├── .env.example
-├── .gitignore
-├── Dockerfile
-├── docker-compose.yml
-├── requirements.txt
-└── README.md
-```
+O código deverá:
+
+- seguir padrões de projeto apropriados;
+- possuir responsabilidades separadas;
+- possuir testes;
+- possuir documentação;
+- utilizar tipagem quando aplicável;
+- evitar duplicação;
+- possuir baixo acoplamento;
+- possuir alta coesão.
 
 ---
 
-# 38. Roadmap de Desenvolvimento
+44. Requisitos de Escalabilidade
 
-## Fase 0 — Análise do Sistema Atual
+A arquitetura deverá permitir:
 
-* analisar projeto PHP existente;
-* identificar funcionalidades;
-* identificar código reaproveitável;
-* identificar funcionalidades obsoletas;
-* definir estratégia de migração/reengenharia.
-
-## Fase 1 — Engenharia de Requisitos
-
-* elaborar SRS;
-* identificar stakeholders;
-* definir requisitos;
-* definir regras de negócio;
-* definir escopo.
-
-## Fase 2 — Casos de Uso
-
-* criar atores;
-* criar casos de uso;
-* criar diagramas;
-* definir fluxos principais;
-* definir exceções.
-
-## Fase 3 — Arquitetura
-
-* definir arquitetura;
-* definir camadas;
-* definir tecnologias;
-* definir padrões;
-* definir segurança.
-
-## Fase 4 — Modelagem de Dados
-
-* modelo conceitual;
-* modelo lógico;
-* modelo físico;
-* normalização;
-* relacionamentos;
-* índices.
-
-## Fase 5 — Segurança e LGPD
-
-* RBAC;
-* autenticação;
-* autorização;
-* auditoria;
-* privacidade;
-* minimização de dados.
-
-## Fase 6 — Backend
-
-* configurar Python;
-* configurar FastAPI;
-* configurar SQLAlchemy;
-* configurar PostgreSQL;
-* configurar Alembic.
-
-## Fase 7 — Autenticação
-
-* usuários;
-* login;
-* tokens;
-* permissões;
-* recuperação de acesso.
-
-## Fase 8 — Gestão Escolar
-
-* escolas;
-* turmas;
-* usuários;
-* alunos;
-* responsáveis.
-
-## Fase 9 — Observações
-
-* contexto;
-* evento;
-* intensidade;
-* duração;
-* estratégia;
-* resultado;
-* histórico.
-
-## Fase 10 — Dashboard
-
-* KPIs;
-* gráficos;
-* filtros;
-* relatórios.
-
-## Fase 11 — Testes
-
-* unitários;
-* integração;
-* API;
-* segurança.
-
-## Fase 12 — Docker
-
-* Dockerfile;
-* Docker Compose;
-* variáveis de ambiente.
-
-## Fase 13 — CI/CD
-
-* GitHub Actions;
-* testes automatizados;
-* build;
-* deploy.
-
-## Fase 14 — Produção
-
-* infraestrutura;
-* banco;
-* HTTPS;
-* backups;
-* monitoramento.
-
-## Fase 15 — Analytics
-
-Futuramente:
-
-* análise estatística;
-* séries temporais;
-* Power BI;
-* Data Warehouse;
-* Data Lake;
-* Machine Learning, somente quando houver justificativa e governança adequada.
+- múltiplos tenants;
+- múltiplos usuários;
+- múltiplos módulos;
+- aumento do volume de registros;
+- processamento assíncrono;
+- cache;
+- escalabilidade horizontal da API.
 
 ---
 
-# 39. MVP
+45. Regras de Negócio — SaaS
 
-A primeira versão deverá conter:
+RN-001
 
-```text
-[ ] Autenticação
-[ ] Usuários
+Todo usuário deverá possuir uma identidade única na plataforma.
+
+RN-002
+
+Um usuário poderá pertencer a uma ou mais organizações.
+
+RN-003
+
+Uma organização deverá possuir pelo menos um administrador.
+
+RN-004
+
+Todo recurso pertencente a uma organização deverá estar associado ao respectivo tenant.
+
+RN-005
+
+Usuários não poderão acessar recursos de tenants aos quais não possuem autorização.
+
+RN-006
+
+A remoção de um usuário não deverá necessariamente remover os registros históricos relacionados a ele.
+
+RN-007
+
+A alteração de permissões deverá ser auditada.
+
+RN-008
+
+A exclusão de informações críticas deverá respeitar políticas de retenção e auditoria.
+
+RN-009
+
+Módulos poderão ser habilitados ou desabilitados por organização.
+
+RN-010
+
+O acesso aos dados deverá respeitar as permissões do usuário e o contexto da organização.
+
+---
+
+46. Regras de Negócio — Educação
+
+RN-EDU-001
+
+Um aluno deverá pertencer a uma organização.
+
+RN-EDU-002
+
+Um aluno poderá estar associado a uma ou mais turmas conforme o modelo acadêmico adotado.
+
+RN-EDU-003
+
+Uma observação deverá estar vinculada a um aluno.
+
+RN-EDU-004
+
+Uma observação deverá registrar o usuário responsável pelo lançamento.
+
+RN-EDU-005
+
+Uma observação deverá possuir data e hora.
+
+RN-EDU-006
+
+Somente usuários autorizados poderão criar ou alterar observações.
+
+RN-EDU-007
+
+Indicadores deverão ser apresentados de forma descritiva e não diagnóstica.
+
+---
+
+47. Assinaturas e Monetização
+
+A plataforma será preparada para futura implementação de SaaS comercial.
+
+Modelo futuro:
+
+Organization
+      |
+      v
+Subscription
+      |
+      v
+Plan
+      |
+      +---- Features
+      |
+      +---- Limits
+
+Exemplo:
+
+FREE
+BASIC
+PRO
+ENTERPRISE
+
+Essa funcionalidade não fará parte do MVP inicial.
+
+---
+
+48. Critérios de Aceitação — SaaS Core
+
+O SaaS Core será considerado funcional quando:
+
+1. Usuário puder criar uma conta.
+2. Usuário puder autenticar-se.
+3. Usuário puder criar uma organização.
+4. Usuário puder convidar outro usuário.
+5. Usuário puder receber um papel.
+6. Permissões forem verificadas.
+7. Dados de organizações forem isolados.
+8. Ações críticas forem auditadas.
+9. API estiver documentada.
+10. Testes automatizados cobrirem as principais regras.
+
+---
+
+49. Critérios de Aceitação — Módulo Educacional
+
+O módulo será considerado funcional quando:
+
+1. Administrador puder cadastrar aluno.
+2. Aluno puder ser associado a uma turma.
+3. Responsável puder ser associado.
+4. Usuário autorizado puder criar observação.
+5. Observação possuir contexto.
+6. Observação possuir evento.
+7. Observação puder possuir intensidade.
+8. Observação puder possuir duração.
+9. Observação puder possuir estratégia.
+10. Observação puder possuir resultado.
+11. Histórico puder ser consultado.
+12. Usuários sem permissão não puderem acessar os registros.
+
+---
+
+50. MVP
+
+O MVP será dividido em dois níveis.
+
+MVP 1 — SaaS Core
+
+[ ] Cadastro
+[ ] Login
+[ ] Organização
+[ ] Membership
+[ ] Roles
+[ ] Permissions
+[ ] Tenant isolation
+[ ] Auditoria
+
+MVP 2 — Educação
+
 [ ] Escolas
 [ ] Turmas
 [ ] Alunos
 [ ] Responsáveis
-[ ] Registro de observações
+[ ] Observações
 [ ] Histórico
 [ ] Filtros
 [ ] Dashboard básico
-[ ] Auditoria
-[ ] API REST
-[ ] PostgreSQL
-[ ] Testes
-[ ] Docker
-[ ] Documentação
-```
+
+Não serão implementados inicialmente:
+
+[ ] Billing
+[ ] Marketplace
+[ ] IA
+[ ] Machine Learning
+[ ] Aplicativo mobile
+[ ] Integrações complexas
 
 ---
 
-# 40. Critérios de Aceitação do MVP
+51. Roadmap Atualizado
 
-O MVP será considerado funcional quando:
+FASE 0 — Reengenharia
 
-1. Um administrador puder criar uma escola.
-2. Um administrador puder criar usuários.
-3. Usuários puderem autenticar-se.
-4. Permissões forem respeitadas.
-5. Um aluno puder ser cadastrado.
-6. Um responsável puder ser associado ao aluno.
-7. Um profissional autorizado puder registrar uma observação.
-8. A observação puder ser consultada posteriormente.
-9. O histórico puder ser filtrado.
-10. O responsável autorizado puder visualizar as informações disponibilizadas.
-11. Ações relevantes forem registradas em auditoria.
-12. Os dados forem armazenados no PostgreSQL.
-13. A API possuir documentação OpenAPI.
-14. Os principais componentes possuírem testes automatizados.
-15. O sistema puder ser executado utilizando Docker.
+Objetivo: analisar o sistema existente e definir o que será reaproveitado.
+
+Status:
+
+Concluída conceitualmente.
 
 ---
 
-# 41. Evolução Futura
+FASE 1 — Engenharia de Requisitos
 
-Após o MVP, o projeto poderá evoluir para:
+Objetivo: definir o SaaS e seus primeiros domínios.
 
-```text
-                    SISTEMA
+Status:
+
+Em desenvolvimento / refatorada para SaaS.
+
+---
+
+FASE 2 — Casos de Uso
+
+Será definida:
+
+- autenticação;
+- organização;
+- membership;
+- permissões;
+- gestão de módulos;
+- módulo educacional;
+- observações;
+- relatórios.
+
+---
+
+FASE 3 — Arquitetura
+
+Será definida:
+
+- arquitetura modular;
+- multi-tenancy;
+- API;
+- frontend;
+- segurança;
+- comunicação entre componentes.
+
+---
+
+FASE 4 — Banco de Dados
+
+Será desenvolvido:
+
+- modelo conceitual;
+- modelo lógico;
+- modelo físico;
+- DDL;
+- índices;
+- constraints;
+- estratégia multi-tenant.
+
+---
+
+FASE 5 — Segurança
+
+Será implementado:
+
+- autenticação;
+- autorização;
+- RBAC;
+- auditoria;
+- proteção de dados;
+- políticas de segurança.
+
+---
+
+FASE 6 — Desenvolvimento
+
+Implementação do SaaS Core.
+
+---
+
+FASE 7 — Módulo Educacional
+
+Implementação do primeiro domínio.
+
+---
+
+FASE 8 — Frontend
+
+Implementação React + TypeScript.
+
+---
+
+FASE 9 — Testes
+
+Automação e validação.
+
+---
+
+FASE 10 — Infraestrutura
+
+Docker, CI/CD e ambiente de produção.
+
+---
+
+FASE 11 — SaaS Comercial
+
+Futuramente:
+
+- planos;
+- assinaturas;
+- billing;
+- limites;
+- métricas de uso.
+
+---
+
+52. Riscos
+
+Risco 01 — Abstração excessiva
+
+Criar um sistema genérico demais.
+
+Mitigação
+
+Construir primeiro um domínio real e abstrair somente conceitos comprovadamente comuns.
+
+---
+
+Risco 02 — Vazamento entre tenants
+
+Um dos riscos mais críticos da arquitetura.
+
+Mitigação
+
+- "tenant_id";
+- autorização centralizada;
+- testes automatizados;
+- filtros obrigatórios;
+- revisão de queries;
+- eventualmente PostgreSQL Row-Level Security.
+
+---
+
+Risco 03 — Complexidade prematura
+
+Adicionar Redis, Celery, microsserviços e outras tecnologias antes da necessidade.
+
+Mitigação
+
+Adotar arquitetura modular inicialmente monolítica.
+
+---
+
+Risco 04 — Crescimento descontrolado do escopo
+
+Tentar implementar todos os segmentos simultaneamente.
+
+Mitigação
+
+Primeiro domínio:
+
+«Educação.»
+
+Depois expansão.
+
+---
+
+53. Decisão Arquitetural
+
+A arquitetura inicial será:
+
+«Modular Monolith + Multi-Tenant»
+
+e não microsserviços.
+
+Estrutura:
+
+                  FastAPI
+                     |
+       +-------------+-------------+
+       |             |             |
+    Identity     Organizations   Education
+       |             |             |
+       +-------------+-------------+
+                     |
+                 PostgreSQL
+
+Essa decisão reduz complexidade e mantém possibilidade de evolução futura.
+
+---
+
+54. Princípios Arquiteturais
+
+O projeto seguirá:
+
+- SOLID;
+- Clean Architecture quando aplicável;
+- Separation of Concerns;
+- Domain-oriented modularization;
+- DRY;
+- KISS;
+- Security by Design;
+- Privacy by Design;
+- API First;
+- Testability;
+- Observability;
+- Least Privilege.
+
+---
+
+55. Estratégia de Evolução
+
+A evolução deverá seguir:
+
+Modular Monolith
+       |
+       v
+Escala horizontal
+       |
+       v
+Cache
+       |
+       v
+Background Workers
+       |
+       v
+Observabilidade
+       |
+       v
+Otimização
+       |
+       v
+Microsserviços somente
+se houver necessidade real
+
+Microsserviços não serão adotados simplesmente por serem uma arquitetura popular.
+
+---
+
+56. Estrutura Conceitual do SaaS
+
+                    PLATFORM
                        |
-          +------------+------------+
-          |            |            |
-       Escola         Pais      Profissionais
-          |
-          v
-       Registros
-          |
-          v
-      PostgreSQL
-          |
-          v
-       Analytics
-          |
-     +----+----+
-     |         |
- Dashboard   Reports
-     |
-     v
- Data Warehouse
-     |
-     v
- Data Analytics
-```
-
-Possíveis evoluções:
-
-* aplicativo mobile;
-* notificações;
-* relatórios avançados;
-* integração com sistemas escolares;
-* exportação de dados;
-* Power BI;
-* Data Warehouse;
-* APIs externas;
-* inteligência artificial para tarefas auxiliares e não diagnósticas;
-* análise de séries temporais.
+        +--------------+--------------+
+        |              |              |
+     Identity       Tenant         Modules
+        |              |              |
+        |              |       +------+------+
+        |              |       |             |
+        |              |   Education      Future
+        |              |
+        +--------------+
+               |
+           Records
+               |
+        +------+------+
+        |             |
+    Reports       Analytics
 
 ---
 
-# 42. Princípios de Engenharia
+57. Glossário
 
-O projeto deverá seguir os seguintes princípios:
-
-### SOLID
-
-As responsabilidades deverão ser separadas.
-
-### Clean Code
-
-O código deverá priorizar legibilidade e manutenção.
-
-### DRY
-
-Evitar duplicação desnecessária.
-
-### KISS
-
-Evitar complexidade sem necessidade.
-
-### Separation of Concerns
-
-Cada camada deverá possuir responsabilidade clara.
-
-### Security by Design
-
-Segurança desde a arquitetura.
-
-### Privacy by Design
-
-Privacidade desde a concepção.
-
-### Test Driven Quality
-
-Os testes deverão fazer parte do ciclo de desenvolvimento.
+Termo| Definição
+SaaS| Software as a Service
+Tenant| Organização isolada logicamente dentro da plataforma
+Organization| Organização cliente
+Membership| Relação entre usuário e organização
+RBAC| Role-Based Access Control
+API| Application Programming Interface
+REST| Representational State Transfer
+ORM| Object-Relational Mapping
+MVP| Minimum Viable Product
+Audit Log| Registro de ações realizadas
+Module| Unidade funcional da plataforma
+Domain| Área de negócio
+Record| Registro de informação
+Dashboard| Painel de indicadores
 
 ---
 
-# 43. Decisão Arquitetural Inicial
+58. Decisões Técnicas da FASE 1
 
-A decisão inicial é utilizar:
-
-```text
-Python
-   +
-FastAPI
-   +
-PostgreSQL
-   +
-SQLAlchemy
-   +
-Alembic
-   +
-Pydantic
-   +
-Pytest
-   +
-Docker
-   +
-GitHub Actions
-```
-
-A escolha poderá ser revisada durante a arquitetura detalhada caso novos requisitos justifiquem outra tecnologia.
-
----
-
-# 44. Estratégia de Desenvolvimento
-
-O desenvolvimento será incremental.
-
-Cada funcionalidade deverá passar pelo seguinte ciclo:
-
-```text
-Requisito
-   ↓
-Regra de negócio
-   ↓
-Modelagem
-   ↓
-Implementação
-   ↓
-Teste
-   ↓
-Code Review
-   ↓
-Documentação
-   ↓
-Git Commit
-```
-
-O objetivo não será apenas produzir código funcional, mas construir um sistema que demonstre práticas profissionais de Engenharia de Software.
+Decisão| Escolha
+Modelo de negócio| SaaS
+Multi-tenancy| Sim
+Estratégia inicial| Shared DB / Shared Schema
+Identificação do tenant| "tenant_id"
+Backend| Python + FastAPI
+Frontend| React + TypeScript
+Banco| PostgreSQL
+ORM| SQLAlchemy
+Migrações| Alembic
+Cache| Redis
+Background Jobs| Celery quando necessário
+Containers| Docker
+CI/CD| GitHub Actions
+Arquitetura| Modular Monolith
+API| REST
+Documentação API| OpenAPI
+Autorização| RBAC
+Auditoria| Sim
+Billing| Futuro
+IA| Futuro
+Microsserviços| Não inicialmente
 
 ---
 
-# 45. Resultado Esperado
+59. Resultado da FASE 1
 
-Ao final do projeto teremos uma plataforma web capaz de:
+A FASE 1 estabelece que o produto não será mais desenvolvido como uma aplicação exclusivamente escolar.
 
-* centralizar registros escolares;
-* estruturar observações;
-* facilitar comunicação entre escola e responsáveis;
-* manter histórico;
-* gerar indicadores;
-* controlar acessos;
-* registrar auditoria;
-* proteger dados;
-* disponibilizar API;
-* utilizar PostgreSQL;
-* possuir testes automatizados;
-* ser executada em Docker;
-* possuir documentação técnica;
-* estar preparada para evolução futura.
+O projeto passa a ser definido como:
 
----
+«Uma plataforma SaaS multi-tenant, modular e extensível para registro, acompanhamento e análise de informações, tendo o acompanhamento escolar como seu primeiro domínio de negócio.»
 
-# 46. Próxima Etapa
+A plataforma possuirá um núcleo comum responsável por:
 
-Após este documento, o projeto deverá avançar para:
+Identity
+Organizations
+Memberships
+Roles
+Permissions
+Modules
+Audit
+Notifications
 
-> **FASE 0 — Análise e Reengenharia do Sistema Existente**
+Enquanto o primeiro domínio será:
 
-Nesta fase serão analisados os componentes existentes no projeto PHP e será definido:
-
-1. O que será mantido conceitualmente.
-2. O que será descartado.
-3. O que poderá ser reaproveitado.
-4. O que deverá ser reescrito.
-5. Como será realizada a transição para Python.
-6. Como será estruturada a nova aplicação.
-7. Quais funcionalidades farão parte do MVP.
-
-Após a conclusão da Fase 0, será desenvolvido o:
-
-> **FASE 1 — SRS (Software Requirements Specification)**
-
-que será a especificação oficial dos requisitos do novo sistema.
+Education
+│
+├── Students
+├── Classrooms
+├── Guardians
+├── Professionals
+├── Observations
+└── Reports
 
 ---
 
-## Status do Projeto
+60. Próxima Etapa
 
-**Em desenvolvimento — Engenharia de Software**
+Com a FASE 1 refatorada, a próxima etapa será:
 
-```text
-FASE 0  ███░░░░░░░  Análise do sistema atual
-FASE 1  ░░░░░░░░░░  Engenharia de requisitos
-FASE 2  ░░░░░░░░░░  Casos de uso
-FASE 3  ░░░░░░░░░░  Arquitetura
-FASE 4  ░░░░░░░░░░  Banco de dados
-FASE 5  ░░░░░░░░░░  Segurança/LGPD
-FASE 6  ░░░░░░░░░░  Backend
-FASE 7  ░░░░░░░░░░  Autenticação
-FASE 8  ░░░░░░░░░░  Gestão escolar
-FASE 9  ░░░░░░░░░░  Observações
-FASE 10 ░░░░░░░░░░  Dashboard
-FASE 11 ░░░░░░░░░░  Testes
-FASE 12 ░░░░░░░░░░  Docker
-FASE 13 ░░░░░░░░░░  CI/CD
-FASE 14 ░░░░░░░░░░  Produção
-FASE 15 ░░░░░░░░░░  Analytics
-```
+«FASE 2 — Engenharia de Casos de Uso»
 
----
+A FASE 2 deverá contemplar primeiro o SaaS Core e depois o módulo educacional.
 
-## Licença
+Ordem:
 
-A licença do projeto deverá ser definida antes da disponibilização da versão pública.
+FASE 2
+   |
+   +-- UC01 Cadastro
+   +-- UC02 Login
+   +-- UC03 Criar Organização
+   +-- UC04 Gerenciar Membership
+   +-- UC05 Gerenciar Roles
+   +-- UC06 Gerenciar Permissões
+   +-- UC07 Ativar Módulos
+   +-- UC08 Auditoria
+   |
+   +-- UC09 Cadastrar Aluno
+   +-- UC10 Cadastrar Turma
+   +-- UC11 Associar Responsável
+   +-- UC12 Registrar Observação
+   +-- UC13 Consultar Histórico
+   +-- UC14 Gerar Relatório
 
----
-
-## Observação
-
-Este sistema é uma ferramenta tecnológica de apoio ao acompanhamento escolar.
-
-Os dados registrados não devem ser utilizados isoladamente para diagnóstico, avaliação clínica ou tomada de decisões que dependam de profissionais habilitados.
-
-As regras definitivas relacionadas a tratamento de dados pessoais, consentimento, compartilhamento, retenção e direitos dos titulares deverão ser definidas com apoio jurídico e institucional adequado.
+A partir desses casos de uso será possível construir uma arquitetura muito mais precisa e, posteriormente, o Modelo Conceitual → Modelo Lógico → Modelo Físico → DDL PostgreSQL.
