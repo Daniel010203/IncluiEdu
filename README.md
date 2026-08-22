@@ -1,670 +1,586 @@
-🧩 IncluiEdu — Sistema de Acompanhamento Educacional Inclusivo
+🎓 IncluiEdu
 
-«Projeto em desenvolvimento 🚧»
+Sistema de Acompanhamento Educacional Inclusivo
 
-Sistema web desenvolvido para auxiliar instituições de ensino no registro, organização e acompanhamento de observações realizadas durante a rotina escolar de alunos autistas.
-
-O projeto está passando por uma reengenharia de software, evoluindo de um protótipo inicial para uma aplicação web estruturada em Python, com API REST, PostgreSQL, autenticação, controle de acesso, auditoria e recursos de análise de dados.
+«Plataforma web para registro, acompanhamento, análise e geração de informações relacionadas ao acompanhamento educacional inclusivo.»
 
 ---
 
-📌 Sobre o Projeto
+📌 Sobre o projeto
 
-Durante a rotina escolar, professores e profissionais de apoio podem observar diferentes situações relacionadas à participação, interação, comunicação, atividades pedagógicas, transições e outras situações do cotidiano do aluno.
+O IncluiEdu é uma plataforma desenvolvida com o objetivo de centralizar e organizar informações relacionadas ao acompanhamento de alunos no ambiente educacional.
 
-Muitas dessas informações acabam sendo registradas de maneira dispersa em:
+A proposta surgiu da necessidade de substituir registros dispersos em cadernos, planilhas, mensagens e documentos, criando uma solução estruturada para registrar observações, acompanhar históricos, gerar indicadores e apoiar a tomada de decisão pedagógica.
 
-- Cadernos;
-- Planilhas;
-- Mensagens;
-- Relatórios;
-- Anotações individuais.
+O sistema foi pensado para permitir que profissionais autorizados registrem informações relacionadas ao cotidiano escolar e acompanhem sua evolução ao longo do tempo.
 
-O objetivo deste sistema é centralizar essas informações em uma plataforma web, permitindo que os registros sejam estruturados, armazenados, consultados e analisados ao longo do tempo.
-
-A proposta é criar uma base histórica que facilite a comunicação entre:
-
-- 🏫 Escola;
-- 👨‍🏫 Professores;
-- 👩‍💼 Profissionais de apoio;
-- 👨‍👩‍👧 Responsáveis;
-- 🧑‍⚕️ Profissionais autorizados.
+«⚠️ Importante: o IncluiEdu não possui finalidade de diagnóstico médico ou psicológico. O sistema é uma ferramenta de registro, acompanhamento e apoio à gestão educacional.»
 
 ---
 
-🎯 Objetivo
+🎯 Objetivos
 
-O objetivo principal é desenvolver uma plataforma capaz de registrar observações escolares estruturadas, permitindo acompanhar informações como:
+O projeto tem como principais objetivos:
 
-- Contexto da atividade;
-- Evento observado;
-- Intensidade;
-- Duração aproximada;
-- Estratégia utilizada;
-- Resultado observado;
-- Observações adicionais;
+- Centralizar informações educacionais.
+- Registrar observações de forma estruturada.
+- Manter histórico dos apontamentos.
+- Facilitar o acompanhamento da evolução dos registros.
+- Disponibilizar indicadores e gráficos.
+- Permitir análises semanais, mensais e anuais.
+- Comparar diferentes períodos.
+- Gerar relatórios em PDF.
+- Facilitar a comunicação com responsáveis em situações autorizadas.
+- Registrar e auditar operações importantes.
+- Aplicar controle de acesso baseado em perfis e permissões.
+
+---
+
+🚀 Principais funcionalidades
+
+👥 Gestão de usuários
+
+- Cadastro de usuários.
+- Perfis de acesso.
+- Controle de permissões.
+- Ativação e inativação.
+- Associação com instituições.
+- Controle de acesso por escopo.
+
+Perfis previstos
+
+- Administrador
+- Professor
+- Profissional de Apoio
+- Responsável
+- Profissional Externo
+- Auditor
+
+---
+
+🏫 Gestão escolar
+
+- Cadastro de instituições.
+- Cadastro de turmas.
+- Associação de alunos.
+- Associação de profissionais.
+- Organização da estrutura escolar.
+
+---
+
+👨‍🎓 Gestão de alunos
+
+- Cadastro de alunos.
+- Associação com turmas.
+- Cadastro de responsáveis.
+- Associação de profissionais autorizados.
+- Histórico de acompanhamento.
+
+---
+
+📝 Registro de observações
+
+O registro de observações é um dos principais recursos do IncluiEdu.
+
+Cada apontamento poderá registrar informações como:
+
+- Contexto da atividade.
+- Evento observado.
+- Intensidade.
+- Duração.
+- Estratégia utilizada.
+- Resultado observado.
+- Observações complementares.
 - Data e horário.
+- Profissional responsável pelo registro.
 
-O sistema deverá possibilitar a construção de uma base histórica de dados escolares, permitindo posteriormente a geração de indicadores e relatórios.
-
-«Importante: o sistema não tem como objetivo realizar diagnóstico médico ou psicológico. Seu objetivo é registrar e organizar observações realizadas no ambiente escolar.»
-
----
-
-🚧 Status do Projeto
-
-EM DESENVOLVIMENTO
-
-O projeto encontra-se atualmente na fase de Engenharia de Software e Reengenharia da aplicação existente.
-
-A primeira versão foi desenvolvida como um protótipo utilizando PHP.
-
-A nova versão será construída utilizando uma arquitetura moderna baseada em Python e API REST.
-
-Roadmap atual
-
-FASE 0  ███░░░░░░░  Análise do sistema existente
-FASE 1  ░░░░░░░░░░  Engenharia de requisitos
-FASE 2  ░░░░░░░░░░  Casos de uso
-FASE 3  ░░░░░░░░░░  Arquitetura de software
-FASE 4  ░░░░░░░░░░  Modelagem do banco
-FASE 5  ░░░░░░░░░░  Segurança e LGPD
-FASE 6  ░░░░░░░░░░  Desenvolvimento Backend
-FASE 7  ░░░░░░░░░░  Autenticação
-FASE 8  ░░░░░░░░░░  Gestão escolar
-FASE 9  ░░░░░░░░░░  Registro de observações
-FASE 10 ░░░░░░░░░░  Dashboard
-FASE 11 ░░░░░░░░░░  Testes
-FASE 12 ░░░░░░░░░░  Docker
-FASE 13 ░░░░░░░░░░  CI/CD
-FASE 14 ░░░░░░░░░░  Deploy
-FASE 15 ░░░░░░░░░░  Analytics
+A estruturação dessas informações permite transformar registros individuais em dados que podem posteriormente ser analisados.
 
 ---
 
-🏗️ Arquitetura Planejada
+📊 Histórico e indicadores
 
-A nova versão será construída seguindo uma arquitetura baseada em API REST.
+O sistema permitirá consultar o histórico dos apontamentos utilizando diferentes filtros.
 
-                    ┌─────────────────────┐
-                    │       Usuários      │
-                    │ Escola / Pais /     │
-                    │ Profissionais       │
+Filtros previstos
+
+- Período.
+- Contexto.
+- Evento.
+- Intensidade.
+- Aluno.
+- Turma.
+
+Indicadores
+
+Entre os indicadores previstos:
+
+- Quantidade de apontamentos.
+- Frequência dos eventos.
+- Distribuição por contexto.
+- Distribuição por evento.
+- Distribuição por intensidade.
+- Duração.
+- Estratégias utilizadas.
+- Resultados registrados.
+- Evolução temporal.
+
+---
+
+📈 Análise temporal
+
+O IncluiEdu deverá permitir análises em diferentes períodos:
+
+Semanal
+
+Acompanhamento dos registros realizados durante uma semana.
+
+Mensal
+
+Análise consolidada dos registros do mês.
+
+Anual
+
+Visão histórica dos registros ao longo do ano.
+
+Comparativo
+
+Possibilidade de comparar períodos diferentes, como:
+
+Semana atual × Semana anterior
+
+Mês atual × Mês anterior
+
+Mês atual × Mesmo mês do ano anterior
+
+Ano atual × Ano anterior
+
+Período personalizado × Período personalizado
+
+Os comparativos poderão apresentar:
+
+- valores absolutos;
+- diferenças;
+- variações percentuais;
+- gráficos comparativos.
+
+---
+
+📄 Relatórios
+
+O sistema contará com um módulo específico para geração de relatórios.
+
+Serão previstos:
+
+- Relatórios semanais.
+- Relatórios mensais.
+- Relatórios anuais.
+- Relatórios por período personalizado.
+- Relatórios comparativos.
+
+PDF
+
+Os relatórios poderão ser exportados em PDF, contendo informações como:
+
+- Identificação da instituição.
+- Aluno, quando aplicável.
+- Período analisado.
+- Indicadores.
+- Gráficos.
+- Comparativos.
+- Informações complementares.
+- Data de geração.
+- Usuário responsável pela geração.
+
+---
+
+🚨 Comunicação com responsáveis
+
+O sistema também terá recursos para comunicação com responsáveis, especialmente em situações que demandem contato.
+
+Os canais previstos são:
+
+- 📧 E-mail
+- 💬 WhatsApp
+
+Comunicação emergencial
+
+Usuários autorizados poderão iniciar uma comunicação classificada como emergencial.
+
+O processo deverá contemplar:
+
+1. Identificação do aluno.
+2. Identificação do responsável.
+3. Seleção do canal autorizado.
+4. Registro do motivo.
+5. Confirmação do destinatário.
+6. Confirmação do envio.
+7. Envio da comunicação.
+8. Registro do resultado.
+9. Auditoria da operação.
+
+O sistema deverá registrar o status da comunicação, quando disponibilizado pelo serviço utilizado:
+
+PENDENTE
+ENVIADO
+ENTREGUE
+FALHA
+
+A implementação deverá respeitar as autorizações de contato e as regras de segurança e privacidade definidas pelo sistema.
+
+---
+
+🔐 Segurança e privacidade
+
+Como o sistema trabalha com informações relacionadas a alunos e responsáveis, segurança e privacidade fazem parte dos requisitos fundamentais do projeto.
+
+Estão previstos:
+
+- Autenticação.
+- Autorização baseada em perfis.
+- Controle granular de permissões.
+- Princípio do menor privilégio.
+- Proteção das credenciais.
+- HTTPS em produção.
+- Auditoria.
+- Controle de acesso aos dados.
+- Registro de operações críticas.
+- Controle das comunicações.
+- Políticas de retenção.
+- Boas práticas relacionadas à LGPD.
+
+---
+
+🧩 Arquitetura
+
+A arquitetura planejada para a nova versão do IncluiEdu será baseada em Laravel, utilizando uma abordagem modular e orientada à separação de responsabilidades.
+
+                    ┌──────────────────────┐
+                    │       IncluiEdu      │
+                    └──────────┬───────────┘
+                               │
+                     ┌─────────▼─────────┐
+                     │     Laravel 13    │
+                     │                   │
+                     │ Controllers       │
+                     │ Services          │
+                     │ Models / Eloquent │
+                     │ Policies          │
+                     │ Form Requests     │
+                     │ Jobs              │
+                     │ Events            │
+                     └─────────┬─────────┘
+                               │
+                    ┌──────────▼──────────┐
+                    │   Blade + Livewire  │
                     └──────────┬──────────┘
                                │
-                               ▼
-                    ┌─────────────────────┐
-                    │      Frontend       │
-                    │    Aplicação Web    │
-                    └──────────┬──────────┘
-                               │
-                               │ HTTPS
-                               ▼
-                    ┌─────────────────────┐
-                    │      FastAPI        │
-                    │      REST API       │
-                    └──────────┬──────────┘
-                               │
-                ┌──────────────┼──────────────┐
-                │              │              │
-                ▼              ▼              ▼
-          Autenticação     Regras de       Serviços
-                           Negócio
-                │              │              │
-                └──────────────┼──────────────┘
-                               │
-                               ▼
-                    ┌─────────────────────┐
-                    │     SQLAlchemy      │
-                    │         ORM         │
-                    └──────────┬──────────┘
-                               │
-                               ▼
-                    ┌─────────────────────┐
+                    ┌──────────▼──────────┐
                     │     PostgreSQL      │
                     └─────────────────────┘
 
----
-
-🛠️ Tecnologias
-
-Backend
-
-- 🐍 Python
-- ⚡ FastAPI
-- Pydantic
-- SQLAlchemy
-- Alembic
-
-Banco de Dados
-
-- 🐘 PostgreSQL
-
-Testes
-
-- Pytest
-- HTTPX
-
-Segurança
-
-- OAuth2 / JWT
-- RBAC
-- Hash seguro de senhas
-- Auditoria
-- Controle de permissões
-
-Infraestrutura
-
-- Docker
-- Docker Compose
-
-Versionamento
-
-- Git
-- GitHub
-
-CI/CD
-
-- GitHub Actions
+A aplicação poderá evoluir posteriormente para disponibilizar uma API REST para integrações externas e aplicações móveis.
 
 ---
 
-👥 Perfis de Usuário
+🛠️ Stack tecnológica
 
-A aplicação deverá trabalhar com diferentes níveis de acesso.
-
-Administrador
-
-Responsável pela administração da escola e dos usuários.
-
-Professor
-
-Responsável pelo registro e acompanhamento das informações dos alunos sob sua responsabilidade.
-
-Profissional de Apoio
-
-Poderá registrar observações e consultar informações autorizadas.
-
-Responsável
-
-Poderá consultar as informações disponibilizadas pela escola.
-
-Profissional Externo
-
-Poderá acessar somente informações para as quais possuir autorização.
-
-Auditor
-
-Responsável pela consulta dos registros de auditoria.
+Tecnologia| Utilização
+PHP| Linguagem principal
+Laravel| Framework backend/full-stack
+Blade| Templates
+Livewire| Interfaces interativas
+Tailwind CSS| Interface
+PostgreSQL| Banco de dados
+Eloquent ORM| Persistência
+Redis| Cache e filas
+Docker| Containerização
+Git| Controle de versão
+GitHub Actions| CI/CD
+Pest / PHPUnit| Testes automatizados
 
 ---
 
-📋 Funcionalidades Planejadas
+🏗️ Engenharia de Software
 
-Gestão Escolar
+O desenvolvimento do IncluiEdu está sendo conduzido utilizando princípios de Engenharia de Software.
 
-- [ ] Cadastro de escolas
-- [ ] Cadastro de turmas
-- [ ] Cadastro de usuários
-- [ ] Controle de perfis
-- [ ] Controle de permissões
+A documentação está sendo organizada em etapas:
 
-Gestão de Alunos
-
-- [ ] Cadastro de alunos
-- [ ] Associação à turma
-- [ ] Associação de responsáveis
-- [ ] Associação de profissionais autorizados
-
-Observações
-
-- [ ] Registro de observações
-- [ ] Contexto da atividade
-- [ ] Evento observado
-- [ ] Intensidade
-- [ ] Duração
-- [ ] Estratégia utilizada
-- [ ] Resultado
-- [ ] Observação livre
-- [ ] Data e horário
-
-Histórico
-
-- [ ] Consulta do histórico
-- [ ] Filtro por período
-- [ ] Filtro por contexto
-- [ ] Filtro por evento
-- [ ] Filtro por intensidade
-
-Dashboard
-
-- [ ] Indicadores
-- [ ] Gráficos
-- [ ] Análise temporal
-- [ ] Relatórios
-- [ ] Exportação
-
-Segurança
-
-- [ ] Autenticação
-- [ ] Autorização
-- [ ] RBAC
-- [ ] Auditoria
-- [ ] Logs
-- [ ] Controle de acesso aos dados
-
----
-
-📊 Estrutura dos Registros
-
-Um dos principais objetivos do projeto é evitar que as informações sejam armazenadas somente como texto livre.
-
-Exemplo:
-
-Aluno:
-João
-
-Contexto:
-Atividade pedagógica
-
-Evento:
-Dificuldade durante transição
-
-Intensidade:
-2
-
-Duração:
-10 minutos
-
-Estratégia:
-Acompanhamento individual
-
-Resultado:
-Retorno à atividade
-
-Observação:
-Aluno necessitou de suporte adicional durante a mudança da atividade.
-
-Os dados estruturados permitirão futuramente realizar análises utilizando:
-
-- SQL;
-- Python;
-- Pandas;
-- Power BI;
-- Estatística;
-- Data Analytics.
-
----
-
-📈 Indicadores Futuros
-
-Com a evolução do projeto, poderão ser disponibilizados indicadores como:
-
-- Quantidade de observações;
-- Observações por período;
-- Observações por contexto;
-- Eventos registrados;
-- Distribuição de intensidade;
-- Duração média;
-- Estratégias utilizadas;
-- Resultados observados;
-- Evolução temporal.
-
-Os indicadores terão caráter descritivo, não diagnóstico.
-
----
-
-🔐 Segurança e Privacidade
-
-O sistema poderá trabalhar com informações relacionadas a crianças e adolescentes e, dependendo dos dados registrados, informações pessoais sensíveis.
-
-Por esse motivo, segurança e privacidade serão consideradas desde a arquitetura.
-
-Serão adotados conceitos como:
-
-- Privacy by Design;
-- Security by Design;
-- princípio do menor privilégio;
-- minimização de dados;
-- controle de acesso;
-- autenticação;
-- autorização;
-- auditoria;
-- rastreabilidade;
-- proteção de credenciais;
-- backups.
-
-A implementação definitiva das regras de tratamento de dados deverá ser validada com os responsáveis institucionais e jurídicos do projeto.
-
----
-
-🗄️ Modelo de Dados Inicial
-
-A estrutura deverá contemplar entidades como:
-
-schools
-users
-students
-guardians
-professionals
-classrooms
-school_years
-
-student_guardians
-student_professionals
-student_classrooms
-
-observations
-observation_contexts
-observation_events
-observation_strategies
-observation_results
-
-audit_logs
-access_permissions
-consents
-
-O modelo definitivo será desenvolvido durante a fase de modelagem do banco de dados.
-
----
-
-🔌 API
-
-A aplicação utilizará uma API REST versionada.
-
-Exemplo:
-
-/api/v1/
-
-Endpoints planejados:
-
-POST /api/v1/auth/login
-
-GET  /api/v1/students
-POST /api/v1/students
-
-GET  /api/v1/observations
-POST /api/v1/observations
-
-GET  /api/v1/observations/{id}
-
-GET  /api/v1/reports/observations
-
-GET  /api/v1/dashboard
-
-A documentação da API será disponibilizada através do OpenAPI/Swagger.
-
----
-
-🧪 Testes
-
-O projeto terá testes automatizados utilizando:
-
-Pytest
-HTTPX
-
-Serão implementados:
-
-- Testes unitários;
-- Testes de integração;
-- Testes de API;
-- Testes de autenticação;
-- Testes de autorização;
-- Testes das principais regras de negócio.
-
----
-
-🐳 Docker
-
-A aplicação será preparada para execução utilizando containers.
-
-Arquitetura inicial:
-
-Docker Compose
-│
-├── API
-│
-└── PostgreSQL
-
----
-
-🔄 CI/CD
-
-Será implementado posteriormente um pipeline utilizando GitHub Actions.
-
-Fluxo planejado:
-
-Git Push
-   ↓
-Pull Request
-   ↓
-GitHub Actions
-   ↓
-Testes
-   ↓
-Lint
-   ↓
-Security Checks
-   ↓
-Docker Build
-   ↓
-Deploy
-
----
-
-📁 Estrutura Planejada
-
-Projeto-de-Sistema-escolar-para-alunos-especiais/
-│
-├── app/
-│   ├── api/
-│   ├── core/
-│   ├── models/
-│   ├── schemas/
-│   ├── repositories/
-│   ├── services/
-│   └── main.py
-│
-├── tests/
-│
-├── migrations/
-│
-├── docs/
-│
-├── scripts/
-│
-├── .env.example
-├── .gitignore
-├── Dockerfile
-├── docker-compose.yml
-├── requirements.txt
-└── README.md
-
-A estrutura atual poderá ser modificada durante a reengenharia.
-
----
-
-🧠 Engenharia de Software
-
-O desenvolvimento seguirá uma abordagem baseada em Engenharia de Software.
-
-Principais etapas:
-
-Levantamento de requisitos
+Engenharia de Requisitos
         ↓
-Análise
+Casos de Uso
         ↓
-Modelagem
+Regras de Negócio
+        ↓
+Matriz de Responsabilidades
         ↓
 Arquitetura
+        ↓
+Modelo Conceitual
+        ↓
+Modelo Lógico
+        ↓
+DER
+        ↓
+Banco de Dados
         ↓
 Implementação
         ↓
 Testes
         ↓
-Code Review
-        ↓
-Documentação
+CI/CD
         ↓
 Deploy
 
-Serão considerados princípios como:
+Essa abordagem tem como objetivo evitar que o desenvolvimento seja iniciado diretamente pelo código sem uma definição clara dos requisitos e das regras de negócio.
 
-- SOLID;
-- Clean Code;
-- Separation of Concerns;
-- DRY;
-- KISS;
-- Security by Design;
-- Privacy by Design;
-- testes automatizados;
-- versionamento;
-- documentação técnica.
+---
+
+📋 Requisitos
+
+O projeto possui uma Engenharia de Requisitos específica, contemplando:
+
+- Requisitos Funcionais.
+- Requisitos Não Funcionais.
+- Regras de Negócio.
+- Atores.
+- Casos de Uso.
+- Controle de acesso.
+- Auditoria.
+- Relatórios.
+- Comunicação.
+- Segurança.
+- Privacidade.
+
+---
+
+🗂️ Principais módulos
+
+IncluiEdu
+│
+├── Autenticação
+│
+├── Usuários
+│
+├── Perfis e Permissões
+│
+├── Escolas
+│
+├── Turmas
+│
+├── Alunos
+│
+├── Responsáveis
+│
+├── Profissionais
+│
+├── Observações
+│
+├── Histórico
+│
+├── Dashboard
+│
+├── Indicadores
+│
+├── Relatórios
+│   ├── Semanal
+│   ├── Mensal
+│   ├── Anual
+│   └── Comparativo
+│
+├── Exportação PDF
+│
+├── Comunicação
+│   ├── E-mail
+│   └── WhatsApp
+│
+└── Auditoria
+
+---
+
+🧪 Testes
+
+O projeto terá cobertura de testes para as principais regras de negócio e funcionalidades.
+
+Entre os testes previstos:
+
+- Autenticação.
+- Autorização.
+- Cadastro de usuários.
+- Cadastro de alunos.
+- Registro de observações.
+- Consulta de histórico.
+- Cálculo de indicadores.
+- Comparação entre períodos.
+- Geração de relatórios.
+- Exportação PDF.
+- Comunicação.
+- Comunicação emergencial.
+- Auditoria.
+
+---
+
+🐳 Ambiente
+
+O projeto será preparado para execução utilizando Docker.
+
+Arquitetura prevista:
+
+Docker
+│
+├── Laravel / PHP
+│
+├── PostgreSQL
+│
+└── Redis
+
+O objetivo é facilitar:
+
+- Desenvolvimento.
+- Testes.
+- Padronização do ambiente.
+- Deploy.
+- CI/CD.
 
 ---
 
 🗺️ Roadmap
 
-Fase| Descrição| Status
-0| Análise do sistema atual| 🚧 Em andamento
-1| Engenharia de Requisitos| ⏳ Pendente
-2| Casos de Uso| ⏳ Pendente
-3| Arquitetura| ⏳ Pendente
-4| Modelagem do Banco| ⏳ Pendente
-5| Segurança e LGPD| ⏳ Pendente
-6| Backend FastAPI| ⏳ Pendente
-7| Autenticação| ⏳ Pendente
-8| Gestão Escolar| ⏳ Pendente
-9| Registro de Observações| ⏳ Pendente
-10| Dashboard| ⏳ Pendente
-11| Testes| ⏳ Pendente
-12| Docker| ⏳ Pendente
-13| CI/CD| ⏳ Pendente
-14| Deploy| ⏳ Pendente
-15| Analytics| 🔮 Futuro
+Fase 1 — Engenharia de Requisitos
+
+- [x] Definição inicial do problema.
+- [x] Definição dos objetivos.
+- [x] Identificação dos atores.
+- [x] Requisitos funcionais.
+- [x] Requisitos não funcionais.
+- [x] Regras de negócio.
+- [x] Requisitos de relatórios.
+- [x] Requisitos de comunicação.
+
+Fase 2 — Análise e Modelagem
+
+- [ ] Casos de Uso.
+- [ ] Diagramas de Casos de Uso.
+- [ ] Regras de negócio detalhadas.
+- [ ] Matriz de responsabilidades.
+- [ ] Modelo conceitual.
+- [ ] Modelo lógico.
+- [ ] DER.
+
+Fase 3 — Banco de Dados
+
+- [ ] Modelagem PostgreSQL.
+- [ ] Migrations.
+- [ ] Constraints.
+- [ ] Índices.
+- [ ] Seeds.
+- [ ] Dados iniciais.
+
+Fase 4 — Desenvolvimento
+
+- [ ] Criar projeto Laravel.
+- [ ] Configurar autenticação.
+- [ ] Criar usuários.
+- [ ] Criar perfis.
+- [ ] Criar permissões.
+- [ ] Criar escolas.
+- [ ] Criar turmas.
+- [ ] Criar alunos.
+- [ ] Criar responsáveis.
+- [ ] Criar observações.
+- [ ] Criar histórico.
+- [ ] Criar dashboard.
+
+Fase 5 — Relatórios
+
+- [ ] Relatório semanal.
+- [ ] Relatório mensal.
+- [ ] Relatório anual.
+- [ ] Comparativos.
+- [ ] Gráficos.
+- [ ] Exportação PDF.
+
+Fase 6 — Comunicação
+
+- [ ] Serviço de comunicação.
+- [ ] E-mail.
+- [ ] Integração WhatsApp.
+- [ ] Comunicação emergencial.
+- [ ] Histórico de comunicações.
+- [ ] Auditoria.
+
+Fase 7 — Qualidade
+
+- [ ] Testes unitários.
+- [ ] Testes de integração.
+- [ ] Testes de autorização.
+- [ ] Testes de segurança.
+- [ ] Testes de geração de relatórios.
+
+Fase 8 — DevOps
+
+- [ ] Docker.
+- [ ] CI/CD.
+- [ ] GitHub Actions.
+- [ ] Ambiente de homologação.
+- [ ] Ambiente de produção.
+- [ ] Deploy.
 
 ---
 
-🚧 Projeto em Desenvolvimento
+📊 Status do projeto
 
-Este repositório não representa ainda a versão final do sistema.
+Status atual: 🚧 Em desenvolvimento
 
-A aplicação está sendo desenvolvida de forma incremental e passará por uma reestruturação arquitetural.
+O projeto encontra-se em fase de Engenharia de Requisitos e Arquitetura.
 
-O objetivo é transformar o protótipo inicial em uma aplicação web profissional utilizando Python.
-
-Durante o desenvolvimento poderão ocorrer:
-
-- mudanças na arquitetura;
-- alterações no modelo de dados;
-- criação de novos módulos;
-- alteração de endpoints;
-- refatorações;
-- mudanças de tecnologias auxiliares;
-- mudanças na estrutura de diretórios.
+A implementação da nova arquitetura Laravel será iniciada após a conclusão da modelagem funcional e estrutural.
 
 ---
 
-🎓 Objetivo Técnico
+🎯 Objetivo de longo prazo
 
-Além do objetivo funcional, este projeto também está sendo utilizado como projeto prático de desenvolvimento profissional em:
+O objetivo é transformar o IncluiEdu em uma plataforma web modular, segura e escalável, capaz de apoiar instituições de ensino no acompanhamento educacional inclusivo.
 
-- Engenharia de Software;
-- Python Backend;
-- FastAPI;
-- APIs REST;
-- PostgreSQL;
-- SQLAlchemy;
-- Modelagem de Dados;
-- Segurança;
-- LGPD;
-- Testes automatizados;
-- Docker;
-- Git/GitHub;
-- CI/CD;
-- Data Analytics.
+A arquitetura deverá permitir futuramente:
+
+- Aplicação mobile.
+- API para integrações.
+- Integração com sistemas escolares.
+- Dashboards avançados.
+- Analytics.
+- Automação de relatórios.
+- Novos canais de comunicação.
+- Integrações com serviços externos.
 
 ---
 
-🔮 Visão de Futuro
+👨‍💻 Autor
 
-Após a conclusão do MVP, o sistema poderá evoluir para uma plataforma mais ampla de acompanhamento escolar e análise de dados.
+Daniel Vieira
 
-Possíveis evoluções:
+Projeto desenvolvido como parte da minha jornada de transição e especialização na área de Tecnologia da Informação, aplicando conhecimentos de:
 
-Sistema Web
-    ↓
-API
-    ↓
-PostgreSQL
-    ↓
-Data Analytics
-    ↓
-Dashboard
-    ↓
-Data Warehouse
-    ↓
-BI
-
-Também poderão ser estudadas futuramente integrações com outras plataformas educacionais e recursos de inteligência artificial para tarefas auxiliares, sempre respeitando as limitações de finalidade, privacidade, segurança e uso responsável dos dados.
+- Análise e Desenvolvimento de Sistemas.
+- Engenharia de Software.
+- Desenvolvimento Backend.
+- Banco de Dados.
+- PostgreSQL.
+- Arquitetura de Sistemas.
+- Análise de Dados.
+- Segurança da Informação.
 
 ---
 
-⚠️ Aviso Importante
+📄 Licença
 
-Este projeto é uma ferramenta tecnológica de apoio ao acompanhamento escolar.
-
-Os registros realizados no sistema não devem ser utilizados isoladamente para diagnóstico médico, diagnóstico psicológico ou qualquer outra avaliação clínica.
-
-O sistema tem como finalidade organizar informações observadas no ambiente escolar.
+A licença do projeto será definida durante a fase de publicação e disponibilização da versão inicial.
 
 ---
 
-📚 Documentação
+⭐ Projeto em desenvolvimento
 
-A documentação de Engenharia de Software será mantida no diretório:
+O IncluiEdu é um projeto de estudo e desenvolvimento contínuo.
 
-docs/
-
-Documentos planejados:
-
-docs/
-│
-├── 01-visao-geral-projeto.md
-├── 02-srs.md
-├── 03-casos-de-uso.md
-├── 04-arquitetura.md
-├── 05-modelo-dados-conceitual.md
-├── 06-modelo-dados-logico.md
-├── 07-modelo-dados-fisico.md
-├── 08-seguranca.md
-├── 09-lgpd.md
-├── 10-api.md
-├── 11-testes.md
-└── 12-deploy.md
-
----
-
-👨‍💻 Desenvolvimento
-
-Projeto desenvolvido como parte da evolução profissional em desenvolvimento de software, com foco em:
-
-Python Backend + Engenharia de Software + Dados + APIs + PostgreSQL.
-
----
-
-📌 Status
-
-🚧 PROJETO EM DESENVOLVIMENTO
-
-Versão atual: 0.1.0
-Status: Engenharia de Software
-Backend planejado: Python + FastAPI
-Database planejado: PostgreSQL
-
----
-
-⭐ Objetivo do Repositório
-
-Construir, passo a passo, uma aplicação web profissional, documentada e escalável para apoiar escolas no registro e acompanhamento estruturado de observações realizadas durante a rotina escolar de alunos autistas.
-
+A evolução do projeto será documentada no próprio repositório, desde a Engenharia de Requisitos até a implementação, testes, containerização e deploy.
