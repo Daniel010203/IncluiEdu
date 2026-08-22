@@ -1,0 +1,1276 @@
+Engenharia de Requisitos — IncluiEdu
+
+Sistema: IncluiEdu — Sistema de Acompanhamento Educacional Inclusivo
+Versão: 1.0
+Status: Em elaboração
+Tecnologia alvo: PHP + Laravel + PostgreSQL
+Documento: Engenharia de Requisitos
+
+---
+
+1. Introdução
+
+O IncluiEdu é uma aplicação web destinada ao registro, organização, acompanhamento e análise de observações realizadas no ambiente escolar.
+
+O sistema tem como objetivo centralizar informações que normalmente podem ficar dispersas em cadernos, planilhas, mensagens e relatórios, formando uma base histórica estruturada para acompanhamento do aluno.
+
+O sistema não possui finalidade de diagnóstico médico ou psicológico. Seu objetivo é registrar e organizar informações observacionais relacionadas à rotina escolar.
+
+---
+
+2. Objetivo do sistema
+
+O IncluiEdu deverá permitir que instituições de ensino:
+
+- cadastrem alunos;
+- organizem alunos por turmas;
+- cadastrem professores e profissionais;
+- associem responsáveis aos alunos;
+- registrem observações estruturadas;
+- mantenham histórico das observações;
+- consultem informações por diferentes filtros;
+- acompanhem indicadores;
+- visualizem gráficos;
+- gerem relatórios;
+- comparem períodos;
+- exportem relatórios em PDF;
+- comuniquem responsáveis em situações de emergência;
+- mantenham histórico das comunicações;
+- controlem permissões de acesso;
+- mantenham registros de auditoria.
+
+---
+
+3. Escopo
+
+3.1 Escopo incluído
+
+O sistema contemplará:
+
+1. Autenticação.
+2. Gestão de usuários.
+3. Gestão de perfis.
+4. Gestão de permissões.
+5. Gestão de escolas.
+6. Gestão de turmas.
+7. Gestão de alunos.
+8. Gestão de responsáveis.
+9. Gestão de profissionais.
+10. Registro de observações.
+11. Consulta de histórico.
+12. Dashboard.
+13. Indicadores.
+14. Gráficos.
+15. Relatórios.
+16. Exportação para PDF.
+17. Comparação entre períodos.
+18. Comunicação com responsáveis.
+19. Comunicação emergencial.
+20. Registro das comunicações.
+21. Auditoria.
+22. Controle de segurança e acesso.
+23. Administração de parâmetros do sistema.
+
+---
+
+4. Fora do escopo
+
+O IncluiEdu não deverá:
+
+- realizar diagnóstico médico;
+- realizar diagnóstico psicológico;
+- substituir avaliação profissional especializada;
+- prescrever tratamentos;
+- emitir parecer clínico;
+- realizar classificação médica automática;
+- tomar decisões clínicas;
+- substituir o acompanhamento pedagógico ou profissional.
+
+O sistema deverá ser tratado como ferramenta de registro, acompanhamento e apoio à gestão educacional.
+
+---
+
+5. Stakeholders
+
+Stakeholder| Interesse
+Instituição de ensino| Gestão das informações
+Administrador| Administração do sistema
+Professor| Registro e acompanhamento
+Profissional de apoio| Registro e acompanhamento autorizado
+Responsável| Acompanhamento das informações disponibilizadas
+Profissional externo| Consulta autorizada
+Auditor| Verificação das operações
+Gestão pedagógica| Análise dos indicadores
+Equipe técnica| Manutenção do sistema
+
+---
+
+6. Atores do sistema
+
+ACT-001 — Administrador
+
+Responsável pela administração geral da aplicação.
+
+Pode:
+
+- cadastrar usuários;
+- alterar usuários;
+- administrar perfis;
+- administrar permissões;
+- cadastrar escolas;
+- administrar parâmetros;
+- consultar auditoria.
+
+---
+
+ACT-002 — Professor
+
+Responsável pelo acompanhamento dos alunos sob sua responsabilidade.
+
+Pode:
+
+- consultar alunos autorizados;
+- registrar observações;
+- consultar histórico;
+- visualizar indicadores autorizados;
+- gerar relatórios autorizados.
+
+---
+
+ACT-003 — Profissional de Apoio
+
+Pode:
+
+- consultar alunos autorizados;
+- registrar observações;
+- consultar histórico autorizado;
+- gerar relatórios autorizados.
+
+---
+
+ACT-004 — Responsável
+
+Pode consultar informações disponibilizadas pela instituição.
+
+Dependendo das permissões definidas pela escola, poderá:
+
+- visualizar registros;
+- consultar histórico;
+- visualizar relatórios;
+- receber comunicações.
+
+---
+
+ACT-005 — Profissional Externo
+
+Terá acesso somente às informações explicitamente autorizadas.
+
+---
+
+ACT-006 — Auditor
+
+Poderá consultar:
+
+- logs;
+- alterações;
+- acessos;
+- registros de comunicação;
+- operações administrativas.
+
+---
+
+7. Requisitos funcionais
+
+7.1 Autenticação
+
+RF-001 — Autenticar usuário
+
+O sistema deverá permitir que usuários autenticados acessem a aplicação mediante credenciais válidas.
+
+RF-002 — Encerrar sessão
+
+O sistema deverá permitir o encerramento seguro da sessão.
+
+RF-003 — Recuperar acesso
+
+O sistema deverá permitir recuperação de acesso por mecanismo seguro.
+
+RF-004 — Controle de sessão
+
+O sistema deverá controlar sessões e impedir acesso a recursos protegidos por usuários não autenticados.
+
+---
+
+8. Gestão de usuários
+
+RF-005 — Cadastrar usuário
+
+O administrador deverá poder cadastrar usuários.
+
+RF-006 — Alterar usuário
+
+O administrador poderá alterar dados cadastrais.
+
+RF-007 — Ativar usuário
+
+O administrador poderá ativar usuários.
+
+RF-008 — Inativar usuário
+
+O administrador poderá inativar usuários sem necessariamente excluir seu histórico.
+
+RF-009 — Associar usuário a perfil
+
+O sistema deverá permitir associação entre usuário e perfil.
+
+RF-010 — Associar usuário à escola
+
+O usuário deverá estar associado à instituição correspondente.
+
+---
+
+9. Gestão de perfis e permissões
+
+RF-011 — Cadastrar perfil
+
+O sistema deverá permitir a criação de perfis.
+
+RF-012 — Associar permissões
+
+O administrador poderá associar permissões aos perfis.
+
+RF-013 — Controlar acesso
+
+O sistema deverá verificar as permissões antes de disponibilizar funcionalidades protegidas.
+
+RF-014 — Restringir dados
+
+O sistema deverá restringir dados de acordo com:
+
+- perfil;
+- escola;
+- turma;
+- aluno;
+- vínculo profissional;
+- autorização específica.
+
+---
+
+10. Gestão de escolas
+
+RF-015 — Cadastrar escola
+
+O administrador deverá cadastrar instituições.
+
+RF-016 — Alterar escola
+
+O administrador poderá atualizar dados da instituição.
+
+RF-017 — Ativar/inativar escola
+
+O sistema deverá permitir controle do status da instituição.
+
+---
+
+11. Gestão de turmas
+
+RF-018 — Cadastrar turma
+
+O sistema deverá permitir cadastro de turmas.
+
+RF-019 — Associar alunos
+
+O sistema deverá permitir associação de alunos às turmas.
+
+RF-020 — Consultar turma
+
+Usuários autorizados poderão visualizar os alunos pertencentes à turma.
+
+---
+
+12. Gestão de alunos
+
+RF-021 — Cadastrar aluno
+
+O sistema deverá permitir cadastro do aluno.
+
+RF-022 — Alterar aluno
+
+Usuários autorizados poderão alterar informações cadastrais.
+
+RF-023 — Associar aluno à turma
+
+O sistema deverá permitir associação do aluno à turma.
+
+RF-024 — Associar responsável
+
+O sistema deverá permitir associar um ou mais responsáveis ao aluno.
+
+RF-025 — Associar profissional
+
+O sistema deverá permitir associar profissionais autorizados ao aluno.
+
+RF-026 — Histórico do aluno
+
+O sistema deverá disponibilizar o histórico autorizado do aluno.
+
+---
+
+13. Gestão de responsáveis
+
+RF-027 — Cadastrar responsável
+
+O sistema deverá permitir cadastro do responsável.
+
+RF-028 — Associar contato
+
+O sistema poderá armazenar os meios de comunicação autorizados:
+
+- e-mail;
+- telefone;
+- WhatsApp.
+
+RF-029 — Definir preferência de comunicação
+
+O sistema deverá permitir definir os canais autorizados/preferenciais de comunicação.
+
+RF-030 — Controlar autorização
+
+O sistema deverá registrar as autorizações relacionadas aos canais de comunicação.
+
+---
+
+14. Registro de observações
+
+Esta é uma das funcionalidades centrais do IncluiEdu.
+
+RF-031 — Registrar observação
+
+Usuário autorizado deverá poder registrar uma observação relacionada ao aluno.
+
+RF-032 — Informar contexto
+
+A observação deverá permitir identificar o contexto da atividade.
+
+RF-033 — Informar evento
+
+A observação deverá permitir registrar o evento observado.
+
+RF-034 — Informar intensidade
+
+O usuário poderá registrar a intensidade do evento.
+
+RF-035 — Informar duração
+
+O sistema deverá permitir registrar a duração aproximada.
+
+RF-036 — Registrar estratégia
+
+O usuário poderá registrar a estratégia utilizada.
+
+RF-037 — Registrar resultado
+
+O sistema deverá permitir registrar o resultado observado.
+
+RF-038 — Registrar observação textual
+
+O sistema deverá permitir informações complementares em campo textual.
+
+RF-039 — Registrar data e horário
+
+O sistema deverá registrar data e horário da observação.
+
+RF-040 — Identificar autor
+
+Cada observação deverá estar vinculada ao usuário responsável pelo registro.
+
+RF-041 — Editar observação
+
+O sistema deverá permitir edição somente para usuários autorizados.
+
+RF-042 — Preservar histórico
+
+Alterações relevantes deverão ser registradas para auditoria.
+
+---
+
+15. Histórico
+
+RF-043 — Consultar histórico
+
+O sistema deverá permitir consulta das observações do aluno.
+
+RF-044 — Filtrar por período
+
+O usuário poderá filtrar por período.
+
+RF-045 — Filtrar por contexto
+
+O usuário poderá filtrar por contexto.
+
+RF-046 — Filtrar por evento
+
+O usuário poderá filtrar por evento.
+
+RF-047 — Filtrar por intensidade
+
+O usuário poderá filtrar por intensidade.
+
+RF-048 — Combinar filtros
+
+O sistema deverá permitir utilização simultânea de múltiplos filtros.
+
+RF-049 — Ordenar registros
+
+O sistema deverá permitir ordenação cronológica.
+
+---
+
+16. Dashboard
+
+RF-050 — Dashboard do aluno
+
+O sistema deverá disponibilizar indicadores relacionados ao aluno.
+
+RF-051 — Dashboard da turma
+
+Usuários autorizados poderão visualizar indicadores agregados da turma.
+
+RF-052 — Dashboard institucional
+
+Usuários com permissão poderão consultar indicadores agregados da instituição.
+
+RF-053 — Gráficos
+
+O sistema deverá apresentar gráficos relacionados aos registros.
+
+Possíveis indicadores:
+
+- quantidade de apontamentos;
+- frequência por período;
+- distribuição por contexto;
+- distribuição por evento;
+- distribuição por intensidade;
+- duração média;
+- estratégias utilizadas;
+- resultados registrados;
+- evolução temporal.
+
+---
+
+17. Análise temporal
+
+RF-054 — Análise semanal
+
+O sistema deverá permitir análise dos registros agrupados semanalmente.
+
+RF-055 — Análise mensal
+
+O sistema deverá permitir análise dos registros agrupados mensalmente.
+
+RF-056 — Análise anual
+
+O sistema deverá permitir análise dos registros agrupados anualmente.
+
+RF-057 — Comparação entre períodos
+
+O sistema deverá permitir comparar dois ou mais períodos.
+
+Exemplos:
+
+- semana atual × semana anterior;
+- mês atual × mês anterior;
+- mês atual × mesmo mês do ano anterior;
+- ano atual × ano anterior;
+- período personalizado × período personalizado.
+
+RF-058 — Indicadores comparativos
+
+O sistema deverá apresentar diferenças absolutas e, quando aplicável, percentuais entre os períodos.
+
+RF-059 — Gráficos comparativos
+
+O sistema deverá apresentar gráficos capazes de representar a evolução e comparação entre períodos.
+
+---
+
+18. Relatórios
+
+RF-060 — Gerar relatório
+
+Usuários autorizados poderão gerar relatórios com base nos filtros selecionados.
+
+RF-061 — Relatório semanal
+
+O sistema deverá gerar relatório semanal.
+
+RF-062 — Relatório mensal
+
+O sistema deverá gerar relatório mensal.
+
+RF-063 — Relatório anual
+
+O sistema deverá gerar relatório anual.
+
+RF-064 — Relatório por período personalizado
+
+O sistema deverá permitir informar data inicial e data final.
+
+RF-065 — Relatório comparativo
+
+O sistema deverá gerar relatório comparando períodos selecionados.
+
+---
+
+19. Exportação PDF
+
+RF-066 — Exportar relatório em PDF
+
+O sistema deverá permitir baixar relatórios no formato PDF.
+
+RF-067 — PDF com identificação
+
+O documento deverá conter:
+
+- identificação da instituição;
+- identificação do aluno, quando aplicável;
+- período analisado;
+- data de geração;
+- usuário responsável pela geração.
+
+RF-068 — PDF com indicadores
+
+O relatório deverá apresentar os indicadores correspondentes aos filtros utilizados.
+
+RF-069 — PDF com gráficos
+
+O relatório deverá permitir inclusão dos gráficos relacionados aos apontamentos.
+
+RF-070 — PDF semanal
+
+O PDF semanal deverá apresentar dados agregados da semana selecionada.
+
+RF-071 — PDF mensal
+
+O PDF mensal deverá apresentar dados agregados do mês selecionado.
+
+RF-072 — PDF anual
+
+O PDF anual deverá apresentar dados agregados do ano selecionado.
+
+RF-073 — PDF comparativo
+
+O relatório comparativo deverá apresentar:
+
+- período A;
+- período B;
+- indicadores de cada período;
+- diferença absoluta;
+- variação percentual, quando aplicável;
+- gráficos comparativos.
+
+---
+
+20. Comunicação com responsáveis
+
+Esta funcionalidade deverá possuir controle rigoroso de autorização.
+
+RF-074 — Registrar canais de comunicação
+
+O sistema deverá permitir armazenar canais autorizados do responsável.
+
+RF-075 — Enviar comunicação por e-mail
+
+Usuários autorizados poderão enviar comunicação por e-mail.
+
+RF-076 — Comunicação via WhatsApp
+
+O sistema deverá permitir integração com serviço/API oficial compatível para envio de mensagens via WhatsApp.
+
+RF-077 — Selecionar canal
+
+O usuário autorizado poderá selecionar:
+
+- e-mail;
+- WhatsApp;
+- ambos, quando permitido.
+
+RF-078 — Registrar comunicação
+
+Toda comunicação deverá gerar registro contendo, no mínimo:
+
+- aluno;
+- responsável;
+- usuário que iniciou a comunicação;
+- canal;
+- data/hora;
+- motivo;
+- status;
+- identificador externo da mensagem, quando disponível.
+
+---
+
+21. Comunicação emergencial
+
+RF-079 — Acionar comunicação emergencial
+
+Usuário autorizado poderá iniciar uma comunicação classificada como emergência.
+
+RF-080 — Identificar motivo
+
+O usuário deverá informar o motivo da comunicação.
+
+RF-081 — Confirmar destinatário
+
+Antes do envio, o sistema deverá apresentar o responsável e os canais autorizados.
+
+RF-082 — Confirmar envio
+
+O sistema deverá exigir confirmação antes do disparo.
+
+RF-083 — Registrar emergência
+
+O sistema deverá registrar o evento de comunicação emergencial.
+
+RF-084 — Enviar por canais autorizados
+
+A comunicação somente poderá utilizar canais previamente autorizados.
+
+RF-085 — Registrar resultado do envio
+
+O sistema deverá registrar:
+
+- enviado;
+- entregue, quando o provedor disponibilizar essa informação;
+- falha;
+- pendente.
+
+RF-086 — Histórico de comunicações
+
+Usuários autorizados poderão consultar o histórico das comunicações relacionadas ao aluno.
+
+---
+
+22. Auditoria
+
+RF-087 — Registrar login
+
+O sistema deverá registrar eventos relevantes de autenticação.
+
+RF-088 — Registrar alterações
+
+O sistema deverá registrar alterações relevantes em dados.
+
+RF-089 — Registrar exclusões/inativações
+
+Operações de exclusão lógica ou inativação deverão ser auditáveis.
+
+RF-090 — Registrar geração de relatório
+
+A geração de relatórios contendo informações protegidas deverá ser registrada.
+
+RF-091 — Registrar comunicação
+
+As comunicações deverão ser auditáveis.
+
+RF-092 — Consultar auditoria
+
+Usuários autorizados poderão consultar os registros de auditoria.
+
+---
+
+23. Requisitos não funcionais
+
+RNF-001 — Segurança
+
+O sistema deverá aplicar mecanismos de autenticação, autorização e proteção das informações.
+
+RNF-002 — Controle de acesso
+
+O acesso deverá seguir o princípio do menor privilégio.
+
+RNF-003 — Senhas
+
+As senhas deverão ser armazenadas utilizando algoritmo seguro de hash.
+
+RNF-004 — HTTPS
+
+O ambiente de produção deverá utilizar HTTPS.
+
+RNF-005 — Auditoria
+
+Operações críticas deverão ser auditáveis.
+
+RNF-006 — LGPD
+
+O sistema deverá considerar os princípios aplicáveis da LGPD, especialmente:
+
+- finalidade;
+- necessidade;
+- segurança;
+- transparência;
+- controle de acesso;
+- retenção adequada;
+- proteção de dados pessoais.
+
+RNF-007 — Privacidade
+
+Informações relacionadas aos alunos deverão ser acessíveis somente por usuários autorizados.
+
+RNF-008 — Performance
+
+Consultas de histórico e dashboards deverão ser otimizadas para grandes volumes de registros.
+
+RNF-009 — Escalabilidade
+
+A arquitetura deverá permitir crescimento da quantidade de:
+
+- escolas;
+- usuários;
+- alunos;
+- observações;
+- relatórios.
+
+RNF-010 — Disponibilidade
+
+O sistema deverá possuir mecanismos adequados de recuperação e backup.
+
+RNF-011 — Usabilidade
+
+As principais operações deverão possuir interface simples e objetiva.
+
+RNF-012 — Responsividade
+
+A aplicação deverá funcionar adequadamente em:
+
+- computadores;
+- tablets;
+- smartphones.
+
+RNF-013 — Acessibilidade
+
+A interface deverá seguir boas práticas de acessibilidade digital.
+
+RNF-014 — Manutenibilidade
+
+O código deverá seguir arquitetura organizada e padrões de desenvolvimento.
+
+RNF-015 — Testabilidade
+
+As principais regras de negócio deverão possuir testes automatizados.
+
+RNF-016 — Observabilidade
+
+O sistema deverá possuir mecanismos para acompanhamento de erros e eventos importantes.
+
+---
+
+24. Regras de negócio
+
+RN-001 — Acesso autorizado
+
+Usuário somente poderá acessar informações para as quais possua autorização.
+
+RN-002 — Associação escolar
+
+Usuários deverão estar vinculados à instituição correspondente.
+
+RN-003 — Associação de aluno
+
+Cada aluno deverá possuir vínculo com uma turma ativa ou histórico de turma.
+
+RN-004 — Observação obrigatória
+
+Toda observação deverá possuir, no mínimo:
+
+- aluno;
+- autor;
+- data/hora;
+- contexto;
+- evento;
+- resultado ou informação equivalente definida pelo domínio.
+
+RN-005 — Histórico
+
+Registros não deverão ser fisicamente excluídos sem regra específica e autorização.
+
+RN-006 — Auditoria
+
+Alterações relevantes deverão permanecer rastreáveis.
+
+RN-007 — Responsável
+
+Um aluno poderá possuir um ou mais responsáveis.
+
+RN-008 — Comunicação
+
+A comunicação deverá utilizar somente canais autorizados.
+
+RN-009 — Emergência
+
+Uma comunicação emergencial deverá ser identificada como tal no histórico.
+
+RN-010 — Confirmação
+
+O envio emergencial deverá possuir confirmação explícita antes do disparo.
+
+RN-011 — Falha de comunicação
+
+Falha em um canal não deverá apagar o registro da tentativa.
+
+RN-012 — Dados sensíveis
+
+O sistema deverá evitar exposição desnecessária de informações pessoais em mensagens.
+
+RN-013 — Relatórios
+
+Relatórios deverão respeitar as mesmas regras de autorização aplicadas à consulta dos dados.
+
+RN-014 — Comparação
+
+Comparações deverão utilizar períodos claramente definidos.
+
+RN-015 — Percentual
+
+Variações percentuais somente deverão ser apresentadas quando o cálculo for matematicamente aplicável.
+
+---
+
+25. Requisitos específicos dos relatórios
+
+O módulo de relatórios deverá possuir arquitetura própria.
+
+Relatórios
+│
+├── Semanal
+│
+├── Mensal
+│
+├── Anual
+│
+├── Personalizado
+│
+└── Comparativo
+
+Cada relatório poderá conter:
+
+Cabeçalho
+    ↓
+Período analisado
+    ↓
+Resumo dos indicadores
+    ↓
+Gráficos
+    ↓
+Detalhamento
+    ↓
+Comparativos
+    ↓
+Observações
+    ↓
+Rodapé / data de geração
+
+---
+
+26. Requisitos específicos de gráficos
+
+Os gráficos deverão ser derivados dos registros efetivamente existentes.
+
+Exemplos:
+
+Evolução temporal
+
+Quantidade de apontamentos por semana ou mês.
+
+Distribuição por evento
+
+Quantidade de registros por tipo de evento.
+
+Distribuição por intensidade
+
+Distribuição das ocorrências por intensidade.
+
+Contextos
+
+Comparação entre os contextos em que ocorreram os registros.
+
+Estratégias
+
+Quantidade de utilização das estratégias registradas.
+
+Resultados
+
+Distribuição dos resultados observados.
+
+Comparativo
+
+Representação visual de dois períodos.
+
+---
+
+27. Requisitos de comunicação
+
+A comunicação deverá ser implementada de maneira desacoplada.
+
+Conceitualmente:
+
+IncluiEdu
+   │
+   ▼
+Serviço de Comunicação
+   │
+   ├── E-mail
+   │
+   └── WhatsApp
+
+Isso permitirá futuramente adicionar outros canais sem modificar a regra principal do sistema.
+
+Exemplo:
+
+CommunicationService
+        │
+        ├── EmailChannel
+        │
+        └── WhatsAppChannel
+
+A implementação concreta poderá utilizar serviços externos apropriados, mantendo a aplicação independente do fornecedor.
+
+---
+
+28. Segurança da comunicação
+
+Para comunicações emergenciais:
+
+1. O usuário deverá estar autenticado.
+2. O usuário deverá possuir permissão.
+3. O aluno deverá estar dentro do escopo de acesso do usuário.
+4. O responsável deverá estar associado ao aluno.
+5. O canal deverá estar autorizado.
+6. O destinatário deverá ser confirmado.
+7. O envio deverá ser registrado.
+8. O resultado deverá ser armazenado.
+9. O conteúdo deverá evitar informações desnecessárias.
+10. O evento deverá ser auditável.
+
+---
+
+29. Casos de uso principais
+
+A partir dos requisitos, os principais casos de uso serão:
+
+ID| Caso de Uso
+UC-001| Autenticar usuário
+UC-002| Gerenciar usuários
+UC-003| Gerenciar perfis
+UC-004| Gerenciar permissões
+UC-005| Gerenciar escolas
+UC-006| Gerenciar turmas
+UC-007| Gerenciar alunos
+UC-008| Gerenciar responsáveis
+UC-009| Registrar observação
+UC-010| Consultar histórico
+UC-011| Consultar dashboard
+UC-012| Gerar relatório
+UC-013| Exportar relatório PDF
+UC-014| Comparar períodos
+UC-015| Enviar comunicação
+UC-016| Acionar comunicação emergencial
+UC-017| Consultar histórico de comunicações
+UC-018| Consultar auditoria
+
+---
+
+30. Matriz inicial de permissões
+
+Funcionalidade| Admin| Professor| Apoio| Responsável| Externo| Auditor
+Usuários| C/R/U/D| -| -| -| -| R
+Escolas| C/R/U/D| R| R| -| -| R
+Turmas| C/R/U/D| R| R| -| -| R
+Alunos| C/R/U/D| R| R| R*| R*| R
+Observações| R/U| C/R| C/R| R*| R*| R
+Dashboard| R| R| R| R*| R*| R
+Relatórios| R| R| R| R*| R*| R
+Auditoria| R| -| -| -| -| R
+Comunicação| C/R| C/R*| C/R*| R*| -| R
+Emergência| C| C*| C*| -| -| R
+
+Legenda:
+
+- C = Criar
+- R = Consultar
+- U = Atualizar
+- D = Excluir/inativar
+- * = condicionado à autorização e escopo do usuário
+
+Esta matriz será refinada durante a elaboração dos Casos de Uso e do modelo de autorização.
+
+---
+
+31. Requisitos de rastreabilidade
+
+Cada requisito deverá ser rastreável até:
+
+Requisito
+   ↓
+Caso de Uso
+   ↓
+Regra de Negócio
+   ↓
+Entidade
+   ↓
+Implementação
+   ↓
+Teste
+
+Exemplo:
+
+RF-079
+Acionar comunicação emergencial
+        ↓
+UC-016
+Comunicação emergencial
+        ↓
+RN-009
+Identificar comunicação como emergência
+        ↓
+Entidades:
+comunicacoes
+alunos
+responsaveis
+usuarios
+        ↓
+Service:
+CommunicationService
+        ↓
+Testes:
+CommunicationEmergencyTest
+
+---
+
+32. Requisitos de auditoria para relatórios
+
+Como os relatórios podem conter informações relacionadas aos alunos, a geração deverá ser auditável.
+
+Registrar:
+
+- usuário;
+- aluno, quando aplicável;
+- tipo de relatório;
+- período;
+- filtros;
+- data/hora;
+- formato;
+- resultado da geração.
+
+Exemplo:
+
+RELATÓRIO MENSAL
+Aluno: XXXXX
+Período: 01/08/2026 - 31/08/2026
+Gerado por: usuário autorizado
+Data: 31/08/2026 16:30
+Formato: PDF
+
+---
+
+33. Requisitos de arquitetura derivados
+
+A Engenharia de Requisitos indica que a aplicação deverá possuir pelo menos os seguintes componentes:
+
+Autenticação
+        │
+        ▼
+Autorização
+        │
+        ▼
+Gestão Escolar
+        │
+        ├── Escolas
+        ├── Turmas
+        ├── Usuários
+        └── Perfis
+                │
+                ▼
+           Gestão de Alunos
+                │
+                ├── Responsáveis
+                └── Profissionais
+                        │
+                        ▼
+                  Observações
+                        │
+          ┌─────────────┼─────────────┐
+          ▼             ▼             ▼
+      Histórico      Dashboard    Relatórios
+                                      │
+                              ┌───────┴───────┐
+                              ▼               ▼
+                             PDF          Comparativos
+                                             
+                        Comunicação
+                             │
+                    ┌────────┴────────┐
+                    ▼                 ▼
+                  E-mail           WhatsApp
+
+---
+
+34. Prioridade dos requisitos
+
+Alta prioridade — MVP
+
+- RF-001 a RF-014
+- RF-015 a RF-026
+- RF-031 a RF-049
+- RF-050 a RF-059
+- RF-087 a RF-092
+
+Média prioridade
+
+- RF-060 a RF-073
+- RF-074 a RF-078
+- RF-086
+
+Evolução
+
+- Integrações adicionais;
+- analytics avançado;
+- automações;
+- novos canais de comunicação;
+- recursos avançados de indicadores;
+- integrações externas.
+
+---
+
+35. MVP recomendado
+
+A primeira versão funcional deverá concentrar-se em:
+
+1. Login
+2. Usuários
+3. Perfis
+4. Escolas
+5. Turmas
+6. Alunos
+7. Responsáveis
+8. Registro de observações
+9. Histórico
+10. Dashboard básico
+11. Relatório semanal
+12. Relatório mensal
+13. Relatório anual
+14. PDF
+15. Auditoria
+
+A comunicação emergencial poderá entrar logo após o núcleo de registros estar estável, pois envolve integração externa, autorização, segurança e rastreabilidade.
+
+---
+
+36. Critérios gerais de aceite
+
+O sistema será considerado funcional quando:
+
+- usuários conseguirem autenticar;
+- permissões forem respeitadas;
+- alunos puderem ser cadastrados;
+- responsáveis puderem ser associados;
+- observações puderem ser registradas;
+- histórico puder ser consultado;
+- filtros funcionarem;
+- indicadores forem calculados;
+- gráficos forem apresentados;
+- relatórios puderem ser gerados;
+- relatórios puderem ser exportados para PDF;
+- períodos puderem ser comparados;
+- comunicações puderem ser registradas;
+- comunicações emergenciais puderem ser auditadas;
+- operações críticas forem registradas;
+- testes automatizados cobrirem as principais regras de negócio.
+
+---
+
+37. Evolução da documentação
+
+Após este documento, a sequência recomendada será:
+
+FASE 1 — Engenharia de Requisitos
+        ✓
+
+        ↓
+
+FASE 2 — Casos de Uso
+
+        ↓
+
+FASE 3 — Regras de Negócio
+
+        ↓
+
+FASE 4 — Matriz de Responsabilidades
+
+        ↓
+
+FASE 5 — Arquitetura Laravel
+
+        ↓
+
+FASE 6 — Modelo Conceitual de Dados
+
+        ↓
+
+FASE 7 — Modelo Lógico
+
+        ↓
+
+FASE 8 — DER
+
+        ↓
+
+FASE 9 — PostgreSQL
+
+        ↓
+
+FASE 10 — Laravel Migrations / Eloquent
+
+        ↓
+
+FASE 11 — Segurança / LGPD
+
+        ↓
+
+FASE 12 — Desenvolvimento
+
+        ↓
+
+FASE 13 — Testes
+
+        ↓
+
+FASE 14 — Docker / CI/CD
+
+        ↓
+
+FASE 15 — Deploy
+
+---
+
+38. Observação arquitetural importante
+
+Os requisitos de relatórios PDF, gráficos, comparativos e comunicação emergencial mudam significativamente a importância de algumas entidades que inicialmente poderiam parecer secundárias.
+
+O modelo de dados deverá prever desde o início:
+
+- histórico de observações;
+- parâmetros de classificação;
+- períodos;
+- indicadores;
+- relatórios gerados;
+- comunicações;
+- destinatários;
+- canais;
+- status de envio;
+- auditoria.
+
+Não devemos adicionar essas estruturas somente depois que o banco estiver pronto.
+
+Conclusão: os requisitos de relatórios e comunicação passam a fazer parte da arquitetura principal do IncluiEdu e deverão ser considerados antes da criação das migrations do Laravel.
