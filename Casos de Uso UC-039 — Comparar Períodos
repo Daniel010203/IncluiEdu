@@ -1,0 +1,1361 @@
+Perfeito. Vamos avançar mantendo o mesmo padrão de especificação.
+
+FASE 2 — CASOS DE USO
+
+UC-039 — Comparar Períodos
+
+Código: UC-039
+Nome: Comparar Períodos
+Versão: 1.0
+Status: Em especificação
+Prioridade: Alta
+Módulo: Indicadores e Análise Comparativa
+
+Este caso de uso é especialmente importante porque será a base dos comparativos que posteriormente aparecerão nos relatórios PDF semanais, mensais e anuais.
+
+
+---
+
+1. Objetivo
+
+Permitir que usuários autorizados comparem indicadores e registros de acompanhamento entre dois ou mais períodos, identificando:
+
+diferenças quantitativas;
+
+variações percentuais;
+
+crescimento;
+
+redução;
+
+estabilidade;
+
+alterações na distribuição;
+
+diferenças entre categorias;
+
+diferenças entre contextos;
+
+diferenças entre períodos equivalentes.
+
+
+O sistema deverá apresentar os resultados de forma objetiva, visual e rastreável.
+
+
+---
+
+2. Exemplo de utilização
+
+O profissional poderá solicitar:
+
+> Comparar agosto de 2026 com julho de 2026.
+
+
+
+O sistema poderá apresentar:
+
+JULHO     AGOSTO
+
+Observações           40         30
+Variação                         -25%
+
+Categoria A           20         12
+Variação                         -40%
+
+Categoria B           10         11
+Variação                         +10%
+
+Categoria C           10          7
+Variação                         -30%
+
+E apresentar um gráfico comparativo.
+
+
+---
+
+3. Princípio fundamental
+
+O sistema deverá diferenciar:
+
+Comparação
+
+> "Agosto apresentou 25% menos registros que julho."
+
+
+
+de:
+
+Interpretação
+
+> "O aluno apresentou melhora."
+
+
+
+A primeira é uma informação quantitativa.
+
+A segunda é uma interpretação que não deverá ser gerada automaticamente pelo sistema.
+
+
+---
+
+4. Atores
+
+Ator principal
+
+ACT-002 — Professor
+
+Atores secundários
+
+ACT-001 — Administrador
+
+ACT-003 — Profissional de Apoio
+
+ACT-006 — Auditor
+
+ACT-009 — Sistema
+
+
+---
+
+5. Pré-condições
+
+1. Usuário autenticado.
+
+
+2. Usuário ativo.
+
+
+3. Usuário autorizado.
+
+
+4. Dados disponíveis para os períodos selecionados.
+
+
+5. Indicador selecionado.
+
+
+6. Períodos válidos.
+
+
+
+
+---
+
+6. Gatilho
+
+O usuário acessa:
+
+Dashboard
+   ↓
+Indicadores
+   ↓
+Comparar Períodos
+
+Também poderá acessar:
+
+Aluno
+   ↓
+Indicadores
+   ↓
+Comparação
+
+ou:
+
+Relatórios
+   ↓
+Comparativos
+
+
+---
+
+7. Tipos de comparação
+
+O sistema deverá suportar inicialmente:
+
+CP-001 — Período atual × período anterior
+
+Exemplo:
+
+Agosto × Julho
+
+
+---
+
+CP-002 — Semana × semana
+
+Exemplo:
+
+Semana 32 × Semana 31
+
+
+---
+
+CP-003 — Mês × mês
+
+Exemplo:
+
+Agosto × Julho
+
+
+---
+
+CP-004 — Ano × ano
+
+Exemplo:
+
+2026 × 2025
+
+
+---
+
+CP-005 — Períodos personalizados
+
+Exemplo:
+
+01/06/2026 → 30/06/2026
+
+×
+
+01/07/2026 → 31/07/2026
+
+
+---
+
+CP-006 — Mesmo período de anos diferentes
+
+Exemplo:
+
+01/08/2025 → 31/08/2025
+
+×
+
+01/08/2026 → 31/08/2026
+
+Essa modalidade será muito útil para relatórios anuais.
+
+
+---
+
+8. Comparação por aluno
+
+Exemplo:
+
+Aluno: selecionado
+
+Período A:
+01/07 → 31/07
+
+Período B:
+01/08 → 31/08
+
+Resultado:
+
+Julho       35
+Agosto      27
+
+Variação:
+-22,86%
+
+
+---
+
+9. Comparação por turma
+
+O sistema poderá comparar indicadores agregados de uma turma.
+
+Exemplo:
+
+Turma A
+
+Julho      120 registros
+Agosto      95 registros
+
+Variação:
+-20,83%
+
+
+---
+
+10. Comparação por categoria
+
+Exemplo:
+
+Categoria	Julho	Agosto	Variação
+
+Comunicação	20	15	-25%
+Interação	30	33	+10%
+Participação	25	20	-20%
+
+
+
+---
+
+11. Comparação por intensidade
+
+O sistema poderá comparar:
+
+JULHO    AGOSTO
+
+Baixa          50%      60%
+Moderada       35%      30%
+Alta           15%      10%
+
+Isso permite observar alterações na composição dos registros.
+
+
+---
+
+12. Comparação por contexto
+
+Exemplo:
+
+Contexto              Julho    Agosto
+
+Sala de aula            40       25
+Recreio                 20       18
+Atividade externa       10       12
+
+O sistema poderá apresentar as diferenças absolutas e percentuais.
+
+
+---
+
+13. Comparação por estratégia
+
+Exemplo:
+
+Estratégia A
+
+Julho = 10
+Agosto = 15
+
+Variação = +50%
+
+O sistema deverá apresentar o dado sem concluir automaticamente sobre a eficácia da estratégia.
+
+
+---
+
+14. Comparação por resultado
+
+Também poderá comparar resultados registrados.
+
+Resultado X
+
+Período A = 15
+Período B = 21
+
+Variação = +40%
+
+
+---
+
+15. Fluxo principal
+
+FP-01 — Selecionar objeto da comparação
+
+1. Usuário acessa a funcionalidade.
+
+
+2. Sistema apresenta os indicadores disponíveis.
+
+
+3. Usuário seleciona o indicador.
+
+
+
+
+---
+
+FP-02 — Selecionar escopo
+
+4. Usuário seleciona:
+
+
+
+aluno;
+
+turma;
+
+grupo;
+
+período autorizado.
+
+
+
+---
+
+FP-03 — Selecionar períodos
+
+5. Usuário informa o primeiro período.
+
+
+6. Usuário informa o segundo período.
+
+
+7. Sistema valida as datas.
+
+
+
+
+---
+
+FP-04 — Processar dados
+
+8. Sistema consulta os registros.
+
+
+9. Sistema agrega os dados.
+
+
+10. Sistema calcula valores.
+
+
+11. Sistema calcula diferenças.
+
+
+12. Sistema calcula variações percentuais.
+
+
+
+
+---
+
+FP-05 — Apresentar resultado
+
+13. Sistema apresenta tabela comparativa.
+
+
+14. Sistema apresenta gráfico.
+
+
+15. Sistema apresenta variações.
+
+
+16. Sistema apresenta observações metodológicas.
+
+
+
+
+---
+
+16. Fórmula de variação
+
+A fórmula padrão será:
+
+Variação (%) =
+((Valor B - Valor A) / Valor A) × 100
+
+Exemplo:
+
+A = 40
+B = 30
+
+((30 - 40) / 40) × 100
+
+= -25%
+
+Resultado:
+
+> Redução de 25%.
+
+
+
+
+---
+
+17. Diferença absoluta
+
+Além do percentual, o sistema deverá apresentar a diferença absoluta.
+
+Diferença =
+Valor B - Valor A
+
+Exemplo:
+
+40 → 30
+
+Diferença = -10
+
+Assim:
+
+Período A: 40
+Período B: 30
+Diferença: -10
+Variação: -25%
+
+
+---
+
+18. Problema do valor zero
+
+Precisamos tratar:
+
+Período A = 0
+Período B = 10
+
+Não podemos simplesmente calcular:
+
+(10 - 0) / 0
+
+Portanto, o sistema deverá apresentar algo como:
+
+> Variação percentual não calculável devido ao valor inicial igual a zero.
+
+
+
+Mas poderá apresentar:
+
+Diferença absoluta: +10
+
+
+---
+
+19. Dois períodos iguais
+
+Exemplo:
+
+A = 20
+B = 20
+
+Resultado:
+
+Diferença = 0
+Variação = 0%
+
+Classificação:
+
+> Sem alteração quantitativa.
+
+
+
+
+---
+
+20. Período A maior que B
+
+A = 50
+B = 30
+
+Resultado:
+
+Diferença = -20
+Variação = -40%
+
+Classificação:
+
+> Redução quantitativa.
+
+
+
+
+---
+
+21. Período B maior que A
+
+A = 30
+B = 45
+
+Resultado:
+
+Diferença = +15
+Variação = +50%
+
+Classificação:
+
+> Aumento quantitativo.
+
+
+
+
+---
+
+22. Comparação de períodos de tamanhos diferentes
+
+Este é um ponto importante.
+
+Imagine:
+
+Período A = 7 dias
+Período B = 31 dias
+
+Comparar simplesmente:
+
+100 registros × 300 registros
+
+pode produzir uma interpretação enganosa.
+
+Por isso, o sistema deverá verificar a equivalência temporal.
+
+
+---
+
+23. Normalização
+
+Quando os períodos possuírem durações diferentes, poderemos apresentar:
+
+Total
+
+Período A = 100
+Período B = 300
+
+Média diária
+
+A = 100 / 7 = 14,29
+
+B = 300 / 31 = 9,68
+
+Isso permite uma comparação mais justa.
+
+
+---
+
+24. Regra de normalização
+
+Quando os períodos forem diferentes, o sistema deverá:
+
+1. informar que possuem durações diferentes;
+
+
+2. apresentar os totais;
+
+
+3. disponibilizar média por unidade temporal;
+
+
+4. evitar apresentar somente a variação bruta como se os períodos fossem equivalentes.
+
+
+
+
+---
+
+25. Comparação semanal
+
+Exemplo:
+
+Semana 30
+12 registros
+
+Semana 31
+18 registros
+
+Resultado:
+
+Diferença: +6
+Variação: +50%
+
+
+---
+
+26. Comparação mensal
+
+Julho
+120 registros
+
+Agosto
+95 registros
+
+Resultado:
+
+Diferença: -25
+Variação: -20,83%
+
+
+---
+
+27. Comparação anual
+
+2025
+1.200 registros
+
+2026
+1.450 registros
+
+Resultado:
+
+Diferença: +250
+Variação: +20,83%
+
+
+---
+
+28. Comparação ano contra ano
+
+Uma comparação muito útil:
+
+Agosto/2025
+       ×
+Agosto/2026
+
+Isso evita comparar períodos sazonais diferentes.
+
+
+---
+
+29. Comparação múltipla
+
+Embora o nome seja "Comparar Períodos", podemos permitir futuramente:
+
+Julho
+Agosto
+Setembro
+Outubro
+
+para análise simultânea.
+
+Entretanto, recomendo que a primeira versão trabalhe com dois períodos.
+
+Posteriormente:
+
+UC-039.1 — Comparação múltipla
+
+poderá ser criado se necessário.
+
+
+---
+
+30. Gráficos
+
+A funcionalidade deverá produzir gráficos.
+
+Gráfico de barras
+
+████
+        ████
+        ████
+████    ████
+████    ████
+────    ────
+ Julho  Agosto
+
+Gráfico de linhas
+
+Especialmente útil quando houver evolução temporal.
+
+Gráfico de composição
+
+Para:
+
+intensidade;
+
+categorias;
+
+contextos.
+
+
+
+---
+
+31. Tabela comparativa
+
+Exemplo:
+
+Indicador	Período A	Período B	Diferença	Variação
+
+Observações	40	30	-10	-25%
+Categoria A	20	12	-8	-40%
+Categoria B	10	15	+5	+50%
+Categoria C	10	3	-7	-70%
+
+
+
+---
+
+32. Dashboard
+
+Poderemos ter:
+
+┌──────────────────────────────────────────────┐
+│ COMPARATIVO                                  │
+├──────────────────────────────────────────────┤
+│                                              │
+│ Julho             Agosto                     │
+│                                              │
+│ 40                30                         │
+│                                              │
+│ Diferença: -10                               │
+│ Variação: -25%                               │
+│                                              │
+│       ████                                   │
+│ ████ ████                                    │
+│ Julho Agosto                                 │
+│                                              │
+└──────────────────────────────────────────────┘
+
+
+---
+
+33. Comparação visual de categorias
+
+Categoria A
+
+Julho   ████████████████████ 20
+Agosto  ████████████         12
+
+
+Categoria B
+
+Julho   ██████████           10
+Agosto  ███████████████      15
+
+
+---
+
+34. Filtros
+
+O usuário poderá filtrar:
+
+aluno;
+
+turma;
+
+categoria;
+
+intensidade;
+
+contexto;
+
+estratégia;
+
+resultado;
+
+indicador;
+
+período;
+
+granularidade.
+
+
+
+---
+
+35. Exportação
+
+Este UC deverá alimentar futuramente:
+
+UC-044 — Gerar Relatório Semanal
+UC-045 — Gerar Relatório Mensal
+UC-046 — Gerar Relatório Anual
+UC-048 — Gerar Relatório Comparativo
+UC-049 — Exportar Relatório PDF
+
+A arquitetura deverá permitir reutilizar os mesmos dados.
+
+
+---
+
+36. PDF comparativo
+
+Exemplo:
+
+INCLUIEDU
+RELATÓRIO COMPARATIVO
+
+Aluno: [identificação conforme permissão]
+
+Período A:
+01/07/2026 → 31/07/2026
+
+Período B:
+01/08/2026 → 31/08/2026
+
+──────────────────────────
+
+TOTAL DE REGISTROS
+
+Julho       40
+Agosto      30
+
+Diferença   -10
+Variação    -25%
+
+[GRÁFICO]
+
+──────────────────────────
+
+CATEGORIAS
+
+[GRÁFICO]
+
+──────────────────────────
+
+OBSERVAÇÃO METODOLÓGICA
+
+Os dados representam registros realizados
+no sistema e não constituem diagnóstico ou
+conclusão automática sobre o aluno.
+
+
+---
+
+37. Regras de negócio
+
+RN-CMP-001 — Autorização
+
+Somente usuários autorizados poderão realizar comparações.
+
+
+---
+
+RN-CMP-002 — Escopo
+
+Os dados deverão respeitar o escopo de acesso do usuário.
+
+
+---
+
+RN-CMP-003 — Períodos
+
+Os períodos deverão possuir datas válidas.
+
+
+---
+
+RN-CMP-004 — Períodos sobrepostos
+
+O sistema deverá informar quando os períodos selecionados apresentarem sobreposição.
+
+
+---
+
+RN-CMP-005 — Valor zero
+
+Quando o valor inicial for zero, a variação percentual deverá ser marcada como não calculável.
+
+
+---
+
+RN-CMP-006 — Diferença absoluta
+
+A diferença absoluta deverá ser calculada sempre que os valores forem válidos.
+
+
+---
+
+RN-CMP-007 — Períodos diferentes
+
+Quando os períodos possuírem durações diferentes, o sistema deverá sinalizar essa condição.
+
+
+---
+
+RN-CMP-008 — Normalização
+
+Quando aplicável, o sistema deverá permitir comparação normalizada por:
+
+dia;
+
+semana;
+
+mês.
+
+
+
+---
+
+RN-CMP-009 — Neutralidade
+
+O resultado deverá utilizar linguagem quantitativa.
+
+
+---
+
+RN-CMP-010 — Rastreabilidade
+
+Os valores apresentados deverão poder ser rastreados até os registros utilizados no cálculo.
+
+
+---
+
+RN-CMP-011 — Data de ocorrência
+
+Os cálculos deverão considerar a data de ocorrência definida para o registro.
+
+
+---
+
+RN-CMP-012 — Arredondamento
+
+Percentuais deverão utilizar o padrão definido globalmente pelo sistema.
+
+
+---
+
+38. Exceções
+
+EX-001 — Nenhum dado
+
+Período A: sem registros
+Período B: sem registros
+
+Resultado:
+
+> Não existem dados suficientes para realizar a comparação.
+
+
+
+
+---
+
+EX-002 — Apenas um período possui dados
+
+Período A: 0
+Período B: 20
+
+Resultado:
+
+> Existem registros somente no período B.
+
+
+
+O percentual não deverá ser calculado.
+
+
+---
+
+EX-003 — Dados insuficientes
+
+O sistema deverá informar:
+
+> Dados insuficientes para comparação.
+
+
+
+
+---
+
+EX-004 — Usuário sem permissão
+
+A operação deverá ser bloqueada.
+
+
+---
+
+39. Critérios de aceite
+
+CA-001 — Comparação básica
+
+Dado que existem dados nos dois períodos,
+quando o usuário executar a comparação,
+então o sistema deverá apresentar os valores dos dois períodos.
+
+
+---
+
+CA-002 — Diferença
+
+Dado que existam dois valores válidos,
+quando a comparação for executada,
+então o sistema deverá calcular a diferença absoluta.
+
+
+---
+
+CA-003 — Percentual
+
+Dado que o valor inicial seja diferente de zero,
+quando a comparação for executada,
+então o sistema deverá calcular a variação percentual.
+
+
+---
+
+CA-004 — Zero
+
+Dado que o valor inicial seja zero,
+quando a comparação for executada,
+então o sistema não deverá apresentar uma divisão por zero.
+
+
+---
+
+CA-005 — Gráfico
+
+Dado que existam dados comparáveis,
+quando o usuário consultar o resultado,
+então o sistema deverá apresentar representação gráfica adequada.
+
+
+---
+
+CA-006 — Períodos diferentes
+
+Dado que os períodos possuam durações diferentes,
+quando a comparação for executada,
+então o sistema deverá informar essa diferença.
+
+
+---
+
+CA-007 — Controle de acesso
+
+Dado que o usuário não tenha acesso aos dados,
+quando solicitar a comparação,
+então o sistema deverá impedir a operação.
+
+
+---
+
+CA-008 — PDF
+
+Dado que uma comparação válida tenha sido realizada,
+quando o usuário solicitar exportação,
+então o resultado deverá estar disponível para geração de relatório PDF.
+
+
+---
+
+40. Arquitetura conceitual
+
+O UC-039 ficará no centro da camada analítica:
+
+REGISTROS
+                       │
+                       ▼
+                 INDICADORES
+                 UC-034
+                       │
+             ┌─────────┼─────────┐
+             ▼         ▼         ▼
+          UC-035     UC-036    UC-037
+        Evolução   Distribuição Tendências
+             │         │         │
+             └─────────┼─────────┘
+                       ▼
+                  UC-039
+             COMPARAR PERÍODOS
+                       │
+          ┌────────────┼─────────────┐
+          ▼            ▼             ▼
+      Dashboard     Relatórios      PDF
+
+
+---
+
+41. Arquitetura Laravel futura
+
+A camada poderá seguir:
+
+app/
+├── Http/
+│   └── Controllers/
+│       └── ComparacaoController.php
+│
+├── Services/
+│   └── ComparacaoService.php
+│
+├── DTOs/
+│   └── ComparacaoPeriodoDTO.php
+│
+└── Queries/
+    └── IndicadorComparacaoQuery.php
+
+Conceitualmente:
+
+Controller
+     ↓
+ComparacaoService
+     ↓
+IndicadorService
+     ↓
+Query
+     ↓
+PostgreSQL
+
+
+---
+
+42. Preparação para relatórios
+
+Esse ponto é muito importante para o projeto.
+
+Não devemos implementar o PDF como uma funcionalidade isolada.
+
+O ideal é:
+
+DADOS
+                   ↓
+              INDICADORES
+                   ↓
+             SERVIÇO ANALÍTICO
+                   ↓
+        ┌──────────┼──────────┐
+        ▼          ▼          ▼
+    Dashboard   Comparação   Tendência
+                   │
+                   ▼
+             ReportService
+                   │
+             ┌─────┴─────┐
+             ▼           ▼
+           HTML          PDF
+
+Assim, os mesmos dados utilizados no dashboard serão utilizados nos relatórios.
+
+Isso reduz duplicidade de código e inconsistências.
+
+
+---
+
+43. Preparação para relatórios semanais, mensais e anuais
+
+O UC-039 deverá ser capaz de fornecer dados para:
+
+SEMANA
+   ↓
+Semana atual × semana anterior
+
+MÊS
+   ↓
+Mês atual × mês anterior
+
+ANO
+   ↓
+Ano atual × ano anterior
+
+E também:
+
+2026
+ ↓
+Janeiro
+Fevereiro
+Março
+Abril
+...
+Agosto
+
+permitindo a construção de gráficos anuais.
+
+
+---
+
+44. Preparação para IA
+
+No futuro, poderemos utilizar IA para auxiliar na interpretação textual dos indicadores, mas a arquitetura deverá separar:
+
+Dados reais
+     ↓
+Cálculos determinísticos
+     ↓
+Comparações
+     ↓
+Tendências
+     ↓
+IA (opcional)
+     ↓
+Resumo textual
+
+A IA nunca deverá ser responsável pelo cálculo dos indicadores.
+
+
+---
+
+45. Auditoria
+
+O sistema deverá registrar:
+
+COMPARACAO_REALIZADA
+
+Usuário
+Data/hora
+Aluno/Turma
+Indicador
+Período A
+Período B
+Filtros
+Valores
+Resultado
+
+Isso será importante para rastreabilidade e governança.
+
+
+---
+
+46. Segurança e privacidade
+
+Como os dados podem estar associados a alunos, a comparação deverá respeitar:
+
+controle de acesso;
+
+princípio do menor privilégio;
+
+escopo do usuário;
+
+proteção de dados;
+
+logs de acesso;
+
+LGPD;
+
+minimização de exposição.
+
+
+Principalmente quando o resultado for exportado em PDF.
+
+
+---
+
+47. Resumo do UC-039
+
+┌──────────────────────────────────────────────┐
+│       UC-039 — COMPARAR PERÍODOS            │
+├──────────────────────────────────────────────┤
+│                                              │
+│ Objetivo:                                    │
+│ Comparar indicadores entre períodos.         │
+│                                              │
+│ Comparações:                                 │
+│ • Semana × semana                            │
+│ • Mês × mês                                  │
+│ • Ano × ano                                  │
+│ • Períodos personalizados                    │
+│ • Mesmo período entre anos                   │
+│                                              │
+│ Resultados:                                  │
+│ • Valor A                                    │
+│ • Valor B                                    │
+│ • Diferença                                  │
+│ • Variação percentual                        │
+│ • Gráficos                                   │
+│                                              │
+│ Utilização:                                  │
+│ • Dashboard                                  │
+│ • Relatórios                                 │
+│ • PDF                                        │
+│ • Análise temporal                           │
+│                                              │
+│ Princípio:                                   │
+│ Comparação quantitativa ≠ diagnóstico.       │
+└──────────────────────────────────────────────┘
+
+✅ UC-039 — concluído
+
+A nossa camada de análise agora está ficando estruturada assim:
+
+UC-034 → CONSULTAR INDICADORES
+              │
+              ▼
+UC-035 → EVOLUÇÃO TEMPORAL
+              │
+              ▼
+UC-036 → DISTRIBUIÇÃO
+              │
+              ▼
+UC-037 → TENDÊNCIAS
+              │
+              ▼
+UC-038 → ALERTAS
+              │
+              ▼
+UC-039 → COMPARAR PERÍODOS
+              │
+              ├──────────────► DASHBOARD
+              │
+              ├──────────────► RELATÓRIOS
+              │
+              └──────────────► PDF
+
+Próximo caso: UC-040 — Configurar Indicadores.
+
+Esse próximo UC é importante porque começaremos a sair da consulta/análise e entrar na configuração administrativa dos indicadores e regras do sistema. Isso permitirá definir quais indicadores existem, quais categorias utilizam, como são calculados e quem pode visualizá-los.
