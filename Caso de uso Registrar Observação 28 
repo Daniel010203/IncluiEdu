@@ -1,0 +1,1127 @@
+
+
+FASE 2 — CASOS DE USO
+
+UC-028 — Registrar Observação
+
+Código: UC-028
+Nome: Registrar Observação
+Versão: 1.0
+Status: Em especificação
+Prioridade: Crítica
+Módulo: Acompanhamento Educacional
+
+
+---
+
+1. Objetivo
+
+Permitir que profissionais autorizados registrem observações relacionadas ao acompanhamento educacional de um aluno, documentando acontecimentos, comportamentos, contextos, estratégias utilizadas e resultados observados.
+
+Os registros deverão ser estruturados de forma que posteriormente possam alimentar:
+
+histórico do aluno;
+
+dashboard;
+
+indicadores;
+
+gráficos;
+
+relatórios semanais;
+
+relatórios mensais;
+
+relatórios anuais;
+
+comparativos entre períodos;
+
+comunicação com responsáveis, quando aplicável.
+
+
+
+---
+
+2. Atores
+
+Ator principal
+
+ACT-002 — Professor
+
+Responsável pelo registro das observações relacionadas ao aluno.
+
+Atores secundários
+
+ACT-003 — Profissional de Apoio
+
+Poderá registrar observações conforme suas permissões.
+
+ACT-001 — Administrador
+
+Poderá registrar ou corrigir informações quando possuir autorização.
+
+ACT-009 — Sistema
+
+Responsável pelas validações, armazenamento, classificação, auditoria e disponibilização dos dados.
+
+
+---
+
+3. Pré-condições
+
+Antes de registrar uma observação:
+
+1. Usuário deve estar autenticado.
+
+
+2. Usuário deve estar ativo.
+
+
+3. Usuário deve possuir permissão para registrar observações.
+
+
+4. O aluno deve existir.
+
+
+5. O aluno deve estar dentro do escopo de acesso do usuário.
+
+
+6. O aluno deverá estar ativo, salvo regra institucional específica.
+
+
+7. A data/hora do registro deverá ser válida.
+
+
+
+
+---
+
+4. Gatilho
+
+O usuário acessa:
+
+Acompanhamento → Aluno → Nova Observação
+
+ou, dependendo da interface:
+
+Aluno → Histórico → Registrar Observação
+
+O sistema apresenta o formulário.
+
+
+---
+
+5. Princípio fundamental do registro
+
+O IncluiEdu deverá diferenciar:
+
+Dado estruturado
+
+Informação que pode ser utilizada para indicadores.
+
+Exemplos:
+
+contexto;
+
+categoria;
+
+tipo de ocorrência;
+
+intensidade;
+
+duração;
+
+estratégia;
+
+resultado.
+
+
+Informação descritiva
+
+Informação qualitativa registrada pelo profissional.
+
+Exemplo:
+
+> Descrição da situação observada.
+
+
+
+Essa combinação permitirá posteriormente responder perguntas como:
+
+> Quantas ocorrências foram registradas?
+
+
+
+e também:
+
+> O que aconteceu e quais estratégias foram utilizadas?
+
+
+
+
+---
+
+6. Dados da observação
+
+O registro deverá considerar inicialmente os seguintes grupos.
+
+6.1 Identificação
+
+Aluno;
+
+Data;
+
+Hora;
+
+Usuário responsável pelo registro.
+
+
+
+---
+
+6.2 Contexto
+
+O usuário deverá indicar onde ou em qual situação a observação ocorreu.
+
+Exemplos:
+
+Sala de aula;
+
+Recreio;
+
+Educação física;
+
+Atividade pedagógica;
+
+Avaliação;
+
+Entrada;
+
+Saída;
+
+Transporte;
+
+Atividade externa;
+
+Outro.
+
+
+> A lista definitiva deverá ser configurável pela instituição, quando necessário.
+
+
+
+
+---
+
+7. Categoria da observação
+
+Para possibilitar indicadores, recomenda-se que o sistema permita categorizar a observação.
+
+Exemplo:
+
+Participação
+Comportamento
+Interação social
+Comunicação
+Atividade pedagógica
+Autonomia
+Regulação emocional
+Alimentação
+Rotina
+Outro
+
+Importante: essas categorias não devem ser consideradas diagnóstico clínico.
+
+Elas representam apenas categorias de acompanhamento educacional.
+
+
+---
+
+8. Tipo de ocorrência
+
+Dentro da categoria, poderá existir um tipo específico.
+
+Exemplo:
+
+Categoria:
+Participação
+
+Tipo:
+Participação em atividade
+
+ou:
+
+Categoria:
+Interação social
+
+Tipo:
+Interação com colegas
+
+A estrutura poderá evoluir posteriormente para:
+
+Categoria
+   ↓
+Tipo de ocorrência
+
+Isso será muito útil para os gráficos.
+
+
+---
+
+9. Intensidade
+
+Quando aplicável, o usuário poderá informar uma classificação de intensidade.
+
+Sugestão inicial:
+
+1 — Baixa
+2 — Moderada
+3 — Alta
+
+Importante
+
+A escala definitiva deverá ser validada com os responsáveis pedagógicos do projeto.
+
+Não devemos assumir que uma escala genérica será adequada para todas as situações.
+
+
+---
+
+10. Duração
+
+Quando a ocorrência possuir duração mensurável, o sistema poderá registrar:
+
+duração em minutos;
+
+duração aproximada;
+
+não informado.
+
+
+Exemplo:
+
+Duração:
+15 minutos
+
+Isso possibilitará futuramente indicadores como:
+
+> Tempo total registrado em determinada categoria durante o mês.
+
+
+
+
+---
+
+11. Estratégia utilizada
+
+O profissional poderá informar qual estratégia ou intervenção pedagógica foi utilizada.
+
+Exemplos:
+
+Orientação verbal;
+
+Redirecionamento;
+
+Apoio individual;
+
+Adaptação da atividade;
+
+Pausa;
+
+Mediação;
+
+Outra.
+
+
+A lista definitiva deverá ser validada durante a definição das regras de negócio.
+
+
+---
+
+12. Resultado observado
+
+O usuário poderá registrar o resultado da estratégia.
+
+Exemplo:
+
+Resultado:
+Melhora observada
+
+Possíveis classificações:
+
+Resolvido
+Melhora
+Parcialmente efetivo
+Sem alteração observada
+Necessita acompanhamento
+
+Novamente, a classificação definitiva deverá ser validada com os responsáveis pelo domínio educacional.
+
+
+---
+
+13. Descrição livre
+
+O sistema deverá disponibilizar um campo textual para que o profissional descreva a situação.
+
+Exemplo conceitual:
+
+> Descrever de maneira objetiva o contexto, comportamento observado, intervenção realizada e resultado.
+
+
+
+Esse campo não deverá substituir os dados estruturados.
+
+Ele deverá complementá-los.
+
+
+---
+
+14. Fluxo principal
+
+FP-01 — Selecionar aluno
+
+1. Usuário acessa o módulo de acompanhamento.
+
+
+2. Usuário localiza o aluno.
+
+
+3. Sistema valida o acesso do usuário.
+
+
+4. Usuário seleciona Registrar Observação.
+
+
+
+
+---
+
+FP-02 — Informar contexto
+
+5. Sistema apresenta o formulário.
+
+
+6. Usuário confirma a data.
+
+
+7. Usuário informa a hora.
+
+
+8. Usuário seleciona o contexto.
+
+
+9. Usuário seleciona a categoria.
+
+
+10. Usuário seleciona o tipo de ocorrência, quando aplicável.
+
+
+
+
+---
+
+FP-03 — Registrar ocorrência
+
+11. Usuário informa a intensidade, quando aplicável.
+
+
+12. Usuário informa a duração, quando aplicável.
+
+
+13. Usuário descreve a situação observada.
+
+
+14. Usuário informa a estratégia utilizada.
+
+
+15. Usuário informa o resultado observado.
+
+
+
+
+---
+
+FP-04 — Validar
+
+16. Sistema verifica os campos obrigatórios.
+
+
+17. Sistema valida a data.
+
+
+18. Sistema valida a hora.
+
+
+19. Sistema valida as classificações.
+
+
+20. Sistema verifica se o usuário possui acesso ao aluno.
+
+
+21. Sistema verifica a consistência das informações.
+
+
+
+
+---
+
+FP-05 — Persistir
+
+22. Sistema grava a observação.
+
+
+23. Sistema registra o usuário responsável.
+
+
+24. Sistema registra data/hora de criação.
+
+
+25. Sistema registra auditoria.
+
+
+
+
+---
+
+FP-06 — Finalizar
+
+26. Sistema apresenta confirmação.
+
+
+
+Exemplo:
+
+> Observação registrada com sucesso.
+
+
+
+27. Sistema disponibiliza a observação no histórico do aluno.
+
+
+
+Caso de uso encerrado.
+
+
+---
+
+15. Fluxo alternativo — Data diferente da atual
+
+O profissional poderá precisar registrar uma observação posteriormente.
+
+Exemplo:
+
+> Uma situação ocorreu ontem, mas o registro está sendo realizado hoje.
+
+
+
+Nesse caso:
+
+1. Usuário informa a data da ocorrência.
+
+
+2. Sistema permite o registro.
+
+
+3. Sistema registra separadamente:
+
+data da ocorrência;
+
+data/hora do registro.
+
+
+
+
+Isso é importante.
+
+Não devemos confundir:
+
+Quando aconteceu
+
+com:
+
+Quando foi registrado.
+
+
+---
+
+16. Fluxo alternativo — Duração não aplicável
+
+Algumas observações não possuirão duração mensurável.
+
+Nesse caso:
+
+Duração = Não aplicável
+
+O sistema não deverá obrigar o profissional a inventar uma duração.
+
+
+---
+
+17. Fluxo alternativo — Intensidade não aplicável
+
+Da mesma maneira, determinadas observações não necessitarão de classificação de intensidade.
+
+Nesse cenário:
+
+Intensidade = Não aplicável
+
+
+---
+
+18. Fluxo alternativo — Outra categoria
+
+Caso nenhuma categoria existente represente adequadamente a situação:
+
+1. Usuário seleciona Outro.
+
+
+2. Sistema disponibiliza campo complementar.
+
+
+3. Usuário descreve a categoria.
+
+
+4. Registro é salvo.
+
+
+
+Posteriormente, o administrador poderá avaliar se a nova categoria deve ser incorporada ao catálogo oficial.
+
+
+---
+
+19. Fluxo alternativo — Registro rápido
+
+Para tornar o sistema realmente utilizável no cotidiano escolar, recomendo futuramente um modo:
+
+Registro rápido
+
+Fluxo:
+
+Aluno
+ ↓
+Categoria
+ ↓
+Ocorrência
+ ↓
+Descrição
+ ↓
+Salvar
+
+Os demais campos poderão ser opcionais conforme as regras definidas.
+
+Isso evita que o sistema se torne burocrático demais para o professor.
+
+
+---
+
+20. Fluxos de exceção
+
+FE-01 — Usuário sem permissão
+
+1. Usuário tenta registrar observação.
+
+
+2. Sistema verifica autorização.
+
+
+3. Permissão negada.
+
+
+4. Sistema bloqueia a operação.
+
+
+5. Evento é registrado conforme política de auditoria.
+
+
+
+
+---
+
+FE-02 — Aluno inexistente
+
+O sistema não permite registrar uma observação sem um aluno válido.
+
+
+---
+
+FE-03 — Aluno fora do escopo
+
+Caso o usuário tente registrar observação para aluno ao qual não possui acesso:
+
+Acesso negado
+
+A operação não deverá ser realizada.
+
+
+---
+
+FE-04 — Campos obrigatórios ausentes
+
+Sistema impede o salvamento e apresenta os campos que precisam ser preenchidos.
+
+
+---
+
+FE-05 — Data inválida
+
+Exemplo:
+
+31/02/2026
+
+Sistema rejeita o registro.
+
+
+---
+
+FE-06 — Duração inválida
+
+Exemplo:
+
+-20 minutos
+
+Sistema rejeita o valor.
+
+
+---
+
+FE-07 — Falha de persistência
+
+Caso ocorra erro durante o armazenamento:
+
+1. Sistema não deverá apresentar falso sucesso.
+
+
+2. Registro deverá ser considerado não concluído.
+
+
+3. Usuário deverá ser informado.
+
+
+4. Erro deverá ser registrado tecnicamente.
+
+
+
+
+---
+
+21. Pós-condições
+
+Após o sucesso:
+
+observação armazenada;
+
+aluno associado;
+
+usuário responsável identificado;
+
+data da ocorrência registrada;
+
+data do registro registrada;
+
+classificação armazenada;
+
+descrição armazenada;
+
+histórico atualizado;
+
+auditoria registrada.
+
+
+
+---
+
+22. Regras de negócio preliminares
+
+Agora começamos a construir o conjunto de regras específico das observações.
+
+RN-OBS-001 — Usuário autorizado
+
+Somente usuários autenticados, ativos e autorizados poderão registrar observações.
+
+
+---
+
+RN-OBS-002 — Aluno válido
+
+Toda observação deverá estar vinculada a um aluno existente.
+
+
+---
+
+RN-OBS-003 — Escopo de acesso
+
+O usuário somente poderá registrar observações para alunos pertencentes ao seu escopo autorizado.
+
+
+---
+
+RN-OBS-004 — Autor do registro
+
+Toda observação deverá identificar o usuário que realizou o registro.
+
+
+---
+
+RN-OBS-005 — Data da ocorrência
+
+A data da ocorrência deverá ser armazenada separadamente da data/hora em que o registro foi criado.
+
+
+---
+
+RN-OBS-006 — Classificação
+
+Categorias e tipos de ocorrência deverão utilizar valores controlados pelo sistema.
+
+Isso permitirá consistência nos indicadores.
+
+
+---
+
+RN-OBS-007 — Campos opcionais
+
+Intensidade e duração deverão ser opcionais quando não forem aplicáveis à situação observada.
+
+
+---
+
+RN-OBS-008 — Integridade
+
+Uma observação não deverá existir sem seu respectivo aluno.
+
+
+---
+
+RN-OBS-009 — Auditoria
+
+A criação, alteração e demais operações relevantes sobre uma observação deverão ser auditáveis.
+
+
+---
+
+RN-OBS-010 — Dados educacionais
+
+As observações deverão representar informações relacionadas ao acompanhamento educacional e não deverão ser utilizadas automaticamente como diagnóstico clínico.
+
+
+---
+
+23. Critérios de aceite
+
+CA-001 — Registro válido
+
+Dado que o usuário possui autorização,
+quando preencher os dados obrigatórios corretamente,
+então o sistema deverá registrar a observação.
+
+
+---
+
+CA-002 — Usuário não autorizado
+
+Dado que o usuário não possui permissão,
+quando tentar registrar uma observação,
+então a operação deverá ser bloqueada.
+
+
+---
+
+CA-003 — Aluno fora do escopo
+
+Dado que o aluno não pertence ao escopo do usuário,
+quando o usuário tentar registrar uma observação,
+então o sistema deverá impedir a operação.
+
+
+---
+
+CA-004 — Data da ocorrência
+
+Dado que a ocorrência aconteceu em uma data diferente da data do registro,
+quando o usuário informar a data da ocorrência,
+então o sistema deverá preservar ambas as informações.
+
+
+---
+
+CA-005 — Intensidade não aplicável
+
+Dado que a intensidade não é aplicável,
+quando o usuário registrar a observação,
+então o sistema deverá permitir o salvamento sem essa informação.
+
+
+---
+
+CA-006 — Duração não aplicável
+
+Dado que a duração não é aplicável,
+quando o usuário registrar a observação,
+então o sistema deverá permitir o salvamento.
+
+
+---
+
+CA-007 — Histórico
+
+Dado que a observação foi registrada,
+quando o usuário consultar o histórico do aluno,
+então a observação deverá estar disponível.
+
+
+---
+
+CA-008 — Auditoria
+
+Dado que a observação foi registrada,
+quando a operação for concluída,
+então deverá existir um evento de auditoria correspondente.
+
+
+---
+
+24. Dados necessários para indicadores
+
+Aqui está uma das partes mais importantes deste UC.
+
+Se quisermos futuramente produzir:
+
+> Relatório mensal do aluno
+
+
+
+com gráficos como:
+
+Ocorrências por categoria
+        │
+        ├── Participação       12
+        ├── Comunicação         8
+        ├── Interação social   15
+        └── Autonomia            7
+
+precisamos que as informações sejam estruturadas.
+
+O mesmo registro poderá alimentar:
+
+Gráfico semanal
+
+Seg █████
+Ter ███████
+Qua ███
+Qui ████████
+Sex ████
+
+Evolução mensal
+
+Jan  32
+Fev  28
+Mar  41
+Abr  35
+Mai  26
+
+Comparativo
+
+Período A    Período B
+
+Ocorrências    35          27
+Intensidade    2,1         1,7
+Duração       180 min     130 min
+
+Por isso, não devemos armazenar tudo apenas como texto livre.
+
+
+---
+
+25. Separação entre ocorrência e observação
+
+Aqui temos uma decisão importante de modelagem.
+
+Conceitualmente:
+
+OBSERVAÇÃO
+│
+├── contexto
+├── categoria
+├── tipo
+├── intensidade
+├── duração
+├── estratégia
+├── resultado
+└── descrição
+
+Mas durante a modelagem do banco podemos descobrir que algumas dessas informações devem virar entidades próprias.
+
+Por exemplo:
+
+observações
+categorias_observacao
+tipos_ocorrencia
+estrategias
+contextos
+resultados
+
+Não vamos decidir definitivamente isso agora.
+
+Essa decisão será tomada na FASE de Modelagem de Dados, depois de concluirmos a análise funcional.
+
+
+---
+
+26. Relação com os relatórios
+
+O UC-028 será uma das principais fontes de dados para:
+
+UC-032
+Consultar Histórico
+       ↓
+UC-033
+Dashboard
+       ↓
+UC-037
+Evolução Temporal
+       ↓
+UC-039
+Comparar Períodos
+       ↓
+UC-044
+Relatório Semanal
+       ↓
+UC-045
+Relatório Mensal
+       ↓
+UC-046
+Relatório Anual
+       ↓
+UC-048
+Relatório Comparativo
+       ↓
+UC-049
+Exportar PDF
+
+Ou seja:
+
+o relatório não deve ser pensado isoladamente.
+
+Ele será uma consequência dos dados estruturados registrados neste UC.
+
+
+---
+
+27. Relação com comunicação aos responsáveis
+
+Uma observação registrada não deverá automaticamente gerar uma comunicação ao responsável.
+
+Precisamos separar:
+
+REGISTRAR OBSERVAÇÃO
+        ≠
+ENVIAR COMUNICAÇÃO
+
+Entretanto, futuramente poderá existir uma regra que permita ao profissional iniciar uma comunicação a partir de determinada observação.
+
+Exemplo:
+
+Observação
+    ↓
+Profissional avalia situação
+    ↓
+"Comunicar responsável?"
+    ↓
+Sim
+    ↓
+UC-053 / UC-054
+
+Essa separação é importante para evitar comunicações automáticas indevidas.
+
+
+---
+
+28. Auditoria
+
+A criação da observação deverá gerar informações como:
+
+Evento:
+OBSERVACAO_CRIADA
+
+Usuário:
+ID do usuário
+
+Aluno:
+ID do aluno
+
+Data/hora do registro:
+YYYY-MM-DD HH:MM:SS
+
+Data da ocorrência:
+YYYY-MM-DD
+
+Posteriormente, operações como alteração ou inativação também poderão ser auditadas.
+
+
+---
+
+29. Dependências
+
+Casos anteriores
+
+UC-001 — Autenticar Usuário
+UC-015 — Controlar Acesso
+UC-022 — Cadastrar Aluno
+UC-025 — Associar Responsável
+
+Casos dependentes
+
+UC-029 — Alterar Observação
+UC-030 — Consultar Observação
+UC-031 — Filtrar Observações
+UC-032 — Consultar Histórico
+
+UC-033 — Dashboard
+UC-034 — Indicadores do Aluno
+UC-037 — Evolução Temporal
+
+UC-039 — Comparar Períodos
+UC-044 — Relatório Semanal
+UC-045 — Relatório Mensal
+UC-046 — Relatório Anual
+UC-048 — Relatório Comparativo
+UC-049 — Exportar PDF
+
+
+---
+
+30. Resumo do UC-028
+
+┌──────────────────────────────────────────────┐
+│       UC-028 — REGISTRAR OBSERVAÇÃO         │
+├──────────────────────────────────────────────┤
+│                                              │
+│ Ator: Professor / Profissional de Apoio     │
+│                                              │
+│ Entrada:                                     │
+│ • Aluno                                      │
+│ • Data/hora da ocorrência                   │
+│ • Contexto                                   │
+│ • Categoria                                  │
+│ • Tipo                                       │
+│ • Intensidade                                │
+│ • Duração                                    │
+│ • Estratégia                                 │
+│ • Resultado                                  │
+│ • Descrição                                  │
+│                                              │
+│ Processamento:                               │
+│ • Validar                                    │
+│ • Persistir                                  │
+│ • Auditar                                    │
+│                                              │
+│ Saída:                                       │
+│ • Observação registrada                     │
+│ • Histórico atualizado                      │
+│ • Dados disponíveis para indicadores        │
+│ • Dados disponíveis para relatórios          │
+└──────────────────────────────────────────────┘
+
+✅ UC-028 concluído — versão 1.0
