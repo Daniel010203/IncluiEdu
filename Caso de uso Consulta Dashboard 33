@@ -1,0 +1,1190 @@
+Perfeito. Vamos avançar para o UC-033 — Consultar Dashboard.
+
+Este caso de uso é estratégico para o IncluiEdu porque será a camada que transforma os registros do UC-028 — Registrar Observação e o histórico do UC-032 em informação visual para tomada de decisão.
+
+FASE 2 — CASOS DE USO
+
+UC-033 — Consultar Dashboard
+
+Código: UC-033
+Nome: Consultar Dashboard
+Versão: 1.0
+Status: Em especificação
+Prioridade: Crítica
+Módulo: Indicadores e Análise
+
+
+---
+
+1. Objetivo
+
+Permitir que usuários autorizados visualizem indicadores e representações gráficas relacionadas ao acompanhamento dos alunos, possibilitando identificar tendências, padrões, evolução e variações ao longo do tempo.
+
+O dashboard deverá transformar dados registrados no sistema em informações úteis para:
+
+acompanhamento individual;
+
+acompanhamento de turma;
+
+acompanhamento institucional;
+
+identificação de tendências;
+
+análise temporal;
+
+comparação entre períodos;
+
+apoio à tomada de decisão;
+
+geração posterior de relatórios.
+
+
+
+---
+
+2. Princípio fundamental
+
+O dashboard não deverá criar informações novas.
+
+Ele deverá utilizar dados já registrados.
+
+REGISTROS
+           │
+           ▼
+      Banco de Dados
+           │
+           ▼
+       Indicadores
+           │
+           ▼
+        Dashboard
+           │
+     ┌─────┼─────┐
+     ▼     ▼     ▼
+  Gráficos KPIs Tendências
+
+Isso garante rastreabilidade entre:
+
+registro → indicador → gráfico → relatório.
+
+
+---
+
+3. Atores
+
+Ator principal
+
+ACT-001 — Administrador
+
+Poderá visualizar indicadores conforme seu escopo.
+
+Atores secundários
+
+ACT-002 — Professor
+
+Poderá visualizar indicadores dos alunos/turmas aos quais possui acesso.
+
+ACT-003 — Profissional de Apoio
+
+Poderá visualizar indicadores conforme suas permissões.
+
+ACT-006 — Auditor
+
+Poderá acessar informações conforme regras específicas.
+
+ACT-009 — Sistema
+
+Responsável por calcular/agregar os dados e apresentar os indicadores.
+
+
+---
+
+4. Pré-condições
+
+1. Usuário autenticado.
+
+
+2. Usuário ativo.
+
+
+3. Usuário autorizado a consultar indicadores.
+
+
+4. Existência de dados para o escopo consultado.
+
+
+5. Escopo institucional definido.
+
+
+
+
+---
+
+5. Gatilho
+
+O usuário acessa:
+
+Dashboard
+
+ou:
+
+Aluno → Dashboard
+
+ou:
+
+Turma → Dashboard
+
+dependendo do nível de visualização permitido.
+
+
+---
+
+6. Níveis do Dashboard
+
+Recomendo que o IncluiEdu tenha inicialmente três níveis.
+
+6.1 Dashboard individual
+
+Foco em um aluno.
+
+Instituição
+   ↓
+Aluno
+   ↓
+Indicadores
+
+
+---
+
+6.2 Dashboard de turma
+
+Permite uma visão consolidada de uma turma.
+
+Instituição
+   ↓
+Turma
+   ↓
+Alunos
+   ↓
+Indicadores agregados
+
+
+---
+
+6.3 Dashboard institucional
+
+Visão consolidada da instituição.
+
+Instituição
+   ↓
+Turmas
+   ↓
+Alunos
+   ↓
+Indicadores gerais
+
+Importante: nem todo perfil deverá ter acesso ao dashboard institucional.
+
+
+---
+
+7. Filtro de período
+
+O usuário deverá poder selecionar:
+
+Hoje;
+
+Últimos 7 dias;
+
+Últimos 30 dias;
+
+Semana atual;
+
+Semana anterior;
+
+Mês atual;
+
+Mês anterior;
+
+Ano atual;
+
+Ano anterior;
+
+Período personalizado.
+
+
+Exemplo:
+
+Período
+
+01/08/2026 ─────── 23/08/2026
+
+
+---
+
+8. Filtros adicionais
+
+Dependendo do nível do dashboard:
+
+Aluno
+
+Categoria;
+
+Tipo de ocorrência;
+
+Contexto;
+
+Intensidade;
+
+Estratégia;
+
+Resultado.
+
+
+Turma
+
+Aluno;
+
+Categoria;
+
+Contexto;
+
+Período.
+
+
+Instituição
+
+Turma;
+
+Categoria;
+
+Período.
+
+
+
+---
+
+9. Indicadores principais — KPIs
+
+A primeira versão poderá apresentar:
+
+KPI 01 — Total de observações
+
+Quantidade total de registros no período.
+
+TOTAL DE OBSERVAÇÕES
+
+       127
+
+
+---
+
+KPI 02 — Média de observações por dia
+
+MÉDIA DIÁRIA
+
+       5,5
+
+
+---
+
+KPI 03 — Categorias registradas
+
+CATEGORIAS
+
+        7
+
+
+---
+
+KPI 04 — Ocorrências de alta intensidade
+
+ALTA INTENSIDADE
+
+        14
+
+
+---
+
+KPI 05 — Tempo total registrado
+
+Quando houver duração:
+
+DURAÇÃO TOTAL
+
+      320 min
+
+
+---
+
+KPI 06 — Resultado das estratégias
+
+Exemplo:
+
+ESTRATÉGIAS EFETIVAS
+
+        72%
+
+A fórmula definitiva deverá ser estabelecida nas Regras de Negócio.
+
+
+---
+
+10. Gráfico — Observações por período
+
+Um dos gráficos fundamentais.
+
+Exemplo:
+
+Observações por dia
+
+Seg ███████
+Ter █████████
+Qua ████
+Qui ███████████
+Sex ██████
+
+Permite identificar:
+
+dias com maior frequência;
+
+períodos de aumento;
+
+períodos de redução.
+
+
+
+---
+
+11. Gráfico — Distribuição por categoria
+
+Exemplo:
+
+Participação       35%
+Interação social   27%
+Comunicação        18%
+Autonomia          12%
+Outros              8%
+
+Pode ser apresentado em gráfico de barras ou outro formato adequado.
+
+
+---
+
+12. Gráfico — Evolução temporal
+
+Permite acompanhar a evolução ao longo do tempo.
+
+Exemplo:
+
+Observações
+
+50 │          ●
+40 │      ●       ●
+30 │  ●
+20 │
+10 │
+   └──────────────────
+      Jun Jul Ago
+
+Esse gráfico será importante para identificar tendências.
+
+
+---
+
+13. Gráfico — Intensidade
+
+Exemplo:
+
+Baixa       █████████████
+Moderada    ████████
+Alta        ███
+
+Permite acompanhar a distribuição das intensidades registradas.
+
+
+---
+
+14. Gráfico — Contextos
+
+Exemplo:
+
+Sala de aula       52%
+Recreio             23%
+Atividade externa   15%
+Outros              10%
+
+Pode ajudar a identificar contextos onde determinadas ocorrências aparecem com maior frequência.
+
+
+---
+
+15. Gráfico — Estratégias
+
+Poderá apresentar:
+
+Estratégia                  Registros
+
+Adaptação da atividade        18
+Mediação                       14
+Redirecionamento               11
+Orientação verbal               9
+Pausa                           7
+
+
+---
+
+16. Gráfico — Resultados
+
+Permite analisar os resultados observados após as estratégias.
+
+Exemplo:
+
+Melhora observada       62%
+Melhora parcial         18%
+Sem alteração           12%
+Necessita acompanhamento 8%
+
+
+---
+
+17. Fluxo principal
+
+FP-01 — Acessar dashboard
+
+1. Usuário acessa o dashboard.
+
+
+2. Sistema autentica o usuário.
+
+
+3. Sistema verifica as permissões.
+
+
+4. Sistema identifica o escopo de acesso.
+
+
+5. Sistema determina o nível do dashboard.
+
+
+
+
+---
+
+FP-02 — Definir período
+
+6. Sistema apresenta o período padrão.
+
+
+7. Usuário poderá alterar o período.
+
+
+8. Sistema valida as datas.
+
+
+
+
+---
+
+FP-03 — Carregar indicadores
+
+9. Sistema consulta os dados.
+
+
+10. Sistema aplica filtros.
+
+
+11. Sistema calcula/agrega os indicadores.
+
+
+12. Sistema retorna os resultados.
+
+
+
+
+---
+
+FP-04 — Apresentar dashboard
+
+13. Sistema apresenta os KPIs.
+
+
+14. Sistema apresenta os gráficos.
+
+
+15. Sistema apresenta tendências disponíveis.
+
+
+16. Sistema apresenta informações consolidadas.
+
+
+
+
+---
+
+FP-05 — Alterar filtros
+
+17. Usuário altera filtros.
+
+
+18. Sistema recalcula os indicadores.
+
+
+19. Sistema atualiza os gráficos.
+
+
+
+
+---
+
+18. Fluxo alternativo — Nenhum dado
+
+Caso não existam registros:
+
+Nenhum dado disponível
+para o período selecionado.
+
+O sistema não deverá exibir:
+
+0%
+
+como se tivesse sido calculado, quando na verdade não existem dados suficientes.
+
+
+---
+
+19. Fluxo alternativo — Dados insuficientes
+
+Alguns indicadores podem exigir uma quantidade mínima de dados.
+
+Exemplo:
+
+> Comparação entre períodos sem registros suficientes.
+
+
+
+Nesse caso:
+
+Dados insuficientes para comparação.
+
+Isso evita interpretações estatísticas indevidas.
+
+
+---
+
+20. Fluxo alternativo — Período personalizado
+
+Usuário informa:
+
+01/07/2026
+até
+15/08/2026
+
+O sistema:
+
+1. valida as datas;
+
+
+2. consulta os registros;
+
+
+3. recalcula os indicadores;
+
+
+4. atualiza os gráficos.
+
+
+
+
+---
+
+21. Fluxos de exceção
+
+FE-01 — Usuário sem permissão
+
+Dashboard não deve ser disponibilizado.
+
+
+---
+
+FE-02 — Acesso fora do escopo
+
+Usuário tenta consultar:
+
+Aluno A
+
+mas não possui acesso.
+
+O sistema deverá impedir a consulta.
+
+
+---
+
+FE-03 — Erro no processamento
+
+Se ocorrer erro no cálculo:
+
+sistema não deve apresentar informação incorreta;
+
+deve informar indisponibilidade;
+
+deve registrar o erro tecnicamente.
+
+
+
+---
+
+22. Regras de negócio
+
+RN-DASH-001 — Autorização
+
+Somente usuários autorizados poderão consultar dashboards.
+
+
+---
+
+RN-DASH-002 — Escopo
+
+Os indicadores deverão considerar somente dados aos quais o usuário possui acesso.
+
+
+---
+
+RN-DASH-003 — Período
+
+Os indicadores deverão utilizar como referência principal a data da ocorrência.
+
+
+---
+
+RN-DASH-004 — Consistência
+
+Todos os gráficos deverão utilizar a mesma base de dados e os mesmos filtros aplicados ao dashboard.
+
+
+---
+
+RN-DASH-005 — Dados vazios
+
+Ausência de dados deverá ser apresentada explicitamente.
+
+
+---
+
+RN-DASH-006 — Indicador sem aplicabilidade
+
+Caso determinado indicador não seja aplicável ao conjunto de dados, o sistema deverá informar:
+
+> Não aplicável.
+
+
+
+e não simplesmente exibir zero.
+
+
+---
+
+RN-DASH-007 — Atualização
+
+Após novo registro de observação, os indicadores poderão ser atualizados na próxima consulta ou atualização do dashboard.
+
+
+---
+
+RN-DASH-008 — Cálculos
+
+As fórmulas dos indicadores deverão ser documentadas e versionadas.
+
+
+---
+
+RN-DASH-009 — Rastreabilidade
+
+Todo indicador deverá ser rastreável aos registros que o originaram.
+
+
+---
+
+23. Critérios de aceite
+
+CA-001 — Dashboard individual
+
+Dado que o usuário possui acesso ao aluno,
+quando acessar o dashboard,
+então o sistema deverá apresentar os indicadores daquele aluno.
+
+
+---
+
+CA-002 — Dashboard de turma
+
+Dado que o usuário possui acesso à turma,
+quando acessar o dashboard,
+então o sistema deverá apresentar indicadores consolidados da turma.
+
+
+---
+
+CA-003 — Filtro temporal
+
+Dado que o usuário selecionou um período,
+quando o dashboard for atualizado,
+então os indicadores deverão considerar somente observações daquele período.
+
+
+---
+
+CA-004 — Categoria
+
+Dado que o usuário selecionou uma categoria,
+quando aplicar o filtro,
+então os gráficos deverão ser recalculados com base nesse filtro.
+
+
+---
+
+CA-005 — Consistência
+
+Dado que o dashboard apresenta 50 observações,
+quando o usuário consultar o histórico com os mesmos filtros,
+então a quantidade deverá ser compatível.
+
+
+---
+
+CA-006 — Sem dados
+
+Dado que não existem registros,
+quando o dashboard for carregado,
+então o sistema deverá informar que não há dados disponíveis.
+
+
+---
+
+CA-007 — Controle de acesso
+
+Dado que o usuário não possui acesso ao aluno,
+quando tentar consultar o dashboard individual,
+então o sistema deverá impedir o acesso.
+
+
+---
+
+24. Dashboard individual — exemplo
+
+Uma possível estrutura:
+
+┌─────────────────────────────────────────────┐
+│ João Silva                                  │
+│ Período: Agosto/2026                        │
+├────────────┬────────────┬───────────────────┤
+│ Observações│ Intensidade│ Duração           │
+│    42      │    1,8     │  180 min          │
+├────────────┴────────────┴───────────────────┤
+│                                             │
+│       Observações por período               │
+│                                             │
+│          ╭──╮                               │
+│      ╭───╯  ╰──╮                            │
+│  ╭───╯         ╰───╮                        │
+│                                             │
+├─────────────────────────────────────────────┤
+│ Distribuição por categoria                  │
+│                                             │
+│ Participação       ███████████              │
+│ Interação          ████████                 │
+│ Comunicação        █████                    │
+├─────────────────────────────────────────────┤
+│ Estratégias / Resultados                    │
+└─────────────────────────────────────────────┘
+
+
+---
+
+25. Dashboard de turma
+
+O dashboard de turma deverá permitir uma visão consolidada.
+
+Exemplo:
+
+TURMA A
+
+Alunos: 18
+Observações: 237
+Categorias: 8
+
+Distribuição:
+
+Participação       32%
+Interação          25%
+Comunicação        19%
+Autonomia          14%
+Outros             10%
+
+Também poderemos ter:
+
+> Alunos com maior número de registros
+
+
+
+Mas esse indicador deverá ser tratado com bastante cuidado.
+
+Maior número de observações não significa necessariamente maior necessidade de apoio.
+
+O sistema deverá apresentar os dados de maneira descritiva, sem criar interpretações clínicas ou julgamentos automáticos.
+
+
+---
+
+26. Dashboard institucional
+
+Para administradores autorizados:
+
+INCLUIEDU
+──────────────────────────────
+
+Alunos ativos           182
+Turmas                    12
+Observações             2.341
+Profissionais ativos       38
+
+Observações por categoria
+Observações por período
+Distribuição por turma
+Evolução temporal
+
+O acesso deverá depender de perfil/permissão.
+
+
+---
+
+27. Comparação entre períodos
+
+O dashboard poderá futuramente permitir:
+
+Período A
+01/07 → 31/07
+
+Período B
+01/08 → 31/08
+
+E apresentar:
+
+Indicador	Período A	Período B	Variação
+
+Observações	42	31	-26,2%
+Duração	180 min	130 min	-27,8%
+Alta intensidade	8	5	-37,5%
+
+
+Esse recurso deverá ser desenvolvido junto ao caso de uso de comparação de períodos, e não necessariamente como parte obrigatória da primeira versão do dashboard.
+
+
+---
+
+28. Dashboard × Relatórios PDF
+
+Aqui temos uma arquitetura funcional muito importante:
+
+PostgreSQL
+                     │
+                     ▼
+              Camada de dados
+                     │
+          ┌──────────┴──────────┐
+          ▼                     ▼
+      Dashboard             Relatórios
+          │                     │
+          ▼                     ▼
+      Gráficos              PDF + Gráficos
+
+O relatório PDF não deverá possuir uma lógica de cálculo completamente diferente do dashboard.
+
+Idealmente:
+
+Dados
+  ↓
+Serviço de indicadores
+  ↓
+Dashboard
+  ↓
+Relatório PDF
+
+Isso reduz inconsistências.
+
+
+---
+
+29. Preparação para PDF
+
+O dashboard deverá produzir indicadores que posteriormente possam ser reutilizados no:
+
+Relatório semanal
+
+Semana
+↓
+KPIs
+↓
+Gráficos
+↓
+Resumo
+
+Relatório mensal
+
+Mês
+↓
+KPIs
+↓
+Evolução
+↓
+Gráficos
+↓
+Resumo
+
+Relatório anual
+
+Ano
+↓
+Evolução mensal
+↓
+Comparativos
+↓
+Gráficos
+↓
+Resumo
+
+
+---
+
+30. Cuidados com interpretação
+
+Este ponto é muito importante para o IncluiEdu.
+
+O dashboard deverá apresentar:
+
+> dados e indicadores
+
+
+
+e não fazer automaticamente afirmações como:
+
+> "O aluno piorou."
+
+
+
+ou:
+
+> "O aluno melhorou."
+
+
+
+Uma redução no número de registros pode ter diversas explicações.
+
+Por isso, o sistema deverá preferir:
+
+> "Foram registrados 31 eventos no período, contra 42 no período anterior."
+
+
+
+em vez de:
+
+> "O aluno apresentou melhora de 26%."
+
+
+
+A interpretação pedagógica deverá permanecer sob responsabilidade dos profissionais.
+
+
+---
+
+31. Auditoria
+
+A consulta ao dashboard poderá ser registrada conforme política de auditoria.
+
+Podemos registrar:
+
+DASHBOARD_ACESSADO
+
+usuário
+escopo
+aluno/turma/instituição
+período
+filtros
+data/hora
+
+Isso será particularmente importante para informações sensíveis.
+
+
+---
+
+32. Desempenho
+
+Como o dashboard realizará agregações, precisamos pensar desde já em performance.
+
+Consultas como:
+
+COUNT()
+AVG()
+SUM()
+GROUP BY
+
+poderão ser executadas sobre grande quantidade de observações.
+
+Na fase de arquitetura avaliaremos:
+
+índices PostgreSQL;
+
+consultas otimizadas;
+
+agregações;
+
+cache;
+
+materialização, se necessária;
+
+paginação quando aplicável.
+
+
+Não devemos criar cache prematuramente.
+
+Primeiro medimos.
+
+
+---
+
+33. Relação com Laravel
+
+A implementação futura poderá seguir uma arquitetura semelhante:
+
+DashboardController
+        │
+        ▼
+DashboardService
+        │
+        ▼
+Indicadores
+        │
+        ▼
+Repositories / Eloquent
+        │
+        ▼
+PostgreSQL
+
+Na interface:
+
+Laravel
+   │
+   ├── Blade / Livewire
+   │
+   └── API
+         │
+         ▼
+      Gráficos
+
+A tecnologia específica da interface ainda será decidida na arquitetura.
+
+
+---
+
+34. Dependências
+
+Casos anteriores
+
+UC-001 — Autenticar Usuário
+UC-015 — Controlar Acesso
+UC-028 — Registrar Observação
+UC-032 — Consultar Histórico
+
+Casos relacionados
+
+UC-034 — Consultar Indicadores
+UC-035 — Consultar Evolução
+UC-036 — Consultar Distribuição
+UC-039 — Comparar Períodos
+
+UC-044 — Gerar Relatório Semanal
+UC-045 — Gerar Relatório Mensal
+UC-046 — Gerar Relatório Anual
+UC-048 — Gerar Relatório Comparativo
+UC-049 — Exportar Relatório PDF
+
+
+---
+
+35. Ponto arquitetural importante
+
+Durante o detalhamento deste UC, surgiu uma possível melhoria no catálogo.
+
+Temos:
+
+UC-033 — Consultar Dashboard
+
+e alguns casos futuros como:
+
+Consultar Indicadores;
+
+Consultar Evolução;
+
+Consultar Distribuição.
+
+
+Precisaremos avaliar posteriormente se esses casos realmente precisam permanecer independentes ou se são funcionalidades internas do Dashboard.
+
+Minha recomendação é evitar criar dezenas de casos de uso artificiais apenas para representar cada gráfico.
+
+Um caso de uso deve representar uma interação relevante do ator com o sistema, e não necessariamente cada componente visual da tela.
+
+Faremos essa revisão quando concluirmos o conjunto principal.
+
+
+---
+
+36. Resumo do UC-033
+
+┌──────────────────────────────────────────────┐
+│        UC-033 — CONSULTAR DASHBOARD         │
+├──────────────────────────────────────────────┤
+│                                              │
+│ Atores:                                      │
+│ • Administrador                              │
+│ • Professor                                  │
+│ • Profissional de Apoio                      │
+│                                              │
+│ Entradas:                                    │
+│ • Escopo                                     │
+│ • Período                                    │
+│ • Filtros                                    │
+│                                              │
+│ Processamento:                               │
+│ • Autorizar                                  │
+│ • Filtrar                                    │
+│ • Agregar                                    │
+│ • Calcular indicadores                       │
+│                                              │
+│ Saídas:                                      │
+│ • KPIs                                       │
+│ • Gráficos                                   │
+│ • Evolução                                   │
+│ • Distribuição                               │
+│ • Comparativos                               │
+│                                              │
+│ Utilização futura:                           │
+│ • Relatórios PDF                             │
+│ • Indicadores semanais                       │
+│ • Indicadores mensais                        │
+│ • Indicadores anuais                         │
+└──────────────────────────────────────────────┘
+
+✅ UC-033 — concluído, versão 1.0
+
+Próximo passo recomendado: UC-034 — Consultar Indicadores
+
+Aqui entraremos em um nível mais técnico da Engenharia de Requisitos: vamos definir exatamente quais indicadores existirão, suas fórmulas, fonte dos dados, periodicidade, unidade de medida, regras de cálculo e interpretação.
+
+Isso é importante porque não devemos chegar à implementação em Laravel dizendo apenas "mostrar indicadores". Precisamos ter algo como:
+
+> IND-001 — Total de Observações: quantidade de observações registradas cuja data_ocorrencia esteja dentro do período selecionado.
+
+
+
+A partir daí conseguiremos construir uma base sólida para PostgreSQL + Laravel + gráficos + relatórios PDF semanais/mensais/anuais + comparativos.
