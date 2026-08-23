@@ -1,0 +1,1198 @@
+Perfeito. Vamos continuar a FASE 2 — Casos de Uso com o UC-035 — Consultar Evolução Temporal.
+
+Este caso será especialmente importante para o requisito que você definiu: analisar os apontamentos semanalmente, mensalmente, anualmente e comparar períodos.
+
+FASE 2 — CASOS DE USO
+
+UC-035 — Consultar Evolução Temporal
+
+Código: UC-035
+Nome: Consultar Evolução Temporal
+Versão: 1.0
+Status: Em especificação
+Prioridade: Alta
+Módulo: Indicadores e Análise
+
+
+---
+
+1. Objetivo
+
+Permitir que usuários autorizados acompanhem a evolução dos registros de observações ao longo do tempo, utilizando períodos e intervalos configuráveis.
+
+O sistema deverá possibilitar a visualização da evolução:
+
+diária;
+
+semanal;
+
+mensal;
+
+anual;
+
+personalizada.
+
+
+A funcionalidade deverá permitir identificar variações quantitativas e padrões temporais, sem realizar automaticamente interpretações clínicas ou pedagógicas.
+
+
+---
+
+2. Objetivo analítico
+
+O UC-034 responde:
+
+> "Quantos registros existem?"
+
+
+
+O UC-035 responde:
+
+> "Como esses registros estão variando ao longo do tempo?"
+
+
+
+Exemplo:
+
+UC-034
+Agosto = 42 observações
+
+          ↓
+
+UC-035
+
+Semana 1 = 8
+Semana 2 = 12
+Semana 3 = 15
+Semana 4 = 7
+
+
+---
+
+3. Atores
+
+Ator principal
+
+ACT-002 — Professor
+
+Consulta a evolução dos alunos/turmas sob seu escopo.
+
+Atores secundários
+
+ACT-001 — Administrador
+
+Consulta evolução dentro de suas permissões.
+
+ACT-003 — Profissional de Apoio
+
+Consulta evolução dos alunos autorizados.
+
+ACT-006 — Auditor
+
+Consulta informações conforme suas permissões.
+
+ACT-009 — Sistema
+
+Processa os dados temporais e apresenta os resultados.
+
+
+---
+
+4. Pré-condições
+
+1. Usuário autenticado.
+
+
+2. Usuário ativo.
+
+
+3. Usuário autorizado.
+
+
+4. Escopo de acesso definido.
+
+
+5. Período válido.
+
+
+6. Existência ou possibilidade de consulta dos dados.
+
+
+
+
+---
+
+5. Gatilho
+
+O usuário acessa:
+
+Dashboard → Evolução Temporal
+
+ou:
+
+Aluno → Indicadores → Evolução
+
+ou:
+
+Turma → Indicadores → Evolução
+
+
+---
+
+6. Dimensões temporais
+
+O sistema deverá permitir diferentes granularidades.
+
+6.1 Diário
+
+Exemplo:
+
+01/08    3
+02/08    5
+03/08    2
+04/08    7
+05/08    4
+
+
+---
+
+6.2 Semanal
+
+Semana 1    18
+Semana 2    24
+Semana 3    15
+Semana 4    29
+
+
+---
+
+6.3 Mensal
+
+Jan    35
+Fev    42
+Mar    31
+Abr    28
+
+
+---
+
+6.4 Anual
+
+Quando houver dados suficientes:
+
+2024    320
+2025    410
+2026    287
+
+
+---
+
+7. Período personalizado
+
+O usuário poderá definir:
+
+Data inicial:
+01/06/2026
+
+Data final:
+23/08/2026
+
+E selecionar a granularidade:
+
+○ Dia
+○ Semana
+● Mês
+
+
+---
+
+8. Indicadores temporais
+
+O sistema deverá permitir acompanhar pelo menos:
+
+EV-001 — Quantidade de observações
+
+COUNT(observações)
+
+
+---
+
+EV-002 — Média de observações
+
+Permite comparar períodos de tamanhos diferentes.
+
+
+---
+
+EV-003 — Duração total
+
+Quando houver dados de duração.
+
+
+---
+
+EV-004 — Intensidade
+
+Distribuição ou indicador previamente definido.
+
+
+---
+
+EV-005 — Categorias
+
+Evolução da quantidade de registros por categoria.
+
+
+---
+
+EV-006 — Contextos
+
+Evolução por contexto.
+
+
+---
+
+9. Evolução geral
+
+Exemplo:
+
+Observações
+50 │
+45 │          ●
+40 │     ●
+35 │                ●
+30 │ ●
+25 │
+20 │
+   └────────────────────
+     Jun  Jul  Ago
+
+O sistema deverá apresentar:
+
+eixo temporal;
+
+quantidade;
+
+legenda;
+
+período;
+
+filtros aplicados.
+
+
+
+---
+
+10. Evolução por categoria
+
+O usuário poderá selecionar uma ou mais categorias.
+
+Exemplo:
+
+Participação
+
+Jun  █████████
+Jul  ███████████
+Ago  ██████
+
+Ou comparar:
+
+Categoria A ─────
+Categoria B ─────
+Categoria C ─────
+
+O tipo de gráfico será definido posteriormente na especificação da interface.
+
+
+---
+
+11. Evolução por intensidade
+
+Exemplo:
+
+Jun   Jul   Ago
+
+Baixa       20    25    18
+Moderada    12    17    10
+Alta         5     8     4
+
+Isso permitirá visualizar a distribuição da intensidade ao longo do tempo.
+
+
+---
+
+12. Evolução por contexto
+
+Exemplo:
+
+Sala de aula
+
+Jun    18
+Jul    24
+Ago    15
+
+Podemos também comparar:
+
+Sala
+Recreio
+Educação Física
+
+ao longo dos meses.
+
+
+---
+
+13. Evolução de estratégias
+
+Exemplo:
+
+Mediação
+
+Jun    10
+Jul    14
+Ago     9
+
+O objetivo é apresentar o comportamento quantitativo dos registros de estratégias.
+
+
+---
+
+14. Evolução de resultados
+
+Exemplo:
+
+Resultado                 Jun   Jul   Ago
+
+Melhora observada          12    18    15
+Melhora parcial             7     9     6
+Sem alteração               4     6     5
+Necessita acompanhamento    2     3     4
+
+Novamente:
+
+> O sistema apresenta a distribuição dos registros.
+
+
+
+Não deverá afirmar automaticamente que determinado resultado representa melhora global do aluno.
+
+
+---
+
+15. Fluxo principal
+
+FP-01 — Acessar evolução
+
+1. Usuário acessa a funcionalidade.
+
+
+2. Sistema valida autenticação.
+
+
+3. Sistema valida autorização.
+
+
+4. Sistema identifica o escopo.
+
+
+
+
+---
+
+FP-02 — Selecionar período
+
+5. Sistema apresenta período padrão.
+
+
+6. Usuário seleciona o período.
+
+
+7. Sistema valida as datas.
+
+
+
+
+---
+
+FP-03 — Selecionar granularidade
+
+8. Usuário seleciona:
+
+
+
+diário;
+
+semanal;
+
+mensal;
+
+anual.
+
+
+9. Sistema valida a compatibilidade entre período e granularidade.
+
+
+
+
+---
+
+FP-04 — Selecionar indicador
+
+10. Usuário seleciona o indicador.
+
+
+11. Sistema aplica os filtros.
+
+
+12. Sistema realiza a agregação temporal.
+
+
+
+
+---
+
+FP-05 — Apresentar evolução
+
+13. Sistema apresenta os valores.
+
+
+14. Sistema apresenta o gráfico.
+
+
+15. Sistema apresenta a legenda.
+
+
+16. Sistema apresenta o período analisado.
+
+
+
+
+---
+
+FP-06 — Alterar parâmetros
+
+17. Usuário altera filtros.
+
+
+18. Sistema recalcula os dados.
+
+
+19. Sistema atualiza a visualização.
+
+
+
+
+---
+
+16. Fluxo alternativo — Nenhum dado
+
+Caso não existam registros:
+
+> Nenhum dado disponível para o período selecionado.
+
+
+
+O sistema não deverá produzir uma linha temporal artificial com zeros.
+
+
+---
+
+17. Fluxo alternativo — Dados insuficientes
+
+Exemplo:
+
+O usuário solicita evolução anual de um aluno recém-cadastrado.
+
+O sistema poderá apresentar:
+
+> Dados disponíveis a partir de 15/08/2026.
+
+
+
+Isso é melhor do que apresentar um gráfico aparentemente completo.
+
+
+---
+
+18. Fluxo alternativo — Período curto
+
+Usuário seleciona:
+
+01/08 → 03/08
+
+e escolhe:
+
+Anual
+
+O sistema deverá impedir a combinação inadequada ou recomendar uma granularidade compatível.
+
+Exemplo:
+
+> Para este período, recomenda-se visualização diária.
+
+
+
+
+---
+
+19. Fluxos de exceção
+
+FE-01 — Data inicial posterior à final
+
+Sistema rejeita a consulta.
+
+
+---
+
+FE-02 — Usuário sem acesso
+
+Sistema bloqueia a consulta.
+
+
+---
+
+FE-03 — Falha de processamento
+
+Sistema não deverá apresentar resultados parcialmente calculados como definitivos.
+
+
+---
+
+FE-04 — Dados inconsistentes
+
+Caso seja detectada inconsistência:
+
+registrar erro;
+
+não mascarar a inconsistência;
+
+informar indisponibilidade do indicador afetado.
+
+
+
+---
+
+20. Regras de negócio
+
+RN-EVO-001 — Data de referência
+
+A evolução deverá utilizar:
+
+data_ocorrencia
+
+como referência temporal principal.
+
+
+---
+
+RN-EVO-002 — Data de registro
+
+A data_hora_criacao não deverá ser utilizada como referência para os gráficos de evolução da ocorrência.
+
+Exemplo:
+
+Ocorrência: 20/08
+Registro criado: 22/08
+
+A observação pertence ao período de 20/08.
+
+
+---
+
+RN-EVO-003 — Granularidade
+
+A agregação deverá respeitar a granularidade escolhida.
+
+Dia → dia
+Semana → semana
+Mês → mês
+Ano → ano
+
+
+---
+
+RN-EVO-004 — Filtros
+
+Todos os filtros selecionados deverão ser aplicados antes da agregação temporal.
+
+Conceitualmente:
+
+Filtrar
+   ↓
+Selecionar registros
+   ↓
+Agrupar temporalmente
+   ↓
+Calcular indicador
+
+e não:
+
+Agrupar tudo
+   ↓
+Filtrar resultado
+
+
+---
+
+RN-EVO-005 — Período
+
+A data inicial e final deverão ser consideradas conforme regra de inclusão definida.
+
+Recomendação:
+
+data >= início
+AND
+data <= fim
+
+Para campos timestamp, a implementação deverá evitar problemas relacionados ao horário final.
+
+
+---
+
+21. Semana — regra importante
+
+Precisamos definir uma regra única para semanas.
+
+Para o projeto, proponho:
+
+> Semana iniciando na segunda-feira e terminando no domingo.
+
+
+
+Exemplo:
+
+Seg 17/08
+      ↓
+Dom 23/08
+
+Essa regra deverá ser utilizada em:
+
+dashboard;
+
+indicadores;
+
+evolução;
+
+relatórios semanais;
+
+comparativos.
+
+
+
+---
+
+22. Mês
+
+O mês será considerado pelo calendário:
+
+01/08 → 31/08
+
+ou:
+
+01/02 → 28/02
+
+conforme o calendário correspondente.
+
+
+---
+
+23. Ano
+
+O ano será:
+
+01/01 → 31/12
+
+
+---
+
+24. Comparação entre períodos
+
+Embora a comparação formal seja tratada posteriormente, o UC-035 deverá preparar os dados para isso.
+
+Exemplo:
+
+Período A
+Junho
+
+Período B
+Julho
+
+Evolução:
+
+Junho    42
+Julho    35
+
+Variação:
+
+-16,7%
+
+A interpretação continuará neutra:
+
+> "Redução quantitativa de 16,7%."
+
+
+
+
+---
+
+25. Tendência
+
+O sistema poderá apresentar uma indicação matemática de tendência.
+
+Exemplo:
+
+Tendência quantitativa:
+↓ redução
+
+ou:
+
+↑ aumento
+
+Mas devemos evitar mensagens como:
+
+> "O aluno está piorando."
+
+
+
+A tendência é do indicador, não uma conclusão sobre o aluno.
+
+
+---
+
+26. Comparação de categorias ao longo do tempo
+
+Exemplo:
+
+Mês	Participação	Comunicação	Interação
+
+Maio	15	10	8
+Junho	18	12	11
+Julho	21	8	15
+
+
+Esse recurso será importante para análise mais aprofundada.
+
+
+---
+
+27. Comparação entre alunos
+
+Em dashboard de turma, poderá existir:
+
+Aluno A
+Jun → 10
+Jul → 14
+Ago → 8
+
+Aluno B
+Jun → 7
+Jul → 9
+Ago → 12
+
+⚠️ Esse recurso deverá respeitar rigorosamente as permissões.
+
+Além disso, a interface deverá evitar rankings que possam gerar interpretações inadequadas.
+
+A finalidade é acompanhamento, não competição entre alunos.
+
+
+---
+
+28. Comparação entre turmas
+
+Para usuários autorizados:
+
+Turma A
+Jun → 72
+Jul → 68
+Ago → 55
+
+Turma B
+Jun → 61
+Jul → 70
+Ago → 66
+
+O acesso dependerá do perfil.
+
+
+---
+
+29. Dados ausentes × zero
+
+Essa regra merece destaque.
+
+Imagine:
+
+Janeiro = sem registros
+Fevereiro = 20
+Março = 15
+
+Não devemos necessariamente representar:
+
+Janeiro = 0
+
+porque:
+
+zero registros
+
+e
+
+ausência de dados
+
+podem ter significados diferentes.
+
+O sistema deverá manter essa distinção.
+
+
+---
+
+30. Indicadores utilizados
+
+O UC-035 poderá consumir os indicadores definidos no UC-034.
+
+Principalmente:
+
+IND-001 Total de Observações
+IND-004 Total por Categoria
+IND-006 Total por Contexto
+IND-008 Total por Intensidade
+IND-011 Duração Total
+IND-013 Total por Estratégia
+IND-014 Distribuição de Resultados
+IND-018 Observações por Mês
+
+
+---
+
+31. Critérios de aceite
+
+CA-001 — Evolução diária
+
+Dado que existem registros em determinado período,
+quando o usuário selecionar granularidade diária,
+então o sistema deverá apresentar a quantidade agrupada por dia.
+
+
+---
+
+CA-002 — Evolução semanal
+
+Dado que existem registros durante várias semanas,
+quando o usuário selecionar semanal,
+então o sistema deverá agrupá-los de segunda a domingo.
+
+
+---
+
+CA-003 — Evolução mensal
+
+Dado que existem registros em vários meses,
+quando o usuário selecionar mensal,
+então o sistema deverá apresentar os valores agrupados por mês.
+
+
+---
+
+CA-004 — Data da ocorrência
+
+Dado que uma observação foi registrada posteriormente à sua ocorrência,
+quando o sistema gerar a evolução,
+então deverá utilizar a data da ocorrência.
+
+
+---
+
+CA-005 — Filtro por categoria
+
+Dado que o usuário selecionou uma categoria,
+quando consultar a evolução,
+então somente os registros daquela categoria deverão ser considerados.
+
+
+---
+
+CA-006 — Período inválido
+
+Dado que a data inicial é posterior à data final,
+quando o usuário executar a consulta,
+então o sistema deverá rejeitar a operação.
+
+
+---
+
+CA-007 — Ausência de dados
+
+Dado que não existem registros no período,
+quando a evolução for consultada,
+então o sistema deverá informar ausência de dados.
+
+
+---
+
+CA-008 — Controle de acesso
+
+Dado que o usuário não possui acesso ao aluno,
+quando tentar consultar a evolução,
+então o sistema deverá bloquear a consulta.
+
+
+---
+
+32. Relatórios
+
+Este caso de uso será uma das principais fontes para:
+
+Relatório semanal
+
+Evolução diária da semana
+
+Relatório mensal
+
+Evolução diária/semanal do mês
+
+Relatório anual
+
+Evolução mensal do ano
+
+Relatório comparativo
+
+Período A × Período B
+
+
+---
+
+33. Estrutura conceitual do relatório
+
+Por exemplo, o relatório mensal poderá utilizar:
+
+RELATÓRIO MENSAL
+│
+├── Resumo
+│
+├── KPIs
+│
+├── Evolução temporal
+│
+├── Distribuição por categoria
+│
+├── Distribuição por contexto
+│
+├── Intensidade
+│
+├── Estratégias
+│
+├── Resultados
+│
+└── Comparação com período anterior
+
+Essa estrutura será detalhada posteriormente nos casos de uso de relatórios.
+
+
+---
+
+34. Relação com o PDF
+
+O PDF deverá consumir os mesmos dados utilizados pelo dashboard.
+
+PostgreSQL
+                    │
+                    ▼
+             IndicadorService
+                    │
+          ┌─────────┴─────────┐
+          ▼                   ▼
+     Dashboard             Relatório
+          │                   │
+          ▼                   ▼
+      Gráficos             PDF
+
+Assim evitamos o problema:
+
+> Dashboard mostra 35 registros e PDF mostra 37.
+
+
+
+A regra de cálculo deverá ser centralizada.
+
+
+---
+
+35. Performance
+
+Consultas temporais poderão ficar pesadas à medida que o sistema crescer.
+
+Precisaremos avaliar posteriormente:
+
+índices por data_ocorrencia;
+
+índices compostos;
+
+agregações;
+
+consultas SQL otimizadas;
+
+cache;
+
+materialização de dados, se necessária.
+
+
+Uma possibilidade futura:
+
+observações
+     ↓
+agregação diária
+     ↓
+dados resumidos
+     ↓
+dashboard
+
+Mas isso não deve ser implementado antes de medirmos a necessidade real.
+
+
+---
+
+36. Relação com Laravel
+
+Uma possível arquitetura:
+
+EvolutionController
+        ↓
+EvolutionService
+        ↓
+IndicatorService
+        ↓
+Query / Repository
+        ↓
+PostgreSQL
+
+Exemplo conceitual:
+
+getDailyEvolution()
+getWeeklyEvolution()
+getMonthlyEvolution()
+getAnnualEvolution()
+
+Entretanto, não necessariamente precisaremos criar quatro consultas completamente independentes.
+
+Podemos criar uma consulta parametrizada pela granularidade:
+
+granularity = day
+granularity = week
+granularity = month
+granularity = year
+
+Essa decisão ficará para a arquitetura.
+
+
+---
+
+37. Segurança
+
+O sistema deverá aplicar autorização antes de realizar a agregação, quando possível.
+
+Conceitualmente:
+
+Usuário
+   ↓
+Autorização
+   ↓
+Escopo
+   ↓
+Dados permitidos
+   ↓
+Agregação
+   ↓
+Indicador
+
+Isso evita que dados de alunos não autorizados sejam utilizados inadvertidamente no cálculo.
+
+
+---
+
+38. Auditoria
+
+Poderá ser registrado:
+
+EVOLUCAO_CONSULTADA
+
+Usuário
+Escopo
+Aluno/Turma
+Período
+Granularidade
+Indicador
+Filtros
+Data/hora
+
+
+---
+
+39. Dependências
+
+Casos anteriores
+
+UC-028 — Registrar Observação
+UC-032 — Consultar Histórico
+UC-033 — Consultar Dashboard
+UC-034 — Consultar Indicadores
+
+Casos relacionados
+
+UC-036 — Consultar Distribuição
+UC-037 — Analisar Tendências
+UC-039 — Comparar Períodos
+UC-044 — Relatório Semanal
+UC-045 — Relatório Mensal
+UC-046 — Relatório Anual
+UC-048 — Relatório Comparativo
+UC-049 — Exportar PDF
+
+
+---
+
+40. Resumo do UC-035
+
+┌──────────────────────────────────────────────┐
+│     UC-035 — EVOLUÇÃO TEMPORAL              │
+├──────────────────────────────────────────────┤
+│                                              │
+│ Objetivo:                                    │
+│ Analisar a variação dos registros ao longo  │
+│ do tempo.                                    │
+│                                              │
+│ Granularidade:                               │
+│ • Diário                                     │
+│ • Semanal                                    │
+│ • Mensal                                     │
+│ • Anual                                      │
+│ • Personalizada                              │
+│                                              │
+│ Dimensões:                                   │
+│ • Observações                                │
+│ • Categorias                                 │
+│ • Contextos                                  │
+│ • Intensidade                                │
+│ • Estratégias                                │
+│ • Resultados                                 │
+│                                              │
+│ Saídas:                                      │
+│ • Séries temporais                           │
+│ • Gráficos                                   │
+│ • Variações                                  │
+│ • Tendências quantitativas                   │
+│                                              │
+│ Consumidores:                                │
+│ • Dashboard                                  │
+│ • Relatórios                                 │
+│ • Comparativos                               │
+└──────────────────────────────────────────────┘
+
+✅ UC-035 — concluído, versão 1.0
+
+Próximo passo
+
+O próximo caso natural é o UC-036 — Consultar Distribuição.
+
+Nele vamos especificar como o sistema deverá mostrar como os registros se distribuem entre categorias, contextos, intensidades, estratégias e resultados, incluindo cruzamentos como Categoria × Contexto e Categoria × Intensidade.
+
+Depois disso, teremos uma base muito sólida para avançar para tendências e comparação entre períodos, que são justamente os recursos que alimentarão os relatórios PDF semanais, mensais e anuais do IncluiEdu.
