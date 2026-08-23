@@ -1,0 +1,1439 @@
+Perfeito. Vamos seguir exatamente a sequência da FASE 2 — Casos de Uso.
+
+UC-040 — Configurar Indicadores
+
+Código: UC-040
+Nome: Configurar Indicadores
+Versão: 1.0
+Status: Em especificação
+Prioridade: Alta
+Módulo: Administração / Indicadores
+
+Este caso de uso será importante porque os UC-034 a UC-039 dependem de uma definição consistente de quais indicadores existem, como são calculados e em quais contextos podem ser utilizados.
+
+
+---
+
+1. Objetivo
+
+Permitir que usuários administrativos autorizados configurem os indicadores utilizados pelo IncluiEdu para acompanhamento, análise, comparação e geração de relatórios.
+
+A configuração deverá permitir definir:
+
+nome;
+
+descrição;
+
+tipo;
+
+origem dos dados;
+
+fórmula ou método de cálculo;
+
+unidade de medida;
+
+periodicidade;
+
+granularidade;
+
+regras de apresentação;
+
+status;
+
+disponibilidade por módulo;
+
+permissões de acesso.
+
+
+
+---
+
+2. Atores
+
+Ator principal
+
+ACT-001 — Administrador
+
+Atores secundários
+
+ACT-006 — Auditor
+
+ACT-009 — Sistema
+
+Professores e profissionais de apoio poderão utilizar indicadores, mas não necessariamente configurá-los.
+
+
+---
+
+3. Pré-condições
+
+1. Usuário autenticado.
+
+
+2. Usuário ativo.
+
+
+3. Usuário possuir permissão administrativa.
+
+
+4. Sistema disponível.
+
+
+5. Estrutura necessária para o indicador estar cadastrada.
+
+
+
+
+---
+
+4. Gatilho
+
+O administrador acessa:
+
+Administração
+      ↓
+Indicadores
+      ↓
+Configurar Indicadores
+
+
+---
+
+5. Conceito de indicador
+
+Um indicador representa uma informação quantitativa ou estatística calculada a partir dos dados registrados no sistema.
+
+Exemplos:
+
+Total de observações
+Média de observações por semana
+Distribuição por categoria
+Quantidade por intensidade
+Quantidade por contexto
+Variação percentual
+
+
+---
+
+6. Tipos de indicadores
+
+Proponho inicialmente:
+
+IND-001 — Contagem
+
+Exemplo:
+
+> Total de observações.
+
+
+
+
+---
+
+IND-002 — Soma
+
+Exemplo:
+
+> Soma das durações registradas.
+
+
+
+
+---
+
+IND-003 — Média
+
+Exemplo:
+
+> Média de duração por ocorrência.
+
+
+
+
+---
+
+IND-004 — Percentual
+
+Exemplo:
+
+> Percentual de registros de determinada categoria.
+
+
+
+
+---
+
+IND-005 — Distribuição
+
+Exemplo:
+
+> Distribuição das observações por intensidade.
+
+
+
+
+---
+
+IND-006 — Variação
+
+Exemplo:
+
+> Variação percentual entre dois períodos.
+
+
+
+
+---
+
+IND-007 — Tendência
+
+Exemplo:
+
+> Tendência quantitativa de determinado indicador.
+
+
+
+
+---
+
+7. Exemplo de indicador
+
+Nome:
+Total de Observações
+
+Código:
+TOTAL_OBSERVACOES
+
+Tipo:
+CONTAGEM
+
+Origem:
+Observações
+
+Agregação:
+COUNT
+
+Periodicidade:
+Semanal/Mensal/Anual
+
+Status:
+ATIVO
+
+
+---
+
+8. Código técnico do indicador
+
+Cada indicador deverá possuir um código único.
+
+Exemplo:
+
+TOTAL_OBSERVACOES
+OBSERVACOES_POR_CATEGORIA
+MEDIA_DURACAO
+DISTRIBUICAO_INTENSIDADE
+VARIACAO_PERIODOS
+
+O código será utilizado internamente pelo sistema.
+
+
+---
+
+9. Nome amigável
+
+Além do código técnico:
+
+Código:
+TOTAL_OBSERVACOES
+
+o usuário visualizará:
+
+> Total de Observações
+
+
+
+Isso permite separar:
+
+identificação técnica
+
+de:
+
+apresentação ao usuário.
+
+
+---
+
+10. Descrição
+
+Cada indicador deverá possuir uma descrição.
+
+Exemplo:
+
+> Quantidade total de observações registradas no período selecionado.
+
+
+
+Isso facilita:
+
+documentação;
+
+treinamento;
+
+manutenção;
+
+auditoria.
+
+
+
+---
+
+11. Unidade de medida
+
+O administrador poderá definir:
+
+Quantidade
+Percentual
+Minutos
+Horas
+Média
+Índice
+
+Exemplo:
+
+Total de observações
+Unidade: registros
+
+
+---
+
+12. Origem dos dados
+
+O indicador deverá informar de onde os dados são obtidos.
+
+Exemplo:
+
+Origem:
+Observações
+
+Campo:
+data_ocorrencia
+
+Outro exemplo:
+
+Origem:
+Observações
+
+Campo:
+duracao
+
+
+---
+
+13. Método de cálculo
+
+Exemplo:
+
+COUNT(observacoes.id)
+
+ou:
+
+AVG(observacoes.duracao)
+
+ou:
+
+SUM(observacoes.duracao)
+
+Na primeira versão, recomendo não permitir que o administrador escreva SQL livremente.
+
+Isso seria um risco de segurança e de integridade.
+
+
+---
+
+14. Modelo recomendado
+
+Em vez de:
+
+SQL livre
+
+utilizar:
+
+Tipo:
+CONTAGEM
+
+Tabela:
+observacoes
+
+Campo:
+id
+
+Filtro:
+status = ATIVO
+
+O sistema gera internamente a consulta.
+
+
+---
+
+15. Periodicidade
+
+Um indicador poderá ser disponibilizado para:
+
+DIARIO
+SEMANAL
+MENSAL
+ANUAL
+PERSONALIZADO
+
+
+---
+
+16. Granularidade
+
+O indicador poderá permitir:
+
+Dia
+Semana
+Mês
+Ano
+
+Exemplo:
+
+Indicador:
+Total de Observações
+
+Granularidade:
+Semanal
+
+Resultado:
+
+Semana 1 → 15
+Semana 2 → 20
+Semana 3 → 18
+
+
+---
+
+17. Escopo
+
+Um indicador poderá funcionar em diferentes níveis:
+
+Aluno
+Turma
+Grupo
+Escola
+Período
+
+Exemplo:
+
+> Total de observações por aluno.
+
+
+
+ou:
+
+> Total de observações por turma.
+
+
+
+
+---
+
+18. Filtros disponíveis
+
+Um indicador poderá possuir filtros configuráveis.
+
+Exemplo:
+
+Categoria
+Contexto
+Intensidade
+Estratégia
+Resultado
+Aluno
+Turma
+Período
+
+
+---
+
+19. Status
+
+Os indicadores poderão possuir:
+
+ATIVO
+INATIVO
+
+Posteriormente:
+
+ARQUIVADO
+
+
+---
+
+20. Ativação
+
+Quando criado:
+
+Indicador
+   ↓
+INATIVO
+
+O administrador poderá revisar a configuração e então:
+
+ATIVO
+
+Isso reduz o risco de disponibilizar um indicador incorreto.
+
+
+---
+
+21. Desativação
+
+Um indicador não deverá ser necessariamente excluído.
+
+O recomendado é:
+
+ATIVO
+ ↓
+INATIVO
+
+Assim, preservamos:
+
+histórico;
+
+relatórios antigos;
+
+auditoria;
+
+rastreabilidade.
+
+
+
+---
+
+22. Exclusão
+
+A exclusão física deverá ser restrita.
+
+Se o indicador já tiver sido utilizado, recomendo:
+
+> não permitir exclusão física.
+
+
+
+Utilizar desativação.
+
+
+---
+
+23. Versionamento
+
+Esse ponto é muito importante.
+
+Imagine:
+
+Indicador:
+Total de Observações
+
+Hoje:
+
+COUNT(observações)
+
+No futuro a regra muda.
+
+Se simplesmente alterarmos o indicador, relatórios históricos poderão apresentar resultados diferentes.
+
+Portanto, devemos considerar:
+
+Indicador
+   │
+   ├── Versão 1
+   │
+   ├── Versão 2
+   │
+   └── Versão 3
+
+
+---
+
+24. Regra de versionamento
+
+Quando um indicador ativo tiver sua fórmula alterada:
+
+VERSÃO 1
+
+não deverá simplesmente ser sobrescrita.
+
+Deveremos criar:
+
+VERSÃO 2
+
+com data de vigência.
+
+
+---
+
+25. Vigência
+
+Cada versão poderá possuir:
+
+vigente_desde
+vigente_ate
+
+Exemplo:
+
+Versão 1
+01/01/2026 → 30/06/2026
+
+Versão 2
+01/07/2026 → atual
+
+Isso é excelente para auditoria.
+
+
+---
+
+26. Fluxo principal
+
+FP-01 — Criar indicador
+
+1. Administrador acessa indicadores.
+
+
+2. Seleciona Novo Indicador.
+
+
+3. Sistema apresenta formulário.
+
+
+4. Administrador informa dados.
+
+
+5. Sistema valida informações.
+
+
+6. Sistema cria indicador.
+
+
+7. Indicador permanece em revisão/inativo.
+
+
+
+
+---
+
+27. FP-02 — Configurar cálculo
+
+8. Administrador seleciona tipo.
+
+
+9. Define origem dos dados.
+
+
+10. Define campo.
+
+
+11. Define agregação.
+
+
+12. Define filtros.
+
+
+13. Sistema valida configuração.
+
+
+
+
+---
+
+28. FP-03 — Testar indicador
+
+14. Administrador seleciona período de teste.
+
+
+15. Sistema executa o cálculo.
+
+
+16. Sistema apresenta resultado.
+
+
+17. Administrador verifica o resultado.
+
+
+
+Exemplo:
+
+Resultado do teste:
+
+01/08/2026 → 31/08/2026
+
+Total:
+37 registros
+
+
+---
+
+29. FP-04 — Ativar indicador
+
+18. Administrador confirma configuração.
+
+
+19. Sistema registra versão.
+
+
+20. Sistema ativa indicador.
+
+
+21. Indicador passa a aparecer nos módulos autorizados.
+
+
+
+
+---
+
+30. Alteração de indicador
+
+Quando o administrador alterar uma configuração:
+
+Indicador V1
+      ↓
+Alteração
+      ↓
+Nova versão
+      ↓
+Validação
+      ↓
+Ativação
+
+
+---
+
+31. Exemplo de alteração
+
+Original:
+
+TOTAL_OBSERVACOES
+
+COUNT(id)
+
+Nova versão:
+
+TOTAL_OBSERVACOES
+
+COUNT(id)
+WHERE status = 'VALIDO'
+
+Não devemos simplesmente substituir a primeira regra.
+
+Criamos:
+
+V1 → regra antiga
+V2 → regra nova
+
+
+---
+
+32. Comparação
+
+O UC-039 poderá utilizar a versão correta do indicador conforme a data.
+
+Exemplo:
+
+Julho/2026
+→ Indicador V1
+
+Agosto/2026
+→ Indicador V2
+
+O sistema deverá informar essa situação internamente e manter rastreabilidade.
+
+
+---
+
+33. Relação com UC-034
+
+UC-040
+Configurar Indicadores
+        ↓
+Indicador disponível
+        ↓
+UC-034
+Consultar Indicadores
+
+
+---
+
+34. Relação com UC-035
+
+UC-040
+Configurar Indicador
+        ↓
+Define granularidade
+        ↓
+UC-035
+Evolução Temporal
+
+
+---
+
+35. Relação com UC-037
+
+UC-040
+Configurar Indicador
+        ↓
+UC-037
+Analisar Tendências
+
+
+---
+
+36. Relação com UC-038
+
+O indicador também poderá ser utilizado como base de regras de alerta.
+
+UC-040
+Indicador
+      ↓
+UC-038
+Regra de alerta
+      ↓
+Alerta
+
+
+---
+
+37. Relação com UC-039
+
+UC-040
+Indicador
+      ↓
+UC-039
+Comparar Períodos
+      ↓
+Diferença
+Variação
+
+
+---
+
+38. Configuração de visualização
+
+O administrador poderá definir como o indicador será apresentado.
+
+Exemplo:
+
+Tipo de visualização:
+
+CARD
+TABELA
+BARRAS
+LINHAS
+PIZZA
+ÁREA
+
+Porém, nem todo indicador deverá aceitar todos os gráficos.
+
+
+---
+
+39. Exemplo
+
+Total de observações
+
+Pode utilizar:
+
+CARD
+BARRAS
+LINHAS
+
+Já:
+
+Distribuição por categoria
+
+pode utilizar:
+
+BARRAS
+PIZZA
+
+
+---
+
+40. Título do gráfico
+
+O administrador poderá definir:
+
+> Quantidade de Observações por Semana
+
+
+
+Em vez de:
+
+> COUNT(observacoes.id)
+
+
+
+
+---
+
+41. Descrição metodológica
+
+Cada indicador deverá poder possuir uma descrição técnica.
+
+Exemplo:
+
+> Este indicador representa a quantidade de registros válidos realizados no período selecionado.
+
+
+
+Isso poderá aparecer nos relatórios PDF.
+
+
+---
+
+42. Regras de negócio
+
+RN-IND-001 — Código único
+
+Cada indicador deverá possuir código único.
+
+
+---
+
+RN-IND-002 — Nome obrigatório
+
+Todo indicador deverá possuir nome.
+
+
+---
+
+RN-IND-003 — Tipo obrigatório
+
+Todo indicador deverá possuir tipo de cálculo.
+
+
+---
+
+RN-IND-004 — Origem obrigatória
+
+Todo indicador deverá possuir origem de dados definida.
+
+
+---
+
+RN-IND-005 — SQL livre
+
+Administradores não deverão executar SQL livre através da interface de configuração.
+
+
+---
+
+RN-IND-006 — Status
+
+Indicadores poderão ser ativados ou desativados.
+
+
+---
+
+RN-IND-007 — Histórico
+
+Indicadores utilizados não deverão ser eliminados fisicamente sem uma política explícita.
+
+
+---
+
+RN-IND-008 — Versionamento
+
+Alterações relevantes na lógica de cálculo deverão gerar nova versão.
+
+
+---
+
+RN-IND-009 — Auditoria
+
+Toda alteração deverá ser registrada.
+
+
+---
+
+RN-IND-010 — Permissões
+
+Somente usuários autorizados poderão criar ou alterar indicadores.
+
+
+---
+
+RN-IND-011 — Teste
+
+Um indicador deverá ser validado antes de ser ativado.
+
+
+---
+
+RN-IND-012 — Integridade
+
+O sistema deverá impedir configurações incompatíveis.
+
+
+---
+
+RN-IND-013 — Relatórios
+
+Indicadores disponibilizados para relatórios deverão possuir metadados suficientes para geração do relatório.
+
+
+---
+
+43. Critérios de aceite
+
+CA-001 — Criar
+
+Dado que o administrador possui permissão,
+quando preencher os campos obrigatórios,
+então o sistema deverá criar o indicador.
+
+
+---
+
+CA-002 — Código duplicado
+
+Dado que já exista determinado código,
+quando o administrador tentar utilizá-lo novamente,
+então o sistema deverá rejeitar a operação.
+
+
+---
+
+CA-003 — Teste
+
+Dado que o indicador esteja configurado,
+quando o administrador solicitar teste,
+então o sistema deverá executar o cálculo e apresentar o resultado.
+
+
+---
+
+CA-004 — Ativação
+
+Dado que o indicador tenha sido validado,
+quando o administrador ativá-lo,
+então ele deverá ficar disponível para os módulos autorizados.
+
+
+---
+
+CA-005 — Alteração
+
+Dado que um indicador ativo tenha sua lógica alterada,
+quando a alteração for salva,
+então deverá ser criada nova versão quando aplicável.
+
+
+---
+
+CA-006 — Auditoria
+
+Dado que um indicador tenha sido alterado,
+quando o histórico for consultado,
+então deverá ser possível identificar quem realizou a alteração e quando.
+
+
+---
+
+CA-007 — Desativação
+
+Dado que um indicador esteja ativo,
+quando o administrador o desativar,
+então ele não deverá aparecer como indicador disponível para novas consultas.
+
+
+---
+
+CA-008 — Histórico
+
+Dado que o indicador tenha sido utilizado anteriormente,
+quando um relatório histórico for consultado,
+então os dados deverão permanecer rastreáveis.
+
+
+---
+
+44. Exemplo de tela administrativa
+
+┌────────────────────────────────────────────────┐
+│ CONFIGURAÇÃO DE INDICADORES                    │
+├────────────────────────────────────────────────┤
+│                                                │
+│ Nome:                                          │
+│ [ Total de Observações                      ] │
+│                                                │
+│ Código:                                        │
+│ [ TOTAL_OBSERVACOES                          ] │
+│                                                │
+│ Tipo:                                          │
+│ [ Contagem ▼ ]                                 │
+│                                                │
+│ Origem:                                        │
+│ [ Observações ▼ ]                              │
+│                                                │
+│ Campo:                                         │
+│ [ ID ▼ ]                                       │
+│                                                │
+│ Periodicidade:                                 │
+│ [ Semanal ▼ ]                                  │
+│                                                │
+│ Status:                                        │
+│ [ Inativo ▼ ]                                  │
+│                                                │
+│ [ Testar Indicador ]                           │
+│ [ Salvar ]                                     │
+└────────────────────────────────────────────────┘
+
+
+---
+
+45. Tela de teste
+
+┌────────────────────────────────────────────────┐
+│ TESTAR INDICADOR                               │
+├────────────────────────────────────────────────┤
+│ Período inicial: [01/08/2026]                  │
+│ Período final:   [31/08/2026]                  │
+│                                                │
+│ Resultado:                                     │
+│                                                │
+│              37                               │
+│       registros encontrados                   │
+│                                                │
+│ [ Aprovar configuração ]                       │
+└────────────────────────────────────────────────┘
+
+
+---
+
+46. Estrutura conceitual do banco
+
+Futuramente poderemos ter:
+
+indicadores
+    │
+    ├── indicador_versoes
+    │
+    ├── indicador_filtros
+    │
+    └── indicador_visualizacoes
+
+Conceitualmente:
+
+INDICADORES
+     │
+     └────── 1:N ──────► INDICADOR_VERSOES
+                              │
+                              ├── filtros
+                              └── configurações
+
+
+---
+
+47. Possível estrutura
+
+indicadores
+
+id
+codigo
+nome
+descricao
+tipo
+unidade_medida
+status
+criado_em
+atualizado_em
+
+indicador_versoes
+
+id
+indicador_id
+versao
+configuracao
+vigente_desde
+vigente_ate
+criado_por
+criado_em
+
+Observação: isso é apenas o modelo conceitual inicial. O modelo lógico definitivo será construído posteriormente.
+
+
+---
+
+48. Laravel
+
+Uma arquitetura possível:
+
+app/
+├── Models/
+│   ├── Indicador.php
+│   └── IndicadorVersao.php
+│
+├── Services/
+│   ├── IndicadorService.php
+│   └── IndicadorCalculoService.php
+│
+├── Http/
+│   └── Controllers/
+│       └── IndicadorController.php
+│
+├── DTOs/
+│   └── IndicadorConfigDTO.php
+│
+└── Policies/
+    └── IndicadorPolicy.php
+
+
+---
+
+49. Serviço de cálculo
+
+Uma separação importante:
+
+IndicadorController
+        ↓
+IndicadorService
+        ↓
+IndicadorCalculoService
+        ↓
+Query
+        ↓
+PostgreSQL
+
+O controller não deverá possuir a lógica matemática.
+
+
+---
+
+50. Segurança
+
+A configuração de indicadores será uma área administrativa crítica.
+
+Devemos utilizar:
+
+Autenticação
+     ↓
+Autorização
+     ↓
+Policy
+     ↓
+Validação
+     ↓
+Service
+     ↓
+Banco
+
+Além disso:
+
+evitar SQL arbitrário;
+
+validar parâmetros;
+
+registrar alterações;
+
+controlar versões;
+
+impedir alterações não autorizadas.
+
+
+
+---
+
+51. Auditoria
+
+Registrar:
+
+INDICADOR_CRIADO
+INDICADOR_ALTERADO
+INDICADOR_ATIVADO
+INDICADOR_DESATIVADO
+INDICADOR_VERSIONADO
+INDICADOR_TESTADO
+
+Com:
+
+Usuário
+Data/hora
+Indicador
+Versão
+Alteração
+
+
+---
+
+52. Relação com os relatórios PDF
+
+Este UC terá grande importância para a futura geração dos relatórios.
+
+O relatório poderá consultar:
+
+Indicador
+    ↓
+Descrição
+    ↓
+Método
+    ↓
+Valor calculado
+    ↓
+Comparação
+    ↓
+Gráfico
+
+Assim, o PDF poderá apresentar não apenas o número, mas também o significado técnico daquele indicador.
+
+
+---
+
+53. Exemplo completo
+
+Administrador cria:
+
+Nome:
+Total de Observações Semanais
+
+Código:
+OBSERVACOES_SEMANAIS
+
+Tipo:
+CONTAGEM
+
+Origem:
+Observações
+
+Unidade:
+Registros
+
+Periodicidade:
+Semanal
+
+Visualização:
+Linha + Card
+
+Status:
+Inativo
+
+Executa teste:
+
+Semana 32
+= 18
+
+Aprova:
+
+V1
+ATIVO
+
+Posteriormente, o indicador passa a alimentar:
+
+UC-034 → Indicadores
+UC-035 → Evolução
+UC-037 → Tendência
+UC-038 → Alertas
+UC-039 → Comparação
+
+
+---
+
+54. Fluxo completo
+
+ADMINISTRADOR
+                    │
+                    ▼
+             UC-040 CONFIGURAR
+               INDICADOR
+                    │
+        ┌───────────┴───────────┐
+        ▼                       ▼
+     TESTAR                  VERSIONAR
+        │                       │
+        └───────────┬───────────┘
+                    ▼
+                  ATIVO
+                    │
+       ┌────────────┼────────────┐
+       ▼            ▼            ▼
+    UC-034        UC-035       UC-036
+  Indicadores    Evolução    Distribuição
+       │            │            │
+       └────────────┼────────────┘
+                    ▼
+                 UC-037
+                Tendência
+                    │
+                    ▼
+                 UC-038
+                 Alertas
+                    │
+                    ▼
+                 UC-039
+               Comparação
+                    │
+                    ▼
+               RELATÓRIOS
+                    │
+                    ▼
+                   PDF
+
+
+---
+
+55. Resumo do UC-040
+
+┌──────────────────────────────────────────────┐
+│       UC-040 — CONFIGURAR INDICADORES       │
+├──────────────────────────────────────────────┤
+│                                              │
+│ Ator principal:                              │
+│ Administrador                                │
+│                                              │
+│ Permite:                                     │
+│ • Criar indicadores                          │
+│ • Configurar cálculos                        │
+│ • Definir origem                             │
+│ • Definir periodicidade                      │
+│ • Definir granularidade                      │
+│ • Testar                                     │
+│ • Ativar                                     │
+│ • Desativar                                  │
+│ • Versionar                                  │
+│                                              │
+│ Controles:                                   │
+│ • Permissões                                 │
+│ • Auditoria                                  │
+│ • Versionamento                              │
+│ • Validação                                  │
+│                                              │
+│ Consumidores:                                │
+│ • Dashboard                                  │
+│ • Indicadores                                │
+│ • Tendências                                 │
+│ • Alertas                                    │
+│ • Comparações                                │
+│ • Relatórios PDF                             │
+└──────────────────────────────────────────────┘
+
+✅ UC-040 — concluído
+
+A sequência agora está:
+
+UC-034  Consultar Indicadores
+   ↓
+UC-035  Consultar Evolução Temporal
+   ↓
+UC-036  Consultar Distribuição
+   ↓
+UC-037  Analisar Tendências
+   ↓
+UC-038  Gerar Alertas
+   ↓
+UC-039  Comparar Períodos
+   ↓
+UC-040  Configurar Indicadores
+
+Próximo: UC-041 — Configurar Regras de Alertas
+
+Esse será uma continuação natural do UC-040: o UC-040 define o indicador, enquanto o UC-041 definirá quando aquele indicador deverá gerar um alerta, incluindo limites, periodicidade, prioridade e condições. Isso também deixará preparada a futura comunicação por e-mail/WhatsApp que você solicitou.
