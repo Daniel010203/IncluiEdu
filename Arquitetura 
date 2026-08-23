@@ -1,0 +1,1207 @@
+Perfeito. Agora entramos em uma das fases mais importantes do projeto: FASE 5 — Arquitetura do Sistema.
+
+Como já definimos requisitos, 69 casos de uso, 81 regras de negócio e 80 requisitos não funcionais, agora podemos projetar a solução antes de começar a codificação.
+
+Vou manter o documento simplificado, no mesmo padrão dos anteriores, para você colocar no GitHub como ARQUITETURA.md.
+
+# IncluiEdu — Arquitetura do Sistema
+
+> Documento simplificado da arquitetura técnica e estrutural do sistema IncluiEdu.
+
+**Projeto:** IncluiEdu  
+**Documento:** Arquitetura do Sistema  
+**Versão:** 1.0  
+**Status:** Em desenvolvimento
+
+---
+
+# 1. Objetivo
+
+Este documento define a arquitetura técnica proposta para o sistema IncluiEdu.
+
+A arquitetura deverá fornecer uma estrutura organizada, segura, escalável e de fácil manutenção para implementação das funcionalidades definidas nas fases anteriores.
+
+---
+
+# 2. Visão Geral
+
+O IncluiEdu será desenvolvido como uma aplicação web utilizando arquitetura baseada em:
+
+```text
+Usuário
+   │
+   ▼
+Interface Web
+   │
+   ▼
+Laravel
+   │
+   ├── Autenticação
+   ├── Autorização
+   ├── Regras de Negócio
+   ├── Gestão de Alunos
+   ├── Acompanhamento
+   ├── Indicadores
+   ├── Relatórios
+   ├── Comunicação
+   └── Auditoria
+   │
+   ▼
+PostgreSQL
+
+
+---
+
+3. Stack Tecnológica
+
+Camada	Tecnologia
+
+Backend	PHP
+Framework	Laravel
+Banco de Dados	PostgreSQL
+Frontend	Blade + JavaScript
+CSS	Tailwind CSS
+API	Laravel
+Autenticação	Laravel
+Testes	PHPUnit / Pest
+Versionamento	Git
+Repositório	GitHub
+PDF	Biblioteca compatível com Laravel
+E-mail	SMTP / serviço transacional
+WhatsApp	API oficial/autorizada
+Cache	Redis
+Filas	Laravel Queue + Redis
+Containerização	Docker
+Web Server	Nginx
+Sistema operacional produção	Linux
+
+
+
+---
+
+4. Arquitetura Geral
+
+A aplicação será organizada utilizando uma arquitetura em camadas.
+
+┌─────────────────────────────┐
+│          FRONTEND           │
+│      Blade / JavaScript     │
+└──────────────┬──────────────┘
+               │
+               ▼
+┌─────────────────────────────┐
+│          ROUTES             │
+│       Web / API             │
+└──────────────┬──────────────┘
+               │
+               ▼
+┌─────────────────────────────┐
+│        CONTROLLERS          │
+│ Entrada e resposta HTTP     │
+└──────────────┬──────────────┘
+               │
+               ▼
+┌─────────────────────────────┐
+│          SERVICES           │
+│      Regras de aplicação    │
+└──────────────┬──────────────┘
+               │
+               ▼
+┌─────────────────────────────┐
+│         DOMAIN /            │
+│      BUSINESS RULES         │
+└──────────────┬──────────────┘
+               │
+               ▼
+┌─────────────────────────────┐
+│           MODELS            │
+│      Eloquent ORM           │
+└──────────────┬──────────────┘
+               │
+               ▼
+┌─────────────────────────────┐
+│         POSTGRESQL          │
+└─────────────────────────────┘
+
+
+---
+
+5. Princípios Arquiteturais
+
+A arquitetura deverá seguir os seguintes princípios:
+
+Separação de responsabilidades;
+
+Baixo acoplamento;
+
+Alta coesão;
+
+Segurança por padrão;
+
+Código reutilizável;
+
+Testabilidade;
+
+Escalabilidade;
+
+Manutenibilidade;
+
+Observabilidade;
+
+Controle de acesso;
+
+Rastreabilidade.
+
+
+
+---
+
+6. Organização em Módulos
+
+O sistema será dividido nos seguintes módulos principais:
+
+Autenticação
+    │
+    ├── Usuários
+    ├── Perfis
+    └── Permissões
+
+Administração
+    │
+    ├── Escolas
+    ├── Turmas
+    ├── Categorias
+    ├── Contextos
+    ├── Intensidades
+    ├── Estratégias
+    └── Resultados
+
+Alunos
+    │
+    ├── Cadastro
+    ├── Perfil
+    └── Histórico
+
+Responsáveis
+    │
+    ├── Cadastro
+    ├── Vínculos
+    └── Canais
+
+Acompanhamento
+    │
+    ├── Observações
+    ├── Estratégias
+    └── Resultados
+
+Indicadores
+    │
+    ├── Indicadores
+    ├── Evolução
+    ├── Tendências
+    └── Comparações
+
+Relatórios
+    │
+    ├── Semanal
+    ├── Mensal
+    ├── Anual
+    ├── Personalizado
+    └── Comparativo
+
+Comunicação
+    │
+    ├── E-mail
+    ├── WhatsApp
+    └── Emergência
+
+Auditoria
+    │
+    ├── Logs
+    ├── Acessos
+    ├── Alterações
+    └── Comunicações
+
+
+---
+
+7. Estrutura de Diretórios
+
+A estrutura inicial proposta:
+
+incluiedu/
+│
+├── app/
+│   ├── Console/
+│   ├── Exceptions/
+│   ├── Http/
+│   │   ├── Controllers/
+│   │   ├── Middleware/
+│   │   └── Requests/
+│   │
+│   ├── Models/
+│   ├── Services/
+│   ├── Repositories/
+│   ├── Policies/
+│   ├── Jobs/
+│   ├── Notifications/
+│   └── Providers/
+│
+├── bootstrap/
+│
+├── config/
+│
+├── database/
+│   ├── factories/
+│   ├── migrations/
+│   └── seeders/
+│
+├── public/
+│
+├── resources/
+│   ├── css/
+│   ├── js/
+│   └── views/
+│
+├── routes/
+│   ├── web.php
+│   └── api.php
+│
+├── storage/
+│
+├── tests/
+│   ├── Feature/
+│   └── Unit/
+│
+├── docs/
+│
+├── docker/
+│
+├── .env
+├── .env.example
+├── artisan
+├── composer.json
+└── README.md
+
+
+---
+
+8. Controllers
+
+Os Controllers serão responsáveis principalmente por:
+
+receber requisições;
+
+validar entrada através de Requests;
+
+chamar Services;
+
+retornar respostas.
+
+
+Os Controllers não deverão concentrar regras complexas de negócio.
+
+Exemplo:
+
+AlunoController
+      │
+      ▼
+AlunoService
+      │
+      ▼
+Aluno Model
+      │
+      ▼
+PostgreSQL
+
+
+---
+
+9. Services
+
+Os Services concentrarão operações de negócio e aplicação.
+
+Exemplos:
+
+AlunoService
+ObservacaoService
+IndicadorService
+RelatorioService
+ComunicacaoService
+EmergenciaService
+AuditoriaService
+
+
+---
+
+10. Models
+
+Os Models representarão as principais entidades persistidas no banco.
+
+Exemplos:
+
+User
+Aluno
+Responsavel
+Escola
+Turma
+Observacao
+Estrategia
+Resultado
+Indicador
+Relatorio
+Comunicacao
+Auditoria
+
+Os Models utilizarão o Eloquent ORM.
+
+
+---
+
+11. Form Requests
+
+As validações de entrada deverão ser realizadas através de Form Requests quando aplicável.
+
+Exemplos:
+
+StoreAlunoRequest
+UpdateAlunoRequest
+StoreObservacaoRequest
+StoreResponsavelRequest
+StoreComunicacaoRequest
+
+
+---
+
+12. Policies
+
+As Policies serão utilizadas para controlar autorização sobre recursos.
+
+Exemplos:
+
+AlunoPolicy
+ObservacaoPolicy
+RelatorioPolicy
+ComunicacaoPolicy
+UsuarioPolicy
+
+
+---
+
+13. Middleware
+
+Middleware será utilizado para controles transversais.
+
+Exemplos:
+
+Autenticação
+Autorização
+Auditoria
+Rate Limiting
+Segurança
+
+
+---
+
+14. Autenticação
+
+A autenticação será implementada utilizando recursos nativos/ecossistema do Laravel.
+
+Fluxo:
+
+Login
+  │
+  ▼
+Validação
+  │
+  ▼
+Autenticação
+  │
+  ▼
+Sessão
+  │
+  ▼
+Autorização
+
+
+---
+
+15. Autorização
+
+A autorização será baseada em:
+
+Usuário
+   │
+   ▼
+Perfil
+   │
+   ▼
+Permissões
+   │
+   ▼
+Recurso
+
+Exemplo:
+
+Professor
+   │
+   ├── Consultar Alunos
+   ├── Registrar Observações
+   └── Consultar Indicadores
+
+Administrador
+   │
+   ├── Gerenciar Usuários
+   ├── Gerenciar Permissões
+   ├── Gerenciar Configurações
+   └── Consultar Auditoria
+
+
+---
+
+16. Banco de Dados
+
+O banco de dados principal será:
+
+PostgreSQL
+
+A modelagem será realizada em uma fase específica após a definição arquitetural.
+
+Principais grupos de entidades:
+
+Usuários
+Escolas
+Turmas
+Alunos
+Responsáveis
+Observações
+Estratégias
+Resultados
+Indicadores
+Relatórios
+Comunicações
+Auditoria
+
+
+---
+
+17. Comunicação
+
+A comunicação será implementada através de uma camada de serviços.
+
+ComunicacaoService
+       │
+       ├── EmailService
+       │
+       └── WhatsAppService
+
+Isso permitirá substituir ou adicionar provedores sem alterar as regras principais da aplicação.
+
+
+---
+
+18. Comunicação Emergencial
+
+A comunicação emergencial será tratada como um fluxo específico.
+
+Usuário
+   │
+   ▼
+EmergenciaService
+   │
+   ├── Identifica responsável
+   ├── Valida canal
+   ├── Valida autorização
+   ├── Registra operação
+   │
+   ▼
+Fila
+   │
+   ▼
+Serviço de comunicação
+   │
+   ▼
+Resultado
+
+
+---
+
+19. Filas
+
+Operações potencialmente demoradas poderão utilizar Laravel Queue.
+
+Exemplos:
+
+geração de relatórios;
+
+geração de PDF;
+
+envio de e-mails;
+
+envio de WhatsApp;
+
+processamento de indicadores;
+
+notificações.
+
+
+Fluxo:
+
+Requisição
+    │
+    ▼
+Job
+    │
+    ▼
+Queue
+    │
+    ▼
+Worker
+    │
+    ▼
+Processamento
+
+Redis será considerado como mecanismo de fila e cache.
+
+
+---
+
+20. Relatórios
+
+O módulo de relatórios deverá permitir:
+
+relatório semanal;
+
+relatório mensal;
+
+relatório anual;
+
+relatório personalizado;
+
+relatório comparativo;
+
+gráficos;
+
+exportação PDF.
+
+
+Arquitetura:
+
+RelatorioController
+        │
+        ▼
+RelatorioService
+        │
+        ├── Consulta dados
+        ├── Calcula indicadores
+        ├── Monta gráficos
+        │
+        ▼
+PDF Generator
+        │
+        ▼
+Arquivo PDF
+
+
+---
+
+21. Indicadores
+
+Os indicadores deverão possuir uma camada própria para evitar que regras de cálculo fiquem espalhadas pelo sistema.
+
+IndicadorService
+      │
+      ├── Calcula
+      ├── Compara
+      ├── Analisa evolução
+      └── Identifica tendências
+
+
+---
+
+22. Auditoria
+
+As operações críticas deverão gerar registros de auditoria.
+
+Usuário
+   │
+   ▼
+Operação
+   │
+   ▼
+Sistema
+   │
+   ▼
+Auditoria
+
+Informações mínimas:
+
+Usuário
+Ação
+Recurso
+Identificador
+Data/Hora
+IP
+Resultado
+
+
+---
+
+23. Cache
+
+O sistema poderá utilizar cache para informações frequentemente consultadas.
+
+Exemplos:
+
+configurações;
+
+categorias;
+
+contextos;
+
+indicadores;
+
+permissões;
+
+dashboards.
+
+
+Redis será considerado como solução de cache.
+
+
+---
+
+24. API
+
+O sistema deverá possuir uma API para permitir futuras integrações.
+
+Estrutura inicial:
+
+/api/v1
+
+Exemplos:
+
+GET    /api/v1/alunos
+POST   /api/v1/alunos
+GET    /api/v1/alunos/{id}
+PUT    /api/v1/alunos/{id}
+DELETE /api/v1/alunos/{id}
+
+A API deverá utilizar versionamento.
+
+
+---
+
+25. Tratamento de Exceções
+
+Erros deverão ser tratados de forma centralizada.
+
+O sistema deverá:
+
+registrar erros;
+
+apresentar mensagens amigáveis;
+
+evitar exposição de informações sensíveis;
+
+diferenciar erros de negócio de erros técnicos.
+
+
+
+---
+
+26. Logs
+
+A aplicação deverá manter logs técnicos para:
+
+erros;
+
+autenticação;
+
+integrações;
+
+processamento;
+
+filas;
+
+operações críticas.
+
+
+Logs não deverão armazenar informações sensíveis desnecessariamente.
+
+
+---
+
+27. Segurança
+
+A arquitetura deverá considerar:
+
+HTTPS
+   │
+Autenticação
+   │
+Autorização
+   │
+Validação
+   │
+Proteção de Dados
+   │
+Auditoria
+   │
+Logs
+
+Também deverão ser consideradas:
+
+proteção contra SQL Injection;
+
+XSS;
+
+CSRF;
+
+brute force;
+
+exposição de credenciais;
+
+acesso indevido;
+
+vazamento de informações.
+
+
+
+---
+
+28. Armazenamento de Arquivos
+
+Arquivos relacionados aos relatórios ou documentos do sistema deverão utilizar uma camada de armazenamento adequada.
+
+A arquitetura deverá permitir futuramente:
+
+Storage Local
+      │
+      └── ou
+            │
+            ▼
+      Cloud Storage
+
+A implementação deverá evitar dependência direta do código em um único provedor.
+
+
+---
+
+29. Docker
+
+O projeto poderá utilizar Docker para padronização do ambiente.
+
+Arquitetura inicial:
+
+┌───────────────────────┐
+│       Nginx           │
+└───────────┬───────────┘
+            │
+            ▼
+┌───────────────────────┐
+│      Laravel/PHP      │
+└───────┬─────────┬─────┘
+        │         │
+        ▼         ▼
+┌───────────┐  ┌───────────┐
+│ PostgreSQL│  │   Redis   │
+└───────────┘  └───────────┘
+
+
+---
+
+30. Ambientes
+
+O projeto deverá considerar inicialmente:
+
+DESENVOLVIMENTO
+       │
+       ▼
+TESTES
+       │
+       ▼
+PRODUÇÃO
+
+Cada ambiente deverá possuir configurações próprias.
+
+
+---
+
+31. Deploy
+
+O processo de deploy deverá contemplar:
+
+GitHub
+   │
+   ▼
+Build/Testes
+   │
+   ▼
+Deploy
+   │
+   ▼
+Aplicação
+   │
+   ▼
+Monitoramento
+
+A estratégia definitiva de CI/CD será definida posteriormente.
+
+
+---
+
+32. Testes
+
+A arquitetura deverá permitir testes em diferentes níveis.
+
+Testes
+  │
+  ├── Unitários
+  │
+  ├── Feature
+  │
+  ├── Integração
+  │
+  └── Segurança
+
+Os Services e regras de negócio deverão ser projetados para facilitar testes isolados.
+
+
+---
+
+33. Fluxo Geral da Aplicação
+
+Exemplo de uma operação de registro de observação:
+
+Usuário
+   │
+   ▼
+Interface
+   │
+   ▼
+Route
+   │
+   ▼
+Controller
+   │
+   ▼
+Form Request
+   │
+   ▼
+Policy
+   │
+   ▼
+ObservacaoService
+   │
+   ├── Valida regras
+   ├── Registra observação
+   └── Registra auditoria
+   │
+   ▼
+Model
+   │
+   ▼
+PostgreSQL
+   │
+   ▼
+Resposta
+
+
+---
+
+34. Fluxo de Relatório
+
+Usuário
+   │
+   ▼
+Relatório
+   │
+   ▼
+RelatorioController
+   │
+   ▼
+RelatorioService
+   │
+   ├── Consulta dados
+   ├── Processa indicadores
+   ├── Gera gráficos
+   └── Monta relatório
+   │
+   ▼
+PDF
+   │
+   ▼
+Download / Armazenamento
+
+
+---
+
+35. Fluxo de Comunicação
+
+Usuário
+   │
+   ▼
+Comunicação
+   │
+   ▼
+ComunicacaoService
+   │
+   ├──────────────┐
+   ▼              ▼
+E-mail         WhatsApp
+   │              │
+   └──────┬───────┘
+          ▼
+       Resultado
+          │
+          ▼
+       Auditoria
+
+
+---
+
+36. Fluxo de Comunicação Emergencial
+
+Situação Emergencial
+        │
+        ▼
+Usuário autorizado
+        │
+        ▼
+Identificação do responsável
+        │
+        ▼
+Validação do canal
+        │
+        ▼
+Confirmação
+        │
+        ▼
+Job / Queue
+        │
+        ▼
+Serviço externo
+        │
+        ▼
+Resultado
+        │
+        ▼
+Auditoria
+
+
+---
+
+37. Segurança Arquitetural
+
+A segurança será aplicada em múltiplas camadas:
+
+┌─────────────────────────┐
+│       Frontend          │
+├─────────────────────────┤
+│       HTTPS             │
+├─────────────────────────┤
+│    Autenticação         │
+├─────────────────────────┤
+│    Autorização          │
+├─────────────────────────┤
+│   Validação de Dados    │
+├─────────────────────────┤
+│    Regras de Negócio    │
+├─────────────────────────┤
+│     PostgreSQL          │
+├─────────────────────────┤
+│       Auditoria         │
+└─────────────────────────┘
+
+
+---
+
+38. Escalabilidade
+
+A arquitetura deverá permitir evolução gradual.
+
+Possíveis evoluções futuras:
+
+Aplicação Monolítica
+        │
+        ▼
+Monólito Modular
+        │
+        ▼
+Processamento Assíncrono
+        │
+        ▼
+Escalabilidade Horizontal
+
+A adoção de microsserviços não será necessária inicialmente.
+
+
+---
+
+39. Decisão Arquitetural
+
+Para a primeira versão do IncluiEdu será adotada uma arquitetura:
+
+Monolítica Modular em Laravel
+
+Características:
+
+uma aplicação principal;
+
+módulos bem definidos;
+
+separação de responsabilidades;
+
+PostgreSQL;
+
+Redis;
+
+filas;
+
+API versionada;
+
+possibilidade de evolução futura.
+
+
+
+---
+
+40. Justificativa
+
+A arquitetura monolítica modular foi escolhida porque:
+
+reduz complexidade inicial;
+
+facilita desenvolvimento;
+
+facilita deploy;
+
+reduz custos;
+
+permite testes mais simples;
+
+aproveita o ecossistema Laravel;
+
+permite crescimento gradual;
+
+mantém os módulos organizados;
+
+possibilita futura separação de componentes.
+
+
+
+---
+
+41. Arquitetura de Alto Nível
+
+┌──────────────────┐
+                         │     Usuários     │
+                         └────────┬─────────┘
+                                  │
+                                  ▼
+                         ┌──────────────────┐
+                         │    Web / API     │
+                         └────────┬─────────┘
+                                  │
+                                  ▼
+                  ┌───────────────────────────────┐
+                  │           LARAVEL             │
+                  │                               │
+                  │ ┌───────────────────────────┐ │
+                  │ │ Autenticação / Segurança  │ │
+                  │ ├───────────────────────────┤ │
+                  │ │ Gestão de Alunos          │ │
+                  │ ├───────────────────────────┤ │
+                  │ │ Acompanhamento             │ │
+                  │ ├───────────────────────────┤ │
+                  │ │ Indicadores                │ │
+                  │ ├───────────────────────────┤ │
+                  │ │ Relatórios                 │ │
+                  │ ├───────────────────────────┤ │
+                  │ │ Comunicação                │ │
+                  │ ├───────────────────────────┤ │
+                  │ │ Auditoria                  │ │
+                  │ └───────────────────────────┘ │
+                  └───────────────┬───────────────┘
+                                  │
+                  ┌───────────────┼───────────────┐
+                  │               │               │
+                  ▼               ▼               ▼
+            PostgreSQL          Redis       Serviços Externos
+                                            │
+                                            ├── E-mail
+                                            └── WhatsApp
+
+
+---
+
+42. Próxima Etapa
+
+Após a aprovação desta arquitetura, a próxima etapa será:
+
+FASE 6 — MODELAGEM DO BANCO DE DADOS
+
+Nesta fase serão definidos:
+
+entidades;
+
+atributos;
+
+relacionamentos;
+
+cardinalidades;
+
+chaves primárias;
+
+chaves estrangeiras;
+
+índices;
+
+constraints;
+
+normalização;
+
+modelo conceitual;
+
+modelo lógico;
+
+modelo físico;
+
+PostgreSQL;
+
+migrations Laravel.
+
+
+
+---
+
+43. Status
+
+FASE 5 — ARQUITETURA DO SISTEMA
+
+Status:
+
+CONSOLIDADA — VERSÃO 1.0
+
+Arquitetura definida:
+
+Monolítica Modular — Laravel + PostgreSQL + Redis
+
+Próxima fase:
+
+FASE 6 — MODELAGEM DO BANCO DE DADOS
+
+### Minha recomendação para o IncluiEdu
+
+Eu manteria essa decisão arquitetural:
+
+**Laravel + PostgreSQL + Redis + Blade/Tailwind + Jobs/Queues**, em um **monólito modular**.
+
+Não começaria com microsserviços. Para o estágio atual do projeto, eles adicionariam complexidade sem trazer benefício proporcional.
+
+E há uma decisão importante que devemos tomar na **FASE 6**: o banco precisa ser modelado **a partir dos 69 casos de uso + 81 regras de negócio**, e não simplesmente criar tabelas olhando para os requisitos isoladamente.
+
+A sequência agora fica:
+
+**Requisitos → Casos de Uso → Regras de Negócio → RNF → Arquitetura → Banco de Dados → Migrations → Laravel → Testes.**
