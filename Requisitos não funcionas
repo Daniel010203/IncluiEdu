@@ -1,0 +1,873 @@
+Perfeito. Vamos manter o mesmo padrão das fases anteriores: documento completo, porém simplificado, adequado para o GitHub e sem entrar ainda em detalhes de implementação.
+
+Abaixo está o conteúdo para REQUISITOS_NAO_FUNCIONAIS.md.
+
+# IncluiEdu — Requisitos Não Funcionais
+
+> Documento simplificado dos requisitos não funcionais do sistema IncluiEdu.
+
+**Projeto:** IncluiEdu  
+**Documento:** Requisitos Não Funcionais  
+**Versão:** 1.0  
+**Status:** Em desenvolvimento
+
+---
+
+# 1. Objetivo
+
+Este documento define os requisitos não funcionais do IncluiEdu.
+
+Enquanto os requisitos funcionais descrevem **o que o sistema deve fazer**, os requisitos não funcionais definem **como o sistema deverá funcionar**, considerando aspectos como:
+
+- segurança;
+- desempenho;
+- disponibilidade;
+- usabilidade;
+- acessibilidade;
+- escalabilidade;
+- manutenção;
+- confiabilidade;
+- privacidade;
+- compatibilidade;
+- auditoria.
+
+---
+
+# 2. Classificação
+
+Os requisitos serão organizados nas seguintes categorias:
+
+1. Segurança
+2. Privacidade e proteção de dados
+3. Desempenho
+4. Disponibilidade
+5. Confiabilidade
+6. Usabilidade
+7. Acessibilidade
+8. Escalabilidade
+9. Manutenibilidade
+10. Compatibilidade
+11. Auditoria e rastreabilidade
+12. Relatórios
+13. Integrações
+14. Backup e recuperação
+15. Qualidade de software
+
+---
+
+# 3. Segurança
+
+## RNF-001 — Autenticação
+
+O sistema deverá exigir autenticação para acesso às funcionalidades protegidas.
+
+---
+
+## RNF-002 — Autorização
+
+O sistema deverá implementar controle de acesso baseado em usuários, perfis e permissões.
+
+---
+
+## RNF-003 — Senhas
+
+As senhas não deverão ser armazenadas em formato de texto puro.
+
+Deverão ser utilizadas técnicas adequadas de hash e armazenamento seguro.
+
+---
+
+## RNF-004 — Sessões
+
+As sessões dos usuários deverão possuir mecanismos de proteção contra acesso indevido.
+
+---
+
+## RNF-005 — Controle de Acesso
+
+O sistema deverá impedir que usuários acessem recursos fora de suas permissões.
+
+---
+
+## RNF-006 — Proteção contra Ataques
+
+A aplicação deverá adotar mecanismos de proteção contra vulnerabilidades comuns de aplicações web.
+
+Exemplos:
+
+- SQL Injection;
+- Cross-Site Scripting (XSS);
+- Cross-Site Request Forgery (CSRF);
+- autenticação inadequada;
+- exposição indevida de dados.
+
+---
+
+## RNF-007 — Comunicação Segura
+
+A comunicação entre cliente e servidor deverá utilizar HTTPS em ambientes de produção.
+
+---
+
+## RNF-008 — Dados Sensíveis
+
+Informações pessoais e relacionadas aos alunos deverão possuir mecanismos adequados de proteção.
+
+---
+
+# 4. Privacidade e Proteção de Dados
+
+## RNF-009 — Proteção de Dados Pessoais
+
+O sistema deverá proteger os dados pessoais dos alunos, responsáveis e usuários.
+
+---
+
+## RNF-010 — Controle de Acesso aos Dados
+
+Informações pessoais somente poderão ser acessadas por usuários autorizados.
+
+---
+
+## RNF-011 — Minimização
+
+O sistema deverá evitar a coleta e exposição de informações que não sejam necessárias para suas finalidades.
+
+---
+
+## RNF-012 — Rastreabilidade
+
+Operações relevantes envolvendo dados deverão possuir mecanismos de rastreabilidade.
+
+---
+
+## RNF-013 — Retenção
+
+A retenção dos dados deverá seguir as políticas definidas para o sistema e requisitos legais aplicáveis.
+
+---
+
+## RNF-014 — Exclusão
+
+A exclusão de dados deverá respeitar as regras de negócio, histórico e requisitos legais aplicáveis.
+
+---
+
+# 5. Desempenho
+
+## RNF-015 — Tempo de Resposta
+
+Operações comuns deverão apresentar tempo de resposta adequado ao uso normal da aplicação.
+
+Como referência inicial:
+
+- consultas simples: até 2 segundos;
+- operações de cadastro: até 3 segundos;
+- consultas analíticas: até 5 segundos.
+
+Valores poderão ser revisados durante os testes de desempenho.
+
+---
+
+## RNF-016 — Consultas
+
+Consultas deverão ser projetadas para evitar processamento desnecessário e degradação do sistema.
+
+---
+
+## RNF-017 — Relatórios
+
+Relatórios simples deverão ser processados em tempo adequado ao volume de dados.
+
+Relatórios complexos poderão utilizar processamento assíncrono quando necessário.
+
+---
+
+## RNF-018 — Geração de PDF
+
+A geração de PDFs deverá evitar bloqueios prolongados da aplicação.
+
+---
+
+# 6. Disponibilidade
+
+## RNF-019 — Disponibilidade
+
+O sistema deverá permanecer disponível durante os períodos definidos para operação.
+
+---
+
+## RNF-020 — Recuperação de Falhas
+
+O sistema deverá possuir mecanismos para recuperação de falhas de aplicação e infraestrutura.
+
+---
+
+## RNF-021 — Serviços Externos
+
+Falhas em serviços externos, como e-mail ou WhatsApp, não deverão provocar indisponibilidade completa do sistema.
+
+---
+
+# 7. Confiabilidade
+
+## RNF-022 — Integridade
+
+O sistema deverá preservar a integridade dos dados durante operações de inclusão, alteração e consulta.
+
+---
+
+## RNF-023 — Transações
+
+Operações que envolvam múltiplas alterações relacionadas deverão utilizar mecanismos transacionais adequados.
+
+---
+
+## RNF-024 — Tratamento de Erros
+
+Erros deverão ser tratados de maneira controlada, evitando exposição de informações técnicas ao usuário final.
+
+---
+
+## RNF-025 — Registro de Falhas
+
+Falhas relevantes deverão ser registradas para análise técnica.
+
+---
+
+# 8. Usabilidade
+
+## RNF-026 — Interface
+
+A interface deverá ser simples, clara e consistente.
+
+---
+
+## RNF-027 — Navegação
+
+As funcionalidades deverão possuir navegação lógica e previsível.
+
+---
+
+## RNF-028 — Mensagens
+
+Mensagens de sucesso, alerta e erro deverão ser claras para o usuário.
+
+---
+
+## RNF-029 — Formulários
+
+Formulários deverão apresentar validações e orientações adequadas.
+
+---
+
+## RNF-030 — Responsividade
+
+A interface deverá adaptar-se a diferentes tamanhos de tela.
+
+O sistema deverá funcionar adequadamente em:
+
+- computadores;
+- tablets;
+- smartphones.
+
+---
+
+# 9. Acessibilidade
+
+## RNF-031 — Acessibilidade
+
+A interface deverá seguir boas práticas de acessibilidade digital.
+
+---
+
+## RNF-032 — Contraste
+
+Elementos visuais deverão possuir contraste adequado.
+
+---
+
+## RNF-033 — Navegação
+
+A interface deverá permitir navegação adequada por teclado quando aplicável.
+
+---
+
+## RNF-034 — Elementos Semânticos
+
+A aplicação deverá utilizar elementos semânticos e rótulos adequados.
+
+---
+
+## RNF-035 — Compatibilidade com Tecnologias Assistivas
+
+A interface deverá considerar compatibilidade com tecnologias assistivas.
+
+---
+
+# 10. Escalabilidade
+
+## RNF-036 — Crescimento
+
+A arquitetura deverá permitir crescimento gradual do número de:
+
+- usuários;
+- alunos;
+- observações;
+- relatórios;
+- comunicações.
+
+---
+
+## RNF-037 — Banco de Dados
+
+A estrutura do banco deverá suportar crescimento do volume de dados sem necessidade de alterações estruturais frequentes.
+
+---
+
+## RNF-038 — Processamento
+
+Processamentos pesados deverão poder ser desacoplados da requisição principal quando necessário.
+
+---
+
+## RNF-039 — Integrações
+
+A arquitetura deverá permitir adicionar novos serviços externos sem grande impacto no núcleo da aplicação.
+
+---
+
+# 11. Manutenibilidade
+
+## RNF-040 — Arquitetura
+
+O sistema deverá possuir arquitetura organizada e modular.
+
+---
+
+## RNF-041 — Código
+
+O código deverá seguir padrões de organização, legibilidade e boas práticas de desenvolvimento.
+
+---
+
+## RNF-042 — Separação de Responsabilidades
+
+As responsabilidades deverão ser separadas adequadamente entre:
+
+- apresentação;
+- regras de negócio;
+- persistência;
+- integrações;
+- serviços.
+
+---
+
+## RNF-043 — Documentação
+
+As funcionalidades relevantes deverão possuir documentação técnica.
+
+---
+
+## RNF-044 — Versionamento
+
+O código deverá ser controlado por sistema de versionamento.
+
+---
+
+## RNF-045 — Dependências
+
+As dependências do projeto deverão possuir versões controladas e documentadas.
+
+---
+
+# 12. Compatibilidade
+
+## RNF-046 — Navegadores
+
+A aplicação web deverá funcionar nos principais navegadores modernos.
+
+Exemplos:
+
+- Google Chrome;
+- Microsoft Edge;
+- Mozilla Firefox;
+- Safari.
+
+---
+
+## RNF-047 — Dispositivos
+
+A aplicação deverá ser utilizável em computadores, tablets e smartphones.
+
+---
+
+## RNF-048 — Sistema Operacional
+
+O sistema deverá ser acessível independentemente do sistema operacional utilizado pelo cliente, desde que seja utilizado navegador compatível.
+
+---
+
+# 13. Auditoria e Rastreabilidade
+
+## RNF-049 — Eventos
+
+Eventos relevantes deverão ser registrados.
+
+---
+
+## RNF-050 — Usuário
+
+Registros de auditoria deverão identificar o usuário responsável quando aplicável.
+
+---
+
+## RNF-051 — Data e Hora
+
+Eventos deverão possuir registro de data e hora.
+
+---
+
+## RNF-052 — Alterações
+
+Alterações relevantes deverão permitir rastrear o responsável pela operação.
+
+---
+
+## RNF-053 — Proteção dos Logs
+
+Registros de auditoria deverão ser protegidos contra alteração ou exclusão não autorizada.
+
+---
+
+# 14. Relatórios
+
+## RNF-054 — Formato PDF
+
+O sistema deverá permitir exportação dos relatórios para PDF.
+
+---
+
+## RNF-055 — Qualidade Visual
+
+Os PDFs deverão possuir apresentação adequada para leitura e impressão.
+
+---
+
+## RNF-056 — Gráficos
+
+Os gráficos deverão apresentar informações legíveis e coerentes com os dados.
+
+---
+
+## RNF-057 — Períodos
+
+Os relatórios deverão permitir análise:
+
+- semanal;
+- mensal;
+- anual;
+- personalizada;
+- comparativa.
+
+---
+
+## RNF-058 — Consistência
+
+Os dados apresentados no relatório deverão corresponder aos dados armazenados e aos indicadores calculados.
+
+---
+
+# 15. Integrações
+
+## RNF-059 — E-mail
+
+A arquitetura deverá permitir integração com serviço de envio de e-mail.
+
+---
+
+## RNF-060 — WhatsApp
+
+A arquitetura deverá permitir integração com serviço autorizado de WhatsApp.
+
+---
+
+## RNF-061 — Falhas de Integração
+
+Falhas em serviços externos deverão ser identificadas e registradas.
+
+---
+
+## RNF-062 — Desacoplamento
+
+Integrações externas deverão ser implementadas de forma desacoplada do núcleo da aplicação sempre que possível.
+
+---
+
+## RNF-063 — Novas Integrações
+
+A arquitetura deverá permitir inclusão futura de novos canais.
+
+---
+
+# 16. Backup e Recuperação
+
+## RNF-064 — Backup
+
+O banco de dados deverá possuir rotina de backup.
+
+---
+
+## RNF-065 — Recuperação
+
+Deverá existir procedimento documentado para recuperação dos dados.
+
+---
+
+## RNF-066 — Teste de Backup
+
+Backups deverão ser periodicamente testados para verificar sua capacidade de restauração.
+
+---
+
+## RNF-067 — Segurança do Backup
+
+Backups deverão possuir controle de acesso adequado.
+
+---
+
+# 17. Qualidade de Software
+
+## RNF-068 — Testes Automatizados
+
+As principais funcionalidades deverão possuir testes automatizados.
+
+---
+
+## RNF-069 — Testes de Integração
+
+Integrações críticas deverão possuir testes de integração.
+
+---
+
+## RNF-070 — Testes de Segurança
+
+A aplicação deverá ser submetida a testes básicos de segurança antes da publicação em produção.
+
+---
+
+## RNF-071 — Testes de Desempenho
+
+Funcionalidades críticas deverão ser avaliadas quanto ao desempenho.
+
+---
+
+## RNF-072 — Controle de Qualidade
+
+Alterações relevantes deverão passar por validação antes de serem disponibilizadas em produção.
+
+---
+
+# 18. Observabilidade
+
+## RNF-073 — Logs da Aplicação
+
+A aplicação deverá possuir registros técnicos suficientes para diagnóstico de problemas.
+
+---
+
+## RNF-074 — Monitoramento
+
+O ambiente de produção deverá possuir mecanismos de monitoramento da aplicação e infraestrutura.
+
+---
+
+## RNF-075 — Erros
+
+Erros críticos deverão gerar informações suficientes para investigação.
+
+---
+
+## RNF-076 — Métricas
+
+A arquitetura deverá permitir coleta de métricas relevantes da aplicação.
+
+Exemplos:
+
+- tempo de resposta;
+- quantidade de requisições;
+- erros;
+- processamento de relatórios;
+- falhas de integração.
+
+---
+
+# 19. Implantação
+
+## RNF-077 — Ambientes
+
+O projeto deverá possuir, quando aplicável, ambientes separados para:
+
+- desenvolvimento;
+- testes;
+- produção.
+
+---
+
+## RNF-078 — Configurações
+
+Configurações específicas de cada ambiente não deverão ser incorporadas diretamente ao código-fonte.
+
+---
+
+## RNF-079 — Variáveis de Ambiente
+
+Credenciais, chaves e configurações sensíveis deverão utilizar mecanismos apropriados de configuração.
+
+---
+
+## RNF-080 — Deploy
+
+O processo de implantação deverá ser documentado.
+
+---
+
+# 20. Arquitetura Tecnológica
+
+A implementação proposta deverá utilizar arquitetura web moderna baseada em:
+
+```text
+Frontend
+    │
+    ▼
+Aplicação Web
+    │
+    ▼
+Backend Laravel
+    │
+    ├── Regras de Negócio
+    ├── Autenticação
+    ├── Relatórios
+    ├── Indicadores
+    └── Integrações
+    │
+    ▼
+Banco de Dados
+
+A definição detalhada da arquitetura será realizada na fase de Arquitetura do Sistema.
+
+
+---
+
+21. Requisitos de Tecnologia
+
+A solução deverá ser compatível com a stack tecnológica definida para o projeto.
+
+Stack proposta:
+
+Componente	Tecnologia
+
+Backend	PHP + Laravel
+Banco de Dados	PostgreSQL
+Frontend	Blade + JavaScript ou solução definida posteriormente
+API	Laravel API
+Autenticação	Laravel
+Relatórios	Biblioteca PDF compatível com Laravel
+Comunicação	E-mail + API oficial/autorizada do WhatsApp
+Versionamento	Git + GitHub
+Ambiente	Linux/Windows durante desenvolvimento
+Containerização	Docker, se adotado
+Testes	PHPUnit / Pest
+
+
+A escolha definitiva das tecnologias será realizada na fase de arquitetura.
+
+
+---
+
+22. Prioridades
+
+Os requisitos não funcionais serão classificados conforme sua importância.
+
+Prioridade	Significado
+
+Crítica	Obrigatório para operação segura do sistema.
+Alta	Essencial para qualidade da aplicação.
+Média	Importante, mas poderá ser implementado posteriormente.
+Baixa	Melhoria ou requisito futuro.
+
+
+
+---
+
+23. Matriz Resumida
+
+Código	Categoria	Prioridade
+
+RNF-001 → RNF-008	Segurança	Crítica
+RNF-009 → RNF-014	Privacidade	Crítica
+RNF-015 → RNF-018	Desempenho	Alta
+RNF-019 → RNF-021	Disponibilidade	Alta
+RNF-022 → RNF-025	Confiabilidade	Alta
+RNF-026 → RNF-030	Usabilidade	Alta
+RNF-031 → RNF-035	Acessibilidade	Alta
+RNF-036 → RNF-039	Escalabilidade	Média
+RNF-040 → RNF-045	Manutenibilidade	Alta
+RNF-046 → RNF-048	Compatibilidade	Alta
+RNF-049 → RNF-053	Auditoria	Alta
+RNF-054 → RNF-058	Relatórios	Alta
+RNF-059 → RNF-063	Integrações	Alta
+RNF-064 → RNF-067	Backup	Crítica
+RNF-068 → RNF-072	Qualidade	Alta
+RNF-073 → RNF-076	Observabilidade	Média
+RNF-077 → RNF-080	Implantação	Alta
+
+
+
+---
+
+24. Relação com as Fases Anteriores
+
+Os requisitos não funcionais complementam:
+
+Requisitos Funcionais
+        │
+        ▼
+Casos de Uso
+        │
+        ▼
+Regras de Negócio
+        │
+        ▼
+Requisitos Não Funcionais
+        │
+        ▼
+Arquitetura do Sistema
+
+
+---
+
+25. Critérios Gerais de Aceitação
+
+O sistema será considerado tecnicamente adequado quando:
+
+usuários não autorizados não conseguirem acessar informações protegidas;
+
+os dados dos alunos estiverem protegidos;
+
+as principais operações possuírem rastreabilidade;
+
+os registros apresentarem integridade;
+
+os relatórios apresentarem dados consistentes;
+
+PDFs forem gerados corretamente;
+
+gráficos representarem corretamente os indicadores;
+
+integrações externas tratarem falhas adequadamente;
+
+backups puderem ser restaurados;
+
+funcionalidades críticas possuírem testes;
+
+aplicação apresentar desempenho adequado ao volume esperado;
+
+sistema puder ser mantido e evoluído sem alterações excessivamente complexas.
+
+
+
+---
+
+26. Status da FASE 4
+
+FASE 4 — REQUISITOS NÃO FUNCIONAIS
+
+Status:
+
+CONSOLIDADA — VERSÃO 1.0
+
+Total de requisitos não funcionais:
+
+80
+
+
+---
+
+27. Próxima Etapa
+
+Após a validação da FASE 4, a próxima etapa recomendada será:
+
+FASE 5 — ARQUITETURA DO SISTEMA
+
+Nesta fase serão definidos:
+
+arquitetura geral;
+
+arquitetura Laravel;
+
+camadas da aplicação;
+
+módulos;
+
+componentes;
+
+API;
+
+autenticação;
+
+autorização;
+
+banco de dados;
+
+integrações;
+
+geração de PDF;
+
+comunicação por e-mail;
+
+integração WhatsApp;
+
+filas e processamento assíncrono;
+
+armazenamento;
+
+segurança;
+
+Docker;
+
+ambientes;
+
+deploy.
+
+
+A arquitetura deverá ser definida antes da implementação do código.
+
+## Resultado da FASE 4
+
+Com isso, temos agora uma sequência bem organizada:
+
+```text
+FASE 1 — Engenharia de Requisitos
+        │
+        ├── Requisitos Funcionais
+        │
+        ▼
+FASE 2 — Casos de Uso
+        │
+        ├── 69 Casos de Uso
+        │
+        ▼
+FASE 3 — Regras de Negócio
+        │
+        ├── 81 Regras
+        │
+        ▼
+FASE 4 — Requisitos Não Funcionais
+        │
+        ├── 80 RNFs
+        │
+        ▼
+FASE 5 — Arquitetura do Sistema
+
+Eu recomendo que não avancemos ainda para o banco de dados. O próximo passo correto é a FASE 5 — Arquitetura, onde vamos desenhar a solução do IncluiEdu em PHP + Laravel + PostgreSQL, definindo inclusive a estrutura de pastas, camadas, módulos, autenticação, API, filas, PDF e integrações antes de escrevermos o primeiro código.
