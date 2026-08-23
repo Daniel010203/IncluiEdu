@@ -1,0 +1,1397 @@
+
+IncluiEdu — Catálogo Completo de Casos de Uso
+
+Sistema: IncluiEdu — Sistema de Acompanhamento Educacional Inclusivo
+Documento: Catálogo de Casos de Uso
+Versão: 1.0
+Fase: 2 — Casos de Uso
+Total: 69 casos de uso
+
+---
+
+1. Objetivo
+
+Este documento apresenta o catálogo completo dos Casos de Uso identificados para o IncluiEdu.
+
+Os Casos de Uso representam as principais interações entre os atores e o sistema e servirão como base para:
+
+- Regras de negócio;
+- Matriz de responsabilidades;
+- Arquitetura;
+- Modelagem de dados;
+- Implementação Laravel;
+- Testes automatizados;
+- Critérios de aceite.
+
+---
+
+2. Atores
+
+Código| Ator| Descrição
+ACT-001| Administrador| Responsável pela administração geral do sistema
+ACT-002| Professor| Responsável pelo acompanhamento educacional
+ACT-003| Profissional de Apoio| Profissional autorizado a acompanhar alunos
+ACT-004| Responsável| Responsável pelo aluno
+ACT-005| Profissional Externo| Profissional externo autorizado
+ACT-006| Auditor| Responsável pela consulta e análise de auditoria
+ACT-007| Serviço de E-mail| Serviço externo de envio de e-mails
+ACT-008| Serviço WhatsApp| Serviço externo de envio de mensagens
+ACT-009| Sistema| Processos automáticos internos
+
+---
+
+3. Organização dos Casos de Uso
+
+Os 69 Casos de Uso estão divididos em 12 grupos funcionais:
+
+1. Autenticação e Acesso
+2. Administração de Usuários
+3. Perfis e Permissões
+4. Gestão Escolar
+5. Gestão de Alunos
+6. Observações
+7. Dashboard e Indicadores
+8. Análise Comparativa
+9. Relatórios
+10. Comunicação
+11. Comunicação Emergencial
+12. Auditoria
+
+---
+
+A — Autenticação e Acesso
+
+UC-001 — Autenticar Usuário
+
+Ator principal: Usuário
+
+Permitir que um usuário acesse o sistema utilizando credenciais válidas.
+
+Objetivo
+
+Validar a identidade do usuário e iniciar uma sessão autenticada.
+
+Resultado esperado
+
+Usuário autenticado e direcionado à área correspondente às suas permissões.
+
+---
+
+UC-002 — Encerrar Sessão
+
+Ator principal: Usuário
+
+Permitir que o usuário encerre sua sessão.
+
+Objetivo
+
+Finalizar o acesso autenticado ao sistema.
+
+Resultado esperado
+
+Sessão encerrada com segurança.
+
+---
+
+UC-003 — Recuperar Acesso
+
+Ator principal: Usuário
+
+Permitir que um usuário recupere o acesso à conta.
+
+Objetivo
+
+Restabelecer o acesso mediante processo seguro de recuperação.
+
+Resultado esperado
+
+Usuário consegue redefinir suas credenciais após validação.
+
+---
+
+UC-004 — Alterar Senha
+
+Ator principal: Usuário
+
+Permitir alteração da senha atual.
+
+Objetivo
+
+Permitir manutenção segura das credenciais.
+
+Resultado esperado
+
+Nova senha armazenada de forma segura.
+
+---
+
+B — Administração de Usuários
+
+UC-005 — Cadastrar Usuário
+
+Ator principal: Administrador
+
+Permitir criação de novos usuários.
+
+Informações possíveis
+
+- Nome;
+- E-mail;
+- Telefone;
+- Status;
+- Perfil;
+- Escola;
+- Dados de identificação necessários.
+
+Resultado esperado
+
+Usuário criado e disponível para utilização conforme suas permissões.
+
+---
+
+UC-006 — Alterar Usuário
+
+Ator principal: Administrador
+
+Permitir alteração dos dados cadastrais de um usuário.
+
+Resultado esperado
+
+Dados atualizados e operação registrada em auditoria quando aplicável.
+
+---
+
+UC-007 — Ativar Usuário
+
+Ator principal: Administrador
+
+Permitir ativação de usuário previamente inativo.
+
+Resultado esperado
+
+Usuário passa a poder acessar o sistema conforme suas permissões.
+
+---
+
+UC-008 — Inativar Usuário
+
+Ator principal: Administrador
+
+Permitir inativação de um usuário.
+
+Resultado esperado
+
+Usuário deixa de possuir acesso ativo, preservando seus registros históricos.
+
+---
+
+UC-009 — Associar Usuário a Perfil
+
+Ator principal: Administrador
+
+Permitir associação de um usuário a um perfil de acesso.
+
+Resultado esperado
+
+Usuário passa a possuir as permissões correspondentes ao perfil.
+
+---
+
+UC-010 — Associar Usuário à Escola
+
+Ator principal: Administrador
+
+Permitir associar um usuário a uma instituição.
+
+Resultado esperado
+
+O sistema passa a considerar a instituição no escopo de acesso do usuário.
+
+---
+
+C — Perfis e Permissões
+
+UC-011 — Cadastrar Perfil
+
+Ator principal: Administrador
+
+Permitir criação de novos perfis de acesso.
+
+Resultado esperado
+
+Novo perfil disponível para configuração.
+
+---
+
+UC-012 — Alterar Perfil
+
+Ator principal: Administrador
+
+Permitir alteração das informações de um perfil.
+
+Resultado esperado
+
+Perfil atualizado.
+
+---
+
+UC-013 — Associar Permissões ao Perfil
+
+Ator principal: Administrador
+
+Permitir definir quais funcionalidades um perfil pode executar.
+
+Exemplo
+
+Um perfil poderá possuir:
+
+- consultar;
+- criar;
+- alterar;
+- inativar;
+- gerar relatório;
+- enviar comunicação.
+
+---
+
+UC-014 — Consultar Permissões
+
+Ator principal: Administrador
+
+Permitir visualizar as permissões associadas aos perfis.
+
+---
+
+UC-015 — Controlar Acesso a Recurso
+
+Ator principal: Sistema
+
+Validar se determinado usuário possui autorização para acessar ou executar uma funcionalidade.
+
+Resultado esperado
+
+Acesso permitido ou negado.
+
+---
+
+D — Gestão Escolar
+
+UC-016 — Cadastrar Escola
+
+Ator principal: Administrador
+
+Permitir cadastrar uma instituição de ensino.
+
+Resultado esperado
+
+Escola criada e disponível para configuração.
+
+---
+
+UC-017 — Alterar Escola
+
+Ator principal: Administrador
+
+Permitir atualização dos dados da instituição.
+
+---
+
+UC-018 — Ativar/Inativar Escola
+
+Ator principal: Administrador
+
+Permitir alterar o status da instituição.
+
+Resultado esperado
+
+Escola ativa ou inativa conforme operação realizada.
+
+---
+
+UC-019 — Cadastrar Turma
+
+Ator principal: Administrador
+
+Permitir cadastrar uma turma vinculada à escola.
+
+Informações possíveis
+
+- Nome;
+- Ano letivo;
+- Série;
+- Turno;
+- Professor;
+- Status.
+
+---
+
+UC-020 — Alterar Turma
+
+Ator principal: Administrador
+
+Permitir alteração dos dados de uma turma.
+
+---
+
+UC-021 — Associar Aluno à Turma
+
+Ator principal: Administrador
+
+Permitir associação de um aluno a uma turma.
+
+Resultado esperado
+
+Aluno passa a integrar a turma selecionada.
+
+---
+
+E — Gestão de Alunos
+
+UC-022 — Cadastrar Aluno
+
+Atores principais:
+
+- Administrador;
+- Usuário autorizado.
+
+Permitir cadastro de um novo aluno.
+
+Informações possíveis
+
+- Nome;
+- Data de nascimento;
+- Identificação;
+- Escola;
+- Turma;
+- Status;
+- Informações cadastrais necessárias.
+
+Resultado esperado
+
+Aluno cadastrado e disponível para associação aos responsáveis e profissionais autorizados.
+
+---
+
+UC-023 — Alterar Aluno
+
+Ator principal: Usuário autorizado
+
+Permitir atualização dos dados cadastrais do aluno.
+
+Resultado esperado
+
+Dados atualizados e alteração registrada quando aplicável.
+
+---
+
+UC-024 — Consultar Aluno
+
+Ator principal: Usuário autorizado
+
+Permitir consulta dos dados do aluno.
+
+Resultado esperado
+
+Sistema apresenta somente informações compatíveis com o nível de acesso do usuário.
+
+---
+
+UC-025 — Associar Responsável ao Aluno
+
+Ator principal: Usuário autorizado
+
+Permitir associação de um responsável a um aluno.
+
+Informações possíveis
+
+- Responsável;
+- Grau de parentesco/vínculo;
+- Telefone;
+- E-mail;
+- WhatsApp;
+- Canais autorizados;
+- Status da associação.
+
+---
+
+UC-026 — Associar Profissional ao Aluno
+
+Ator principal: Administrador/Usuário autorizado
+
+Permitir associação de profissionais ao aluno.
+
+Resultado esperado
+
+Profissional passa a possuir acesso conforme suas permissões e vínculo.
+
+---
+
+UC-027 — Consultar Histórico do Aluno
+
+Ator principal: Usuário autorizado
+
+Permitir consulta consolidada do histórico relacionado ao aluno.
+
+Pode incluir
+
+- Observações;
+- Indicadores;
+- Relatórios;
+- Comunicações;
+- Eventos relevantes.
+
+---
+
+F — Observações
+
+UC-028 — Registrar Observação
+
+Atores principais:
+
+- Professor;
+- Profissional de Apoio.
+
+Permitir registrar uma observação relacionada ao aluno.
+
+Informações previstas
+
+- Aluno;
+- Contexto;
+- Evento;
+- Intensidade;
+- Duração;
+- Estratégia;
+- Resultado;
+- Observação textual;
+- Data;
+- Hora;
+- Autor.
+
+Resultado esperado
+
+Observação armazenada e vinculada ao aluno e ao usuário responsável.
+
+---
+
+UC-029 — Alterar Observação
+
+Ator principal: Usuário autorizado
+
+Permitir alteração de uma observação previamente registrada.
+
+Resultado esperado
+
+Registro atualizado e alteração rastreável.
+
+---
+
+UC-030 — Consultar Observação
+
+Ator principal: Usuário autorizado
+
+Permitir consulta detalhada de uma observação.
+
+Resultado esperado
+
+Sistema apresenta as informações permitidas ao usuário.
+
+---
+
+UC-031 — Filtrar Observações
+
+Ator principal: Usuário autorizado
+
+Permitir filtragem dos registros.
+
+Filtros possíveis
+
+- Aluno;
+- Período;
+- Contexto;
+- Evento;
+- Intensidade;
+- Turma;
+- Autor.
+
+---
+
+UC-032 — Consultar Histórico de Observações
+
+Ator principal: Usuário autorizado
+
+Permitir consulta cronológica dos apontamentos.
+
+Resultado esperado
+
+Sistema apresenta histórico estruturado e filtrável.
+
+---
+
+G — Dashboard e Indicadores
+
+UC-033 — Consultar Dashboard
+
+Ator principal: Usuário autorizado
+
+Permitir visualização dos indicadores disponíveis para o perfil.
+
+Pode apresentar
+
+- Quantidade de apontamentos;
+- Evolução;
+- Distribuições;
+- Gráficos;
+- Comparativos.
+
+---
+
+UC-034 — Consultar Indicadores do Aluno
+
+Ator principal: Usuário autorizado
+
+Permitir consulta dos indicadores relacionados a um aluno específico.
+
+---
+
+UC-035 — Consultar Indicadores da Turma
+
+Ator principal: Usuário autorizado
+
+Permitir consulta de indicadores agregados de uma turma.
+
+Observação
+
+Os dados deverão respeitar as regras de privacidade e autorização.
+
+---
+
+UC-036 — Consultar Indicadores Institucionais
+
+Ator principal: Usuário autorizado
+
+Permitir consulta de indicadores agregados da instituição.
+
+---
+
+UC-037 — Consultar Evolução Temporal
+
+Ator principal: Usuário autorizado
+
+Permitir visualizar evolução dos indicadores ao longo do tempo.
+
+Períodos
+
+- Semanal;
+- Mensal;
+- Anual;
+- Personalizado.
+
+---
+
+H — Análise Comparativa
+
+UC-038 — Selecionar Período
+
+Ator principal: Usuário autorizado
+
+Permitir definir o período que será analisado.
+
+Resultado esperado
+
+Sistema valida as datas e utiliza o período nas consultas subsequentes.
+
+---
+
+UC-039 — Comparar Períodos
+
+Ator principal: Usuário autorizado
+
+Permitir comparação entre dois períodos.
+
+Exemplos
+
+- Semana × semana;
+- Mês × mês;
+- Ano × ano;
+- Período personalizado × período personalizado.
+
+---
+
+UC-040 — Consultar Variação Absoluta
+
+Ator principal: Sistema
+
+Calcular diferença absoluta entre os períodos selecionados.
+
+Exemplo
+
+Período A: 20 apontamentos
+Período B: 30 apontamentos
+
+Diferença: +10
+
+---
+
+UC-041 — Consultar Variação Percentual
+
+Ator principal: Sistema
+
+Calcular variação percentual quando matematicamente aplicável.
+
+Exemplo
+
+Período A: 20
+Período B: 30
+
+Variação: +50%
+
+---
+
+UC-042 — Visualizar Gráfico Comparativo
+
+Ator principal: Usuário autorizado
+
+Permitir representação visual dos períodos comparados.
+
+Possibilidades
+
+- Gráfico de barras;
+- Gráfico de linhas;
+- Distribuições;
+- Evolução temporal.
+
+---
+
+I — Relatórios
+
+UC-043 — Gerar Relatório
+
+Ator principal: Usuário autorizado
+
+Permitir geração de relatório baseado em filtros e período.
+
+Resultado esperado
+
+Sistema processa os dados e cria uma representação consolidada.
+
+---
+
+UC-044 — Gerar Relatório Semanal
+
+Ator principal: Usuário autorizado
+
+Permitir geração de relatório referente a uma semana.
+
+Conteúdo
+
+- Período;
+- Indicadores;
+- Apontamentos;
+- Gráficos;
+- Resumo.
+
+---
+
+UC-045 — Gerar Relatório Mensal
+
+Ator principal: Usuário autorizado
+
+Permitir geração de relatório referente a um mês.
+
+Conteúdo
+
+- Indicadores;
+- Gráficos;
+- Evolução;
+- Resumo;
+- Dados relevantes do período.
+
+---
+
+UC-046 — Gerar Relatório Anual
+
+Ator principal: Usuário autorizado
+
+Permitir geração de relatório anual.
+
+Conteúdo
+
+- Indicadores anuais;
+- Evolução mensal;
+- Gráficos;
+- Distribuições;
+- Comparativos quando aplicáveis.
+
+---
+
+UC-047 — Gerar Relatório Personalizado
+
+Ator principal: Usuário autorizado
+
+Permitir geração de relatório utilizando período e filtros personalizados.
+
+Filtros
+
+- Data inicial;
+- Data final;
+- Aluno;
+- Turma;
+- Contexto;
+- Evento;
+- Intensidade.
+
+---
+
+UC-048 — Gerar Relatório Comparativo
+
+Ator principal: Usuário autorizado
+
+Permitir geração de relatório comparando dois períodos.
+
+Conteúdo
+
+- Período A;
+- Período B;
+- Indicadores;
+- Diferença absoluta;
+- Variação percentual;
+- Gráficos comparativos.
+
+---
+
+UC-049 — Exportar Relatório para PDF
+
+Ator principal: Usuário autorizado
+
+Permitir exportação do relatório para PDF.
+
+Conteúdo previsto
+
+- Cabeçalho;
+- Identificação;
+- Período;
+- Indicadores;
+- Gráficos;
+- Comparativos;
+- Resumo;
+- Data de geração;
+- Usuário responsável.
+
+---
+
+UC-050 — Visualizar Relatório
+
+Ator principal: Usuário autorizado
+
+Permitir visualizar o relatório antes da exportação.
+
+Resultado esperado
+
+Usuário pode verificar o conteúdo antes de gerar o PDF.
+
+---
+
+J — Comunicação
+
+UC-051 — Consultar Responsável
+
+Ator principal: Usuário autorizado
+
+Permitir localizar os responsáveis associados a um aluno.
+
+Resultado esperado
+
+Sistema apresenta somente responsáveis que podem ser visualizados pelo usuário.
+
+---
+
+UC-052 — Consultar Canais Autorizados
+
+Ator principal: Usuário autorizado
+
+Permitir verificar os canais disponíveis para comunicação.
+
+Canais
+
+- E-mail;
+- WhatsApp;
+- Outros futuramente.
+
+---
+
+UC-053 — Enviar Comunicação por E-mail
+
+Ator principal: Usuário autorizado
+
+Ator secundário: Serviço de E-mail
+
+Permitir envio de comunicação ao responsável por e-mail.
+
+Fluxo
+
+Usuário
+   ↓
+Seleciona aluno
+   ↓
+Seleciona responsável
+   ↓
+Seleciona e-mail
+   ↓
+Escreve mensagem
+   ↓
+Confirma
+   ↓
+Sistema envia
+   ↓
+Serviço de E-mail
+   ↓
+Resultado
+   ↓
+Registro
+
+---
+
+UC-054 — Enviar Comunicação via WhatsApp
+
+Ator principal: Usuário autorizado
+
+Ator secundário: Serviço WhatsApp
+
+Permitir envio de comunicação via WhatsApp utilizando integração autorizada.
+
+Resultado esperado
+
+Mensagem enviada ao canal autorizado e tentativa registrada.
+
+---
+
+UC-055 — Enviar Comunicação por Múltiplos Canais
+
+Ator principal: Usuário autorizado
+
+Permitir envio da mesma comunicação por mais de um canal autorizado.
+
+Exemplo
+
+E-mail
+   +
+WhatsApp
+
+O sistema deverá registrar cada tentativa individualmente.
+
+---
+
+UC-056 — Consultar Histórico de Comunicações
+
+Ator principal: Usuário autorizado
+
+Permitir consulta das comunicações relacionadas ao aluno.
+
+Informações
+
+- Data;
+- Hora;
+- Responsável;
+- Canal;
+- Usuário;
+- Motivo;
+- Status;
+- Identificador externo;
+- Tipo da comunicação.
+
+---
+
+K — Comunicação Emergencial
+
+UC-057 — Iniciar Comunicação Emergencial
+
+Atores principais:
+
+- Administrador;
+- Professor autorizado;
+- Profissional de Apoio autorizado.
+
+Permitir iniciar um processo de comunicação classificado como emergência.
+
+Pré-condições
+
+- Usuário autenticado;
+- Usuário autorizado;
+- Aluno identificado;
+- Responsável cadastrado;
+- Canal autorizado disponível.
+
+---
+
+UC-058 — Identificar Responsável
+
+Ator principal: Sistema
+
+Localizar os responsáveis associados ao aluno.
+
+Resultado esperado
+
+Sistema apresenta os responsáveis e respectivos canais autorizados.
+
+---
+
+UC-059 — Selecionar Canal Emergencial
+
+Ator principal: Usuário autorizado
+
+Permitir selecionar o canal de comunicação.
+
+Opções
+
+- E-mail;
+- WhatsApp;
+- Ambos, quando autorizado.
+
+---
+
+UC-060 — Confirmar Comunicação
+
+Ator principal: Usuário autorizado
+
+Exibir resumo da comunicação antes do envio.
+
+Deve apresentar
+
+- Aluno;
+- Responsável;
+- Canal;
+- Motivo;
+- Mensagem;
+- Destinatário.
+
+Resultado esperado
+
+Usuário confirma ou cancela a operação.
+
+---
+
+UC-061 — Enviar Comunicação Emergencial
+
+Ator principal: Sistema
+
+Atores secundários:
+
+- Serviço de E-mail;
+- Serviço WhatsApp.
+
+Executar o envio após a confirmação.
+
+Fluxo
+
+Usuário
+   ↓
+Solicita emergência
+   ↓
+Sistema valida autorização
+   ↓
+Identifica responsável
+   ↓
+Identifica canais
+   ↓
+Usuário confirma
+   ↓
+Sistema registra tentativa
+   ↓
+Sistema envia
+   ↓
+Serviço externo
+   ↓
+Resultado
+   ↓
+Sistema atualiza status
+
+---
+
+UC-062 — Registrar Resultado do Envio
+
+Ator principal: Sistema
+
+Registrar o resultado da tentativa de comunicação.
+
+Status possíveis
+
+PENDENTE
+ENVIADO
+ENTREGUE
+FALHA
+
+O status "ENTREGUE" dependerá da disponibilidade dessa informação pelo provedor utilizado.
+
+Resultado esperado
+
+A tentativa fica registrada para auditoria e histórico.
+
+---
+
+UC-063 — Consultar Histórico de Emergência
+
+Ator principal: Usuário autorizado
+
+Permitir consulta das comunicações emergenciais relacionadas ao aluno.
+
+Informações
+
+- Data;
+- Hora;
+- Usuário;
+- Motivo;
+- Responsável;
+- Canal;
+- Mensagem;
+- Status;
+- Resultado.
+
+---
+
+L — Auditoria
+
+UC-064 — Registrar Evento de Auditoria
+
+Ator principal: Sistema
+
+Registrar automaticamente operações relevantes.
+
+Eventos possíveis
+
+- Login;
+- Logout;
+- Alteração de dados;
+- Criação;
+- Inativação;
+- Geração de relatório;
+- Comunicação;
+- Comunicação emergencial;
+- Alteração de permissões.
+
+---
+
+UC-065 — Consultar Auditoria
+
+Ator principal: Auditor
+
+Permitir consulta dos registros de auditoria.
+
+Filtros
+
+- Usuário;
+- Data;
+- Tipo de evento;
+- Entidade;
+- Operação;
+- Período.
+
+---
+
+UC-066 — Consultar Histórico de Alterações
+
+Ator principal: Auditor
+
+Permitir consultar alterações realizadas nos registros.
+
+Exemplo
+
+Antes:
+Status = ATIVO
+
+Depois:
+Status = INATIVO
+
+Usuário:
+Administrador
+
+Data:
+XX/XX/XXXX
+
+---
+
+UC-067 — Consultar Histórico de Acessos
+
+Ator principal: Auditor
+
+Permitir consultar eventos relacionados aos acessos.
+
+Informações
+
+- Usuário;
+- Data;
+- Hora;
+- Evento;
+- Resultado;
+- Informações técnicas necessárias à auditoria.
+
+---
+
+UC-068 — Consultar Histórico de Relatórios
+
+Ator principal: Auditor
+
+Permitir consultar relatórios gerados.
+
+Informações
+
+- Usuário;
+- Tipo;
+- Período;
+- Filtros;
+- Data/hora;
+- Formato;
+- Resultado da geração.
+
+---
+
+UC-069 — Consultar Histórico de Comunicações
+
+Ator principal: Auditor
+
+Permitir consultar as comunicações realizadas pelo sistema.
+
+Informações
+
+- Usuário;
+- Aluno;
+- Responsável;
+- Canal;
+- Data/hora;
+- Tipo;
+- Motivo;
+- Status;
+- Resultado.
+
+---
+
+4. Visão geral dos Casos de Uso
+
+                         INCLUIEDU
+                            │
+        ┌───────────────────┼───────────────────┐
+        │                   │                   │
+        ▼                   ▼                   ▼
+ AUTENTICAÇÃO          ADMINISTRAÇÃO        GESTÃO ESCOLAR
+        │                   │                   │
+        │                   ├── Usuários        ├── Escolas
+        │                   ├── Perfis         └── Turmas
+        │                   └── Permissões
+        │
+        └──────────────────────────────────────────────┐
+                                                       │
+                                                       ▼
+                                                GESTÃO DE ALUNOS
+                                                       │
+                                  ┌────────────────────┼───────────────────┐
+                                  │                    │                   │
+                                  ▼                    ▼                   ▼
+                            Responsáveis        Profissionais        Observações
+                                                                          │
+                                                                          ▼
+                                                                      Histórico
+                                                                          │
+                                      ┌───────────────────────────────────┤
+                                      │                                   │
+                                      ▼                                   ▼
+                                  INDICADORES                         RELATÓRIOS
+                                      │                                   │
+                                      ▼                         ┌─────────┼─────────┐
+                                  DASHBOARD                     ▼         ▼         ▼
+                                      │                      Semanal   Mensal     Anual
+                                      │                                   │
+                                      ▼                                   ▼
+                                COMPARATIVOS                     PDF / COMPARATIVO
+                                                                      
+                                     
+                         COMUNICAÇÃO
+                              │
+                     ┌────────┴────────┐
+                     ▼                 ▼
+                  E-MAIL            WHATSAPP
+                     │                 │
+                     └────────┬────────┘
+                              ▼
+                    COMUNICAÇÃO EMERGENCIAL
+                              │
+                              ▼
+                          AUDITORIA
+
+---
+
+5. Casos de Uso prioritários
+
+Apesar dos 69 casos de uso identificados, alguns são fundamentais para o funcionamento do sistema.
+
+Prioridade 1 — Núcleo
+
+- UC-001 — Autenticar Usuário
+- UC-022 — Cadastrar Aluno
+- UC-025 — Associar Responsável ao Aluno
+- UC-028 — Registrar Observação
+- UC-032 — Consultar Histórico de Observações
+
+Prioridade 2 — Indicadores
+
+- UC-033 — Consultar Dashboard
+- UC-034 — Consultar Indicadores do Aluno
+- UC-037 — Consultar Evolução Temporal
+- UC-039 — Comparar Períodos
+- UC-042 — Visualizar Gráfico Comparativo
+
+Prioridade 3 — Relatórios
+
+- UC-043 — Gerar Relatório
+- UC-044 — Gerar Relatório Semanal
+- UC-045 — Gerar Relatório Mensal
+- UC-046 — Gerar Relatório Anual
+- UC-047 — Gerar Relatório Personalizado
+- UC-048 — Gerar Relatório Comparativo
+- UC-049 — Exportar Relatório para PDF
+
+Prioridade 4 — Comunicação
+
+- UC-051 — Consultar Responsável
+- UC-052 — Consultar Canais Autorizados
+- UC-053 — Enviar Comunicação por E-mail
+- UC-054 — Enviar Comunicação via WhatsApp
+- UC-055 — Enviar Comunicação por Múltiplos Canais
+- UC-056 — Consultar Histórico de Comunicações
+
+Prioridade 5 — Emergência
+
+- UC-057 — Iniciar Comunicação Emergencial
+- UC-058 — Identificar Responsável
+- UC-059 — Selecionar Canal Emergencial
+- UC-060 — Confirmar Comunicação
+- UC-061 — Enviar Comunicação Emergencial
+- UC-062 — Registrar Resultado do Envio
+- UC-063 — Consultar Histórico de Emergência
+
+Prioridade 6 — Segurança
+
+- UC-015 — Controlar Acesso a Recurso
+- UC-064 — Registrar Evento de Auditoria
+- UC-065 — Consultar Auditoria
+- UC-066 — Consultar Histórico de Alterações
+- UC-067 — Consultar Histórico de Acessos
+- UC-068 — Consultar Histórico de Relatórios
+- UC-069 — Consultar Histórico de Comunicações
+
+---
+
+6. Relação com a Engenharia de Requisitos
+
+Os Casos de Uso deverão manter rastreabilidade com os requisitos definidos na FASE 1.
+
+Exemplo:
+
+RF-031
+Registrar observação
+        │
+        ▼
+UC-028
+Registrar Observação
+        │
+        ▼
+RN-004
+Observação deve possuir dados mínimos
+        │
+        ▼
+Entidades
+Aluno
+Observação
+Usuário
+Contexto
+Evento
+Intensidade
+Estratégia
+Resultado
+        │
+        ▼
+Implementação Laravel
+        │
+        ▼
+Testes automatizados
+
+Outro exemplo:
+
+RF-079
+Acionar comunicação emergencial
+        │
+        ▼
+UC-057
+Iniciar Comunicação Emergencial
+        │
+        ▼
+UC-061
+Enviar Comunicação Emergencial
+        │
+        ▼
+UC-062
+Registrar Resultado
+        │
+        ▼
+Auditoria
+
+---
+
+7. Próxima etapa
+
+Após o catálogo dos 69 Casos de Uso, a próxima atividade será o detalhamento individual dos casos de uso.
+
+Cada caso deverá possuir:
+
+1. Código;
+2. Nome;
+3. Objetivo;
+4. Atores;
+5. Pré-condições;
+6. Gatilho;
+7. Pós-condições;
+8. Fluxo principal;
+9. Fluxos alternativos;
+10. Fluxos de exceção;
+11. Regras de negócio;
+12. Requisitos relacionados;
+13. Dados envolvidos;
+14. Critérios de aceite.
+
+A ordem recomendada para o detalhamento é:
+
+UC-022 → Cadastrar Aluno
+       ↓
+UC-025 → Associar Responsável
+       ↓
+UC-028 → Registrar Observação
+       ↓
+UC-032 → Consultar Histórico
+       ↓
+UC-033 → Dashboard
+       ↓
+UC-039 → Comparar Períodos
+       ↓
+UC-044 → Relatório Semanal
+       ↓
+UC-045 → Relatório Mensal
+       ↓
+UC-046 → Relatório Anual
+       ↓
+UC-048 → Relatório Comparativo
+       ↓
+UC-049 → Exportar PDF
+       ↓
+UC-053 → Comunicação por E-mail
+       ↓
+UC-054 → Comunicação WhatsApp
+       ↓
+UC-057 → Comunicação Emergencial
+       ↓
+UC-061 → Envio Emergencial
+       ↓
+UC-062 → Resultado do Envio
+       ↓
+UC-015 → Controle de Acesso
+       ↓
+UC-065 → Auditoria
+
+Observação: este catálogo representa a primeira versão dos Casos de Uso. Durante o detalhamento, poderemos identificar necessidade de consolidar, dividir ou adicionar casos de uso, mantendo a rastreabilidade e o controle de versões da Engenharia de Software.
