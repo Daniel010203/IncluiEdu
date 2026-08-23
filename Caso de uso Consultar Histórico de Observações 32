@@ -1,0 +1,1066 @@
+
+Este caso é particularmente importante porque será a ponte entre os registros feitos no UC-028 e os futuros dashboards, indicadores, comparativos e relatórios PDF.
+
+FASE 2 — CASOS DE USO
+
+UC-032 — Consultar Histórico de Observações
+
+Código: UC-032
+Nome: Consultar Histórico de Observações
+Versão: 1.0
+Status: Em especificação
+Prioridade: Crítica
+Módulo: Acompanhamento Educacional
+
+
+---
+
+1. Objetivo
+
+Permitir que usuários autorizados consultem, filtrem e analisem o histórico de observações registradas para um aluno, respeitando as permissões de acesso e o escopo institucional do usuário.
+
+O histórico deverá permitir uma visão:
+
+cronológica;
+
+filtrável;
+
+detalhada;
+
+consolidada;
+
+comparável;
+
+adequada à geração de indicadores.
+
+
+
+---
+
+2. Atores
+
+Ator principal
+
+ACT-002 — Professor
+
+Poderá consultar o histórico dos alunos sob seu escopo de acesso.
+
+Atores secundários
+
+ACT-003 — Profissional de Apoio
+
+Poderá consultar históricos conforme suas permissões.
+
+ACT-001 — Administrador
+
+Poderá consultar os históricos conforme seu nível de acesso.
+
+ACT-004 — Responsável
+
+Somente se essa funcionalidade for posteriormente autorizada pelo modelo de acesso do sistema.
+
+O responsável não deverá ter acesso automaticamente a todas as observações.
+
+ACT-006 — Auditor
+
+Poderá consultar informações conforme regras específicas de auditoria.
+
+ACT-009 — Sistema
+
+Responsável por aplicar filtros, permissões e retornar os dados.
+
+
+---
+
+3. Pré-condições
+
+Para consultar o histórico:
+
+1. Usuário deve estar autenticado.
+
+
+2. Usuário deve estar ativo.
+
+
+3. Usuário deve possuir permissão para consultar observações.
+
+
+4. O aluno deve existir.
+
+
+5. O aluno deve estar dentro do escopo de acesso do usuário.
+
+
+
+
+---
+
+4. Gatilho
+
+O usuário acessa:
+
+Aluno → Acompanhamento → Histórico de Observações
+
+O sistema apresenta o histórico disponível.
+
+
+---
+
+5. Visão inicial
+
+Ao acessar o histórico, o sistema deverá apresentar uma visão resumida.
+
+Exemplo:
+
+┌──────────────────────────────────────────┐
+│ ALUNO: João Silva                       │
+├──────────────────────────────────────────┤
+│ Período: Últimos 30 dias                │
+│                                          │
+│ Total de observações: 27                │
+│ Categorias: 5                            │
+│                                          │
+│ Última observação: 22/08/2026 14:30     │
+└──────────────────────────────────────────┘
+
+Abaixo:
+
+22/08/2026 — Participação
+21/08/2026 — Interação social
+20/08/2026 — Comunicação
+19/08/2026 — Participação
+...
+
+
+---
+
+6. Informações apresentadas
+
+Cada registro poderá apresentar:
+
+Data da ocorrência;
+
+Hora;
+
+Categoria;
+
+Tipo;
+
+Contexto;
+
+Intensidade;
+
+Duração;
+
+Estratégia;
+
+Resultado;
+
+Descrição resumida;
+
+Profissional responsável pelo registro.
+
+
+
+---
+
+7. Filtros
+
+O histórico deverá permitir filtros.
+
+Filtro por período
+
+Hoje;
+
+Últimos 7 dias;
+
+Últimos 30 dias;
+
+Este mês;
+
+Mês anterior;
+
+Este ano;
+
+Período personalizado.
+
+
+
+---
+
+Filtro por categoria
+
+Exemplo:
+
+☐ Participação
+☐ Comunicação
+☐ Interação social
+☐ Autonomia
+☐ Regulação emocional
+☐ Atividade pedagógica
+☐ Outro
+
+
+---
+
+Filtro por contexto
+
+Exemplo:
+
+☐ Sala de aula
+☐ Recreio
+☐ Educação física
+☐ Avaliação
+☐ Entrada
+☐ Saída
+☐ Atividade externa
+
+
+---
+
+Filtro por intensidade
+
+☐ Baixa
+☐ Moderada
+☐ Alta
+
+
+---
+
+Filtro por profissional
+
+Permitir localizar registros realizados por determinado profissional.
+
+
+---
+
+8. Ordenação
+
+O usuário deverá poder visualizar o histórico em ordem:
+
+Mais recente primeiro
+
+22/08
+21/08
+20/08
+19/08
+
+Mais antigo primeiro
+
+19/08
+20/08
+21/08
+22/08
+
+A ordenação padrão recomendada é:
+
+mais recente primeiro.
+
+
+---
+
+9. Fluxo principal
+
+FP-01 — Acessar histórico
+
+1. Usuário acessa o cadastro do aluno.
+
+
+2. Seleciona Histórico de Observações.
+
+
+3. Sistema valida as permissões.
+
+
+4. Sistema identifica o escopo do usuário.
+
+
+5. Sistema busca as observações autorizadas.
+
+
+
+
+---
+
+FP-02 — Apresentar histórico
+
+6. Sistema apresenta o resumo.
+
+
+7. Sistema apresenta os registros em ordem cronológica.
+
+
+8. Sistema apresenta paginação ou carregamento progressivo.
+
+
+
+
+---
+
+FP-03 — Filtrar
+
+9. Usuário seleciona um ou mais filtros.
+
+
+10. Sistema valida os parâmetros.
+
+
+11. Sistema executa a consulta.
+
+
+12. Sistema apresenta somente os registros correspondentes.
+
+
+
+
+---
+
+FP-04 — Visualizar detalhe
+
+13. Usuário seleciona uma observação.
+
+
+14. Sistema apresenta os detalhes completos.
+
+
+
+Exemplo:
+
+Data: 22/08/2026
+Hora: 14:30
+
+Categoria:
+Participação
+
+Tipo:
+Participação em atividade
+
+Contexto:
+Sala de aula
+
+Intensidade:
+Moderada
+
+Duração:
+20 minutos
+
+Estratégia:
+Adaptação da atividade
+
+Resultado:
+Melhora
+
+Descrição:
+[texto da observação]
+
+
+---
+
+FP-05 — Finalizar
+
+15. Usuário retorna ao histórico ou encerra a consulta.
+
+
+
+
+---
+
+10. Fluxo alternativo — Nenhum registro
+
+Caso não existam observações no período:
+
+Nenhuma observação encontrada
+para os filtros selecionados.
+
+O sistema não deverá interpretar isso automaticamente como:
+
+> "Nenhuma ocorrência aconteceu."
+
+
+
+A mensagem deve ser:
+
+> Nenhum registro encontrado.
+
+
+
+Essa distinção é importante do ponto de vista analítico.
+
+
+---
+
+11. Fluxo alternativo — Alterar filtros
+
+O usuário poderá combinar filtros.
+
+Exemplo:
+
+Período:
+01/08/2026 → 23/08/2026
+
+Categoria:
+Interação social
+
+Intensidade:
+Alta
+
+O sistema deverá retornar somente registros que satisfaçam os critérios.
+
+
+---
+
+12. Fluxo alternativo — Visualização resumida
+
+O usuário poderá consultar uma visão resumida sem abrir cada observação.
+
+Exemplo:
+
+Data	Categoria	Contexto	Intensidade
+
+22/08	Participação	Sala	Moderada
+21/08	Interação	Recreio	Alta
+20/08	Comunicação	Sala	Baixa
+
+
+Essa visão será particularmente importante em dispositivos móveis.
+
+
+---
+
+13. Fluxo alternativo — Visualização detalhada
+
+Ao selecionar uma observação:
+
+Resumo
+   ↓
+Detalhes
+   ↓
+Estratégia
+   ↓
+Resultado
+   ↓
+Descrição
+
+O sistema deverá respeitar as permissões do usuário.
+
+
+---
+
+14. Fluxos de exceção
+
+FE-01 — Usuário sem permissão
+
+1. Usuário tenta acessar histórico.
+
+
+2. Sistema verifica permissão.
+
+
+3. Acesso negado.
+
+
+4. Sistema não disponibiliza os registros.
+
+
+
+
+---
+
+FE-02 — Aluno fora do escopo
+
+Caso o usuário tente consultar um aluno fora de seu escopo:
+
+Acesso não autorizado.
+
+O sistema não deverá retornar informações do aluno.
+
+
+---
+
+FE-03 — Parâmetros inválidos
+
+Exemplo:
+
+Data inicial:
+30/08/2026
+
+Data final:
+01/08/2026
+
+O sistema deverá rejeitar a consulta e informar que a data inicial não pode ser posterior à data final.
+
+
+---
+
+FE-04 — Falha na consulta
+
+Caso ocorra erro de infraestrutura:
+
+1. Sistema não deverá exibir dados incompletos como se fossem completos.
+
+
+2. Usuário deverá receber mensagem adequada.
+
+
+3. Erro deverá ser registrado tecnicamente.
+
+
+
+
+---
+
+15. Pós-condições
+
+Após uma consulta:
+
+registros autorizados são apresentados;
+
+filtros utilizados são aplicados;
+
+dados permanecem inalterados;
+
+nenhum registro é criado ou modificado.
+
+
+
+---
+
+16. Regras de negócio
+
+RN-HIS-001 — Controle de acesso
+
+Somente usuários autorizados poderão consultar o histórico.
+
+
+---
+
+RN-HIS-002 — Escopo institucional
+
+O usuário somente poderá visualizar alunos e observações pertencentes ao seu escopo.
+
+
+---
+
+RN-HIS-003 — Integridade
+
+O histórico deverá apresentar somente observações efetivamente registradas.
+
+
+---
+
+RN-HIS-004 — Ordenação padrão
+
+A ordenação padrão deverá apresentar os registros mais recentes primeiro.
+
+
+---
+
+RN-HIS-005 — Filtros combinados
+
+O sistema deverá permitir combinação de múltiplos filtros.
+
+
+---
+
+RN-HIS-006 — Período
+
+A data da ocorrência deverá ser utilizada como referência temporal principal, e não a data de criação do registro.
+
+Isso é extremamente importante para os relatórios.
+
+Exemplo:
+
+Ocorrência:
+20/08
+
+Registro realizado:
+22/08
+
+Para o relatório de 20/08, essa observação deverá aparecer.
+
+
+---
+
+RN-HIS-007 — Dados não encontrados
+
+Ausência de registros não deverá ser interpretada automaticamente como ausência de ocorrências.
+
+
+---
+
+RN-HIS-008 — Dados sensíveis
+
+Informações que não fazem parte do escopo de acesso do usuário não deverão ser retornadas pela consulta.
+
+
+---
+
+RN-HIS-009 — Auditoria de consulta
+
+Dependendo da política de segurança, consultas a informações sensíveis poderão gerar eventos de auditoria.
+
+Essa regra deverá ser definida formalmente na fase de Segurança/LGPD.
+
+
+---
+
+17. Critérios de aceite
+
+CA-001 — Consulta válida
+
+Dado que o usuário possui autorização,
+quando acessar o histórico de um aluno permitido,
+então o sistema deverá apresentar as observações disponíveis.
+
+
+---
+
+CA-002 — Filtro por período
+
+Dado que o usuário informa um período válido,
+quando executar a consulta,
+então somente observações cuja data de ocorrência esteja dentro do período deverão ser apresentadas.
+
+
+---
+
+CA-003 — Filtro por categoria
+
+Dado que o usuário seleciona determinada categoria,
+quando executar a consulta,
+então somente observações daquela categoria deverão ser apresentadas.
+
+
+---
+
+CA-004 — Filtros combinados
+
+Dado que o usuário seleciona período e categoria,
+quando executar a consulta,
+então ambos os critérios deverão ser considerados.
+
+
+---
+
+CA-005 — Aluno fora do escopo
+
+Dado que o aluno não pertence ao escopo do usuário,
+quando ele tentar consultar o histórico,
+então o sistema deverá negar o acesso.
+
+
+---
+
+CA-006 — Nenhum resultado
+
+Dado que nenhum registro atende aos filtros,
+quando a consulta for executada,
+então o sistema deverá informar que nenhum registro foi encontrado.
+
+
+---
+
+CA-007 — Detalhamento
+
+Dado que existe uma observação,
+quando o usuário selecionar o registro,
+então o sistema deverá apresentar os detalhes permitidos.
+
+
+---
+
+18. Paginação
+
+Precisamos considerar que um aluno poderá possuir:
+
+100 observações
+500 observações
+5.000 observações
+
+Portanto, não devemos carregar todo o histórico de uma vez.
+
+O sistema deverá utilizar:
+
+paginação;
+
+ou carregamento progressivo/infinite scroll.
+
+
+A escolha definitiva será feita na arquitetura da aplicação.
+
+
+---
+
+19. Desempenho
+
+As consultas deverão ser projetadas considerando os filtros mais utilizados.
+
+Especialmente:
+
+aluno_id
+data_ocorrencia
+categoria_id
+tipo_ocorrencia_id
+contexto_id
+usuario_id
+
+Esses campos poderão posteriormente receber índices no PostgreSQL.
+
+Ainda não vamos criar esses índices.
+
+A decisão será tomada durante a modelagem física do banco.
+
+
+---
+
+20. Histórico × Dashboard
+
+É importante separar os objetivos.
+
+Histórico
+
+Responde:
+
+> O que aconteceu?
+
+
+
+Exemplo:
+
+22/08 — Participação — Sala de aula
+21/08 — Interação — Recreio
+20/08 — Comunicação — Sala
+
+Dashboard
+
+Responde:
+
+> Qual é o comportamento dos dados?
+
+
+
+Exemplo:
+
+Participação       42%
+Interação social   28%
+Comunicação        18%
+Outros             12%
+
+Portanto:
+
+UC-028
+Registrar
+   ↓
+UC-032
+Consultar histórico
+   ↓
+UC-033
+Dashboard
+
+
+---
+
+21. Histórico × Relatórios
+
+O histórico fornece os dados brutos/estruturados.
+
+Os relatórios irão consolidá-los.
+
+OBSERVAÇÕES
+     ↓
+HISTÓRICO
+     ↓
+AGREGAÇÕES
+     ↓
+INDICADORES
+     ↓
+GRÁFICOS
+     ↓
+RELATÓRIO PDF
+
+Isso será fundamental para manter a arquitetura organizada.
+
+
+---
+
+22. Impacto nos relatórios semanais, mensais e anuais
+
+O UC-032 deverá possibilitar consultas por:
+
+Semanal
+
+Segunda → Domingo
+
+Mensal
+
+01 → último dia do mês
+
+Anual
+
+01/01 → 31/12
+
+Personalizado
+
+Data inicial → Data final
+
+Esses períodos posteriormente serão utilizados pelos:
+
+UC-044;
+
+UC-045;
+
+UC-046;
+
+UC-047;
+
+UC-048.
+
+
+
+---
+
+23. Comparação entre períodos
+
+O histórico também deverá servir como fonte para comparação.
+
+Exemplo:
+
+PERÍODO A
+01/07 → 31/07
+
+Total:
+42 observações
+
+
+PERÍODO B
+01/08 → 31/08
+
+Total:
+31 observações
+
+Posteriormente:
+
+42 → 31
+
+Diferença:
+-11
+
+Variação:
+-26,19%
+
+O cálculo pertence ao módulo de indicadores/comparativos, não ao histórico.
+
+Essa separação evita colocar responsabilidades demais em um único caso de uso.
+
+
+---
+
+24. Relação com UC-031 — Filtrar Observações
+
+Temos uma questão interessante no catálogo original.
+
+Temos:
+
+UC-031 — Filtrar Observações
+
+e agora:
+
+UC-032 — Consultar Histórico de Observações
+
+Na prática, o filtro é uma funcionalidade interna da consulta histórica.
+
+Portanto, durante a revisão dos casos de uso, podemos decidir entre:
+
+Opção A
+
+Manter os dois:
+
+UC-031
+Filtrar Observações
+
+UC-032
+Consultar Histórico
+
+Opção B — minha recomendação
+
+Considerar:
+
+> Filtrar Observações como parte do UC-032.
+
+
+
+Isso reduziria redundância.
+
+Não precisamos alterar o catálogo agora. Registraremos essa decisão para a revisão da especificação após o detalhamento dos casos.
+
+
+---
+
+25. Segurança e privacidade
+
+O histórico provavelmente será uma das áreas mais sensíveis do sistema.
+
+Por isso, a consulta deverá respeitar:
+
+Usuário
+   ↓
+Perfil
+   ↓
+Permissões
+   ↓
+Instituição
+   ↓
+Turma
+   ↓
+Aluno
+   ↓
+Observações
+
+Não basta perguntar:
+
+> "Esse usuário pode consultar observações?"
+
+
+
+Também precisamos perguntar:
+
+> "Quais observações esse usuário pode consultar?"
+
+
+
+Essa distinção será fundamental quando implementarmos as Policies e Gates do Laravel.
+
+
+---
+
+26. Relação futura com Laravel
+
+Conceitualmente, teremos algo semelhante a:
+
+Request
+   ↓
+Authorization
+   ↓
+Validation
+   ↓
+Query
+   ↓
+Scope
+   ↓
+Pagination
+   ↓
+Resource
+   ↓
+Interface
+
+No Laravel, isso poderá envolver:
+
+Policies;
+
+Form Requests;
+
+Eloquent Scopes;
+
+API Resources;
+
+Services, se necessários;
+
+paginação;
+
+índices no PostgreSQL.
+
+
+Mas a implementação fica para uma fase posterior.
+
+
+---
+
+27. Relação com UC-028
+
+O fluxo entre os dois casos fica:
+
+UC-028
+        Registrar Observação
+                │
+                ▼
+          PostgreSQL
+                │
+                ▼
+              UC-032
+       Consultar Histórico
+                │
+        ┌───────┼────────┐
+        ▼       ▼        ▼
+    Dashboard Relatório Comparativo
+
+Essa é uma das principais cadeias funcionais do IncluiEdu.
+
+
+---
+
+28. Critérios de qualidade
+
+O histórico deverá ser:
+
+simples de consultar;
+
+rápido;
+
+filtrável;
+
+responsivo;
+
+adequado para celular;
+
+seguro;
+
+auditável;
+
+consistente;
+
+preparado para grandes volumes.
+
+
+Particularmente importante para seu projeto: a interface deverá funcionar bem em dispositivos móveis, porque professores e profissionais de apoio podem utilizar o sistema diretamente durante a rotina escolar.
+
+
+---
+
+29. Resumo do UC-032
+
+┌──────────────────────────────────────────────┐
+│    UC-032 — CONSULTAR HISTÓRICO             │
+├──────────────────────────────────────────────┤
+│                                              │
+│ Ator: Usuário autorizado                     │
+│                                              │
+│ Entrada:                                     │
+│ • Aluno                                      │
+│ • Período                                    │
+│ • Categoria                                  │
+│ • Contexto                                   │
+│ • Intensidade                                │
+│ • Profissional                               │
+│                                              │
+│ Processamento:                               │
+│ • Autorizar                                  │
+│ • Filtrar                                    │
+│ • Ordenar                                    │
+│ • Paginar                                    │
+│                                              │
+│ Saída:                                       │
+│ • Histórico                                  │
+│ • Resumo                                     │
+│ • Detalhes                                   │
+│ • Dados para análise                         │
+└──────────────────────────────────────────────┘
+
+✅ UC-032 — concluído, versão 1.0
+
+Próximo passo recomendado
+
+Agora chegamos a uma parte muito interessante do projeto:
+
+UC-033 — Consultar Dashboard
+
+Aqui vamos definir quais indicadores o IncluiEdu realmente deverá apresentar, como serão calculados, quais gráficos existirão e quais filtros serão utilizados.
