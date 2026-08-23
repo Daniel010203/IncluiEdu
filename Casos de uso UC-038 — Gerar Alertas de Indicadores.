@@ -1,0 +1,1371 @@
+Perfeito. Vamos avançar para o UC-037 — Analisar Tendências.
+
+Este caso de uso fecha o primeiro grande bloco analítico do IncluiEdu. Até aqui temos:
+
+UC-034: o que aconteceu em termos quantitativos;
+
+UC-035: como os registros evoluíram no tempo;
+
+UC-036: como os registros estão distribuídos;
+
+UC-037: identificar padrões de tendência nos dados.
+
+
+Um cuidado importante: o sistema poderá identificar tendências estatísticas/quantitativas, mas não deverá concluir automaticamente que determinado aluno "melhorou", "piorou" ou possui determinada condição.
+
+
+---
+
+FASE 2 — CASOS DE USO
+
+UC-037 — Analisar Tendências
+
+Código: UC-037
+Nome: Analisar Tendências
+Versão: 1.0
+Status: Em especificação
+Prioridade: Alta
+Módulo: Indicadores e Análise
+
+
+---
+
+1. Objetivo
+
+Permitir que usuários autorizados analisem tendências quantitativas presentes nos registros de acompanhamento dos alunos ao longo de determinado período.
+
+O sistema deverá identificar padrões como:
+
+aumento;
+
+redução;
+
+estabilidade;
+
+oscilação;
+
+alteração de distribuição;
+
+concentração temporal;
+
+mudança de comportamento de determinado indicador.
+
+
+A análise deverá ser baseada exclusivamente nos dados registrados.
+
+
+---
+
+2. Princípio fundamental
+
+O sistema deverá separar:
+
+Tendência quantitativa
+
+> "A quantidade de registros apresentou tendência de redução."
+
+
+
+de uma interpretação pedagógica:
+
+> "O aluno apresentou melhora."
+
+
+
+A primeira pode ser calculada pelo sistema.
+
+A segunda exige interpretação profissional.
+
+Portanto:
+
+DADOS
+  ↓
+ANÁLISE MATEMÁTICA
+  ↓
+TENDÊNCIA QUANTITATIVA
+  ↓
+INTERPRETAÇÃO PROFISSIONAL
+
+
+---
+
+3. Atores
+
+Ator principal
+
+ACT-002 — Professor
+
+Atores secundários
+
+ACT-001 — Administrador
+
+ACT-003 — Profissional de Apoio
+
+ACT-006 — Auditor
+
+ACT-009 — Sistema
+
+
+---
+
+4. Pré-condições
+
+1. Usuário autenticado.
+
+
+2. Usuário ativo.
+
+
+3. Usuário autorizado.
+
+
+4. Escopo definido.
+
+
+5. Período válido.
+
+
+6. Existência de dados suficientes para análise.
+
+
+
+
+---
+
+5. Gatilho
+
+O usuário acessa:
+
+Dashboard → Tendências
+
+ou:
+
+Aluno → Indicadores → Tendências
+
+ou:
+
+Relatórios → Análise de Tendências
+
+
+---
+
+6. Conceito de tendência
+
+Uma tendência representa uma direção predominante dos dados ao longo de um período.
+
+Exemplo:
+
+Semana 1     20
+Semana 2     18
+Semana 3     15
+Semana 4     12
+
+Existe uma tendência quantitativa de redução.
+
+
+---
+
+7. Tipos de tendência
+
+O sistema deverá inicialmente trabalhar com:
+
+T-001 — Crescente
+T-002 — Decrescente
+T-003 — Estável
+T-004 — Oscilante
+T-005 — Inconclusiva
+
+
+---
+
+8. T-001 — Tendência crescente
+
+Exemplo:
+
+10
+15
+19
+25
+31
+
+O indicador apresenta aumento ao longo do período.
+
+Resultado:
+
+> Tendência quantitativa crescente.
+
+
+
+
+---
+
+9. T-002 — Tendência decrescente
+
+Exemplo:
+
+35
+31
+27
+22
+18
+
+Resultado:
+
+> Tendência quantitativa decrescente.
+
+
+
+
+---
+
+10. T-003 — Tendência estável
+
+Exemplo:
+
+20
+21
+19
+20
+21
+
+O comportamento permanece relativamente próximo.
+
+Resultado:
+
+> Comportamento quantitativamente estável.
+
+
+
+
+---
+
+11. T-004 — Tendência oscilante
+
+Exemplo:
+
+10
+25
+12
+28
+11
+30
+
+Existe variação significativa entre períodos.
+
+Resultado:
+
+> Comportamento oscilante.
+
+
+
+
+---
+
+12. T-005 — Tendência inconclusiva
+
+Quando:
+
+existem poucos dados;
+
+os dados são insuficientes;
+
+a variação não permite classificação confiável;
+
+existem períodos sem informação suficiente.
+
+
+Resultado:
+
+> Não foi possível determinar uma tendência.
+
+
+
+
+---
+
+13. Indicadores analisáveis
+
+O sistema poderá analisar tendências de:
+
+quantidade de observações;
+
+categorias;
+
+intensidade;
+
+duração;
+
+contextos;
+
+estratégias;
+
+resultados;
+
+frequência de registros.
+
+
+Exemplo:
+
+Tendência de observações
+Tendência de intensidade
+Tendência de duração
+Tendência por categoria
+
+
+---
+
+14. Granularidade
+
+A tendência poderá ser calculada sobre:
+
+Diário
+
+01/08
+02/08
+03/08
+...
+
+Semanal
+
+Semana 1
+Semana 2
+Semana 3
+...
+
+Mensal
+
+Maio
+Junho
+Julho
+Agosto
+
+Anual
+
+2024
+2025
+2026
+
+
+---
+
+15. Período mínimo
+
+Para evitar conclusões inadequadas, o sistema deverá considerar uma quantidade mínima de pontos temporais.
+
+Por exemplo:
+
+2 pontos → insuficiente
+3 pontos → análise limitada
+4+ pontos → análise possível
+
+O valor definitivo deverá ser definido nas regras de negócio e poderá variar conforme o método utilizado.
+
+
+---
+
+16. Método inicial de análise
+
+Para a primeira versão do sistema, recomendo começar com um método simples e transparente:
+
+Variação entre primeiro e último ponto
+
+Valor final - Valor inicial
+
+e:
+
+(Valor final - Valor inicial)
+────────────────────────── × 100
+       Valor inicial
+
+Exemplo:
+
+Primeiro = 20
+Último = 15
+
+Variação:
+
+(15 - 20)
+───────── × 100
+   20
+
+= -25%
+
+Resultado:
+
+> Redução quantitativa de 25%.
+
+
+
+
+---
+
+17. Limitação desse método
+
+Imagine:
+
+20
+10
+25
+15
+
+Primeiro = 20
+Último = 15
+
+Apenas olhando os extremos:
+
+> -25%
+
+
+
+Mas os dados apresentam forte oscilação.
+
+Por isso, o sistema deverá considerar também a consistência da série, e não somente primeiro e último ponto.
+
+
+---
+
+18. Análise de tendência — evolução
+
+A tendência deverá utilizar os dados produzidos pelo:
+
+UC-035 — Consultar Evolução Temporal.
+
+Fluxo:
+
+Observações
+     ↓
+UC-034
+Indicadores
+     ↓
+UC-035
+Série temporal
+     ↓
+UC-037
+Análise de tendência
+
+
+---
+
+19. Exemplo
+
+Dados:
+
+Semana 1 = 30
+Semana 2 = 28
+Semana 3 = 25
+Semana 4 = 21
+Semana 5 = 20
+
+Sistema calcula:
+
+Variação = -33,3%
+
+E identifica:
+
+> Tendência quantitativa decrescente.
+
+
+
+
+---
+
+20. Intensidade
+
+O sistema poderá analisar a evolução da distribuição de intensidade.
+
+Exemplo:
+
+Semana	Baixa	Moderada	Alta
+
+1	20	10	5
+2	22	9	4
+3	25	8	3
+4	27	6	2
+
+
+O sistema poderá identificar:
+
+> Redução quantitativa dos registros classificados como alta intensidade.
+
+
+
+Mas não deverá concluir:
+
+> "O aluno melhorou."
+
+
+
+
+---
+
+21. Categoria
+
+Exemplo:
+
+Participação
+
+Junho      12
+Julho      18
+Agosto     23
+
+Tendência:
+
+> Crescente.
+
+
+
+
+---
+
+22. Contexto
+
+Exemplo:
+
+Sala de aula
+
+Junho      15
+Julho      20
+Agosto     28
+
+O sistema poderá informar:
+
+> Aumento quantitativo dos registros no contexto selecionado.
+
+
+
+
+---
+
+23. Estratégias
+
+Exemplo:
+
+Mediação
+
+Junho      8
+Julho      12
+Agosto     17
+
+O sistema identifica:
+
+> Tendência crescente na quantidade de registros da estratégia.
+
+
+
+Isso não significa automaticamente que a estratégia esteja sendo mais necessária ou mais eficaz.
+
+
+---
+
+24. Resultados
+
+Também poderá analisar:
+
+Resultado A
+
+Junho      10
+Julho      15
+Agosto     19
+
+Resultado:
+
+> Tendência quantitativa crescente.
+
+
+
+A interpretação deverá ser feita pelo profissional.
+
+
+---
+
+25. Fluxo principal
+
+FP-01 — Acessar análise
+
+1. Usuário acessa Tendências.
+
+
+2. Sistema verifica autenticação.
+
+
+3. Sistema verifica autorização.
+
+
+4. Sistema identifica escopo.
+
+
+
+
+---
+
+FP-02 — Selecionar indicador
+
+5. Sistema apresenta indicadores disponíveis.
+
+
+6. Usuário seleciona um indicador.
+
+
+
+Exemplo:
+
+Total de observações
+
+
+---
+
+FP-03 — Selecionar período
+
+7. Usuário seleciona o período.
+
+
+8. Sistema valida as datas.
+
+
+
+
+---
+
+FP-04 — Selecionar granularidade
+
+9. Usuário seleciona:
+
+
+
+semanal;
+
+mensal;
+
+etc.
+
+
+
+---
+
+FP-05 — Processar tendência
+
+10. Sistema obtém a série temporal.
+
+
+11. Sistema verifica quantidade de pontos.
+
+
+12. Sistema calcula variações.
+
+
+13. Sistema classifica a tendência.
+
+
+14. Sistema determina o nível de confiabilidade da análise.
+
+
+
+
+---
+
+FP-06 — Apresentar resultado
+
+15. Sistema apresenta gráfico.
+
+
+16. Sistema apresenta tendência.
+
+
+17. Sistema apresenta variação.
+
+
+18. Sistema apresenta período analisado.
+
+
+19. Sistema apresenta observação metodológica quando necessário.
+
+
+
+
+---
+
+26. Exemplo de resultado
+
+ANÁLISE DE TENDÊNCIA
+
+Indicador:
+Total de observações
+
+Período:
+Julho → Agosto
+
+Granularidade:
+Semanal
+
+Tendência:
+↓ DECRESCENTE
+
+Variação:
+-22,5%
+
+Pontos analisados:
+8 semanas
+
+
+---
+
+27. Grau de confiança
+
+Na primeira versão podemos utilizar uma classificação simples:
+
+Dados suficientes
+Dados limitados
+Dados insuficientes
+
+Em vez de apresentar uma falsa precisão como:
+
+> "87% de confiança"
+
+
+
+sem um método estatístico apropriado.
+
+
+---
+
+28. Dados insuficientes
+
+Exemplo:
+
+Semana 1 = 10
+Semana 2 = 12
+
+O sistema poderá informar:
+
+> Dados insuficientes para determinar tendência confiável.
+
+
+
+Ainda poderá apresentar a variação:
+
+> +20%
+
+
+
+mas não necessariamente classificar como tendência.
+
+
+---
+
+29. Dados ausentes
+
+Exemplo:
+
+Semana 1 = 10
+Semana 2 = sem dados
+Semana 3 = 15
+Semana 4 = 20
+
+O sistema deverá distinguir:
+
+sem registros
+
+de:
+
+sem informação disponível.
+
+
+---
+
+30. Oscilação
+
+Exemplo:
+
+20
+35
+18
+40
+22
+38
+
+Embora primeiro e último valores sejam semelhantes, a série é altamente oscilante.
+
+Resultado:
+
+> Comportamento oscilante.
+
+
+
+
+---
+
+31. Estabilidade
+
+Exemplo:
+
+20
+21
+20
+19
+21
+20
+
+Resultado:
+
+> Comportamento quantitativamente estável.
+
+
+
+A definição de estabilidade deverá utilizar uma margem de variação previamente estabelecida.
+
+
+---
+
+32. Limite de estabilidade
+
+Podemos definir inicialmente uma regra como:
+
+> variação inferior a determinado percentual será considerada estabilidade.
+
+
+
+Por exemplo:
+
+±10%
+
+Mas esse percentual é uma hipótese inicial, não uma regra definitiva.
+
+Precisaremos validá-lo durante a definição das regras de negócio.
+
+
+---
+
+33. Tendência × diagnóstico
+
+Esta regra deverá ser explícita:
+
+Permitido
+
+> "A quantidade de registros apresentou tendência crescente."
+
+
+
+Não permitido
+
+> "O aluno está piorando."
+
+
+
+Permitido
+
+> "Os registros classificados como alta intensidade apresentaram redução quantitativa."
+
+
+
+Não permitido
+
+> "O aluno apresentou melhora clínica."
+
+
+
+Isso protege o sistema contra interpretações indevidas.
+
+
+---
+
+34. Alertas de tendência
+
+Podemos futuramente criar alertas informativos.
+
+Exemplo:
+
+⚠ Variação quantitativa relevante
+
+Os registros do indicador X
+aumentaram 35% em relação
+ao período anterior.
+
+O alerta deverá ser:
+
+objetivo;
+
+neutro;
+
+baseado em regra;
+
+rastreável.
+
+
+
+---
+
+35. Limite de alerta
+
+Poderemos definir:
+
+Aumento ≥ 30%
+
+gera:
+
+> Variação quantitativa relevante.
+
+
+
+Porém, esse valor deverá ser configurável.
+
+Não devemos assumir que 30% tenha significado universal.
+
+
+---
+
+36. Tendência por categoria
+
+O usuário poderá selecionar:
+
+Categoria:
+Interação
+
+E visualizar:
+
+Junho      10
+Julho      14
+Agosto     18
+
+Resultado:
+
+> Tendência crescente.
+
+
+
+
+---
+
+37. Múltiplas séries
+
+O sistema poderá permitir:
+
+Participação ─────
+Interação    ─────
+Comunicação  ─────
+
+Isso permitirá comparação visual entre categorias.
+
+Porém, devemos limitar a quantidade de séries simultâneas para preservar legibilidade.
+
+
+---
+
+38. Filtros
+
+O usuário poderá filtrar:
+
+aluno;
+
+turma;
+
+categoria;
+
+contexto;
+
+intensidade;
+
+estratégia;
+
+resultado;
+
+período;
+
+granularidade.
+
+
+
+---
+
+39. Regras de negócio
+
+RN-TEND-001 — Data
+
+Utilizar data_ocorrencia.
+
+
+---
+
+RN-TEND-002 — Escopo
+
+Somente dados autorizados serão analisados.
+
+
+---
+
+RN-TEND-003 — Período
+
+Todos os pontos deverão pertencer ao período solicitado.
+
+
+---
+
+RN-TEND-004 — Granularidade
+
+A série deverá respeitar a granularidade escolhida.
+
+
+---
+
+RN-TEND-005 — Dados insuficientes
+
+O sistema não deverá declarar tendência quando os dados não forem suficientes para o método definido.
+
+
+---
+
+RN-TEND-006 — Neutralidade
+
+Tendência quantitativa não deverá ser convertida automaticamente em conclusão pedagógica.
+
+
+---
+
+RN-TEND-007 — Rastreabilidade
+
+A tendência deverá ser reproduzível a partir da série de dados utilizada.
+
+
+---
+
+RN-TEND-008 — Arredondamento
+
+Percentuais deverão seguir a regra global de arredondamento dos indicadores.
+
+
+---
+
+RN-TEND-009 — Oscilação
+
+Séries com variações significativas e inconsistentes não deverão ser classificadas simplesmente pela diferença entre primeiro e último ponto.
+
+
+---
+
+RN-TEND-010 — Ausência de dados
+
+Ausência de informação deverá ser distinguida de valor zero.
+
+
+---
+
+40. Critérios de aceite
+
+CA-001 — Tendência crescente
+
+Dado que os valores apresentam crescimento consistente,
+quando a análise for executada,
+então o sistema deverá identificar tendência crescente conforme os critérios definidos.
+
+
+---
+
+CA-002 — Tendência decrescente
+
+Dado que os valores apresentam redução consistente,
+quando a análise for executada,
+então o sistema deverá identificar tendência decrescente.
+
+
+---
+
+CA-003 — Estabilidade
+
+Dado que os valores permanecem dentro da margem definida,
+quando a análise for executada,
+então o sistema deverá classificar o comportamento como estável.
+
+
+---
+
+CA-004 — Oscilação
+
+Dado que os valores apresentam variações alternadas relevantes,
+quando a análise for executada,
+então o sistema deverá classificá-los como oscilantes.
+
+
+---
+
+CA-005 — Dados insuficientes
+
+Dado que não existem pontos suficientes,
+quando a análise for executada,
+então o sistema deverá informar que a tendência não pode ser determinada.
+
+
+---
+
+CA-006 — Neutralidade
+
+Dado que uma tendência decrescente foi identificada,
+quando o resultado for apresentado,
+então o sistema deverá utilizar linguagem quantitativa e não diagnóstico ou conclusão pedagógica.
+
+
+---
+
+CA-007 — Controle de acesso
+
+Dado que o usuário não possui acesso aos dados,
+quando solicitar a análise,
+então o sistema deverá bloquear a operação.
+
+
+---
+
+41. Exemplo de tela
+
+┌───────────────────────────────────────────────┐
+│ ANÁLISE DE TENDÊNCIA                          │
+├───────────────────────────────────────────────┤
+│ Indicador: Total de observações               │
+│                                               │
+│ Período: 01/06/2026 → 31/08/2026             │
+│ Granularidade: Semanal                        │
+├───────────────────────────────────────────────┤
+│                                               │
+│ 40 │                         ●                 │
+│ 35 │                  ●                       │
+│ 30 │            ●                             │
+│ 25 │       ●                                  │
+│ 20 │  ●                                       │
+│    └────────────────────────────              │
+│                                               │
+├───────────────────────────────────────────────┤
+│ Tendência: ↓ DECRESCENTE                     │
+│ Variação: -28,4%                             │
+│ Pontos analisados: 12                        │
+│                                               │
+│ Análise quantitativa baseada nos registros.  │
+└───────────────────────────────────────────────┘
+
+
+---
+
+42. Relatórios
+
+O resultado poderá ser incorporado aos relatórios:
+
+Semanal
+
+Tendência da semana
+
+Mensal
+
+Tendência das semanas do mês
+
+Anual
+
+Tendência dos meses do ano
+
+Comparativo
+
+Período A × Período B
+
+
+---
+
+43. PDF
+
+O PDF poderá apresentar:
+
+ANÁLISE TEMPORAL
+
+Indicador:
+Total de observações
+
+Período:
+Julho/2026
+
+Tendência:
+Decrescente
+
+Variação:
+-18,4%
+
+Observação:
+A classificação representa tendência
+quantitativa dos registros e não constitui
+interpretação clínica ou pedagógica.
+
+Isso é uma boa prática de governança do sistema.
+
+
+---
+
+44. Arquitetura conceitual
+
+OBSERVAÇÕES
+                       │
+                       ▼
+                INDICADORES
+                  UC-034
+                       │
+                       ▼
+              EVOLUÇÃO TEMPORAL
+                  UC-035
+                       │
+                       ▼
+             ANÁLISE DE TENDÊNCIA
+                  UC-037
+                       │
+          ┌────────────┼────────────┐
+          ▼            ▼            ▼
+      Dashboard     Relatório      PDF
+
+
+---
+
+45. Relação com Laravel
+
+Uma implementação futura poderá seguir:
+
+TrendController
+       ↓
+TrendService
+       ↓
+IndicatorService
+       ↓
+Evolution Query
+       ↓
+PostgreSQL
+
+O TrendService poderá receber uma série temporal:
+
+[
+    20,
+    18,
+    15,
+    12,
+    10
+]
+
+e produzir algo conceitualmente semelhante a:
+
+{
+    tendencia: "DECRESCENTE",
+    variacao_percentual: -50,
+    pontos_analisados: 5
+}
+
+A estrutura definitiva será definida na fase de arquitetura.
+
+
+---
+
+46. Performance
+
+A análise poderá exigir:
+
+GROUP BY período
+COUNT()
+AVG()
+SUM()
+
+Por isso, deverá utilizar os mecanismos de consulta já definidos para os indicadores.
+
+Em volumes maiores, poderemos posteriormente avaliar:
+
+agregações;
+
+índices;
+
+cache;
+
+tabelas de resumo;
+
+processamento assíncrono para relatórios.
+
+
+
+---
+
+47. Auditoria
+
+Quando aplicável:
+
+TENDENCIA_CONSULTADA
+
+Usuário
+Data/hora
+Aluno/Turma
+Indicador
+Período
+Granularidade
+Filtros
+Resultado
+
+Isso permitirá posteriormente saber como determinada análise foi produzida.
+
+
+---
+
+48. Dependências
+
+Casos anteriores
+
+UC-034 — Consultar Indicadores
+UC-035 — Consultar Evolução Temporal
+UC-036 — Consultar Distribuição
+
+Casos relacionados
+
+UC-038 — Gerar Alertas de Indicadores
+UC-039 — Comparar Períodos
+UC-044 — Gerar Relatório Semanal
+UC-045 — Gerar Relatório Mensal
+UC-046 — Gerar Relatório Anual
+UC-048 — Gerar Relatório Comparativo
+UC-049 — Exportar Relatório PDF
+
+
+---
+
+49. Resumo do UC-037
+
+┌──────────────────────────────────────────────┐
+│       UC-037 — ANALISAR TENDÊNCIAS          │
+├──────────────────────────────────────────────┤
+│                                              │
+│ Objetivo:                                    │
+│ Identificar padrões quantitativos nos        │
+│ registros ao longo do tempo.                 │
+│                                              │
+│ Classificações:                              │
+│ • Crescente                                  │
+│ • Decrescente                                │
+│ • Estável                                    │
+│ • Oscilante                                  │
+│ • Inconclusiva                               │
+│                                              │
+│ Entradas:                                    │
+│ • Indicador                                  │
+│ • Período                                    │
+│ • Granularidade                              │
+│ • Filtros                                    │
+│                                              │
+│ Saídas:                                      │
+│ • Tendência                                  │
+│ • Variação                                   │
+│ • Série temporal                             │
+│ • Grau de suficiência dos dados              │
+│                                              │
+│ Consumidores:                                │
+│ • Dashboard                                  │
+│ • Relatórios                                 │
+│ • PDF                                        │
+└──────────────────────────────────────────────┘
+
+✅ UC-037 — concluído, versão 1.0
+
+Chegamos a um ponto importante da especificação:
+
+UC-034 → Indicadores
+       ↓
+UC-035 → Evolução temporal
+       ↓
+UC-036 → Distribuição
+       ↓
+UC-037 → Tendências
+
+O próximo caso é o UC-038 — Gerar Alertas de Indicadores. Ele poderá transformar determinadas condições quantitativas — por exemplo, uma variação relevante em relação ao período anterior — em alertas informativos para o profissional responsável, sempre respeitando as permissões e sem transformar o alerta em diagnóstico ou conclusão automática.
