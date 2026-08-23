@@ -1,90 +1,70 @@
-Perfeito. Vamos avançar para o UC-037 — Analisar Tendências.
+Perfeito. Vamos continuar a sequência da FASE 2 — Casos de Uso.
 
-Este caso de uso fecha o primeiro grande bloco analítico do IncluiEdu. Até aqui temos:
+UC-038 — Gerar Alertas de Indicadores
 
-UC-034: o que aconteceu em termos quantitativos;
-
-UC-035: como os registros evoluíram no tempo;
-
-UC-036: como os registros estão distribuídos;
-
-UC-037: identificar padrões de tendência nos dados.
-
-
-Um cuidado importante: o sistema poderá identificar tendências estatísticas/quantitativas, mas não deverá concluir automaticamente que determinado aluno "melhorou", "piorou" ou possui determinada condição.
-
-
----
-
-FASE 2 — CASOS DE USO
-
-UC-037 — Analisar Tendências
-
-Código: UC-037
-Nome: Analisar Tendências
+Código: UC-038
+Nome: Gerar Alertas de Indicadores
 Versão: 1.0
 Status: Em especificação
 Prioridade: Alta
-Módulo: Indicadores e Análise
+Módulo: Indicadores, Monitoramento e Alertas
 
 
 ---
 
 1. Objetivo
 
-Permitir que usuários autorizados analisem tendências quantitativas presentes nos registros de acompanhamento dos alunos ao longo de determinado período.
+Permitir que o IncluiEdu identifique automaticamente condições quantitativas relevantes nos registros de acompanhamento e gere alertas informativos para usuários autorizados.
 
-O sistema deverá identificar padrões como:
+Os alertas poderão indicar, por exemplo:
 
-aumento;
+aumento relevante na quantidade de registros;
 
-redução;
+redução relevante;
 
-estabilidade;
+alteração significativa na distribuição;
 
-oscilação;
+concentração incomum de registros;
 
-alteração de distribuição;
+alteração na intensidade;
 
-concentração temporal;
+ausência prolongada de registros;
 
-mudança de comportamento de determinado indicador.
+mudança relevante em determinado indicador;
+
+necessidade de atenção conforme regras configuradas.
 
 
-A análise deverá ser baseada exclusivamente nos dados registrados.
+O objetivo é chamar a atenção do profissional para uma informação, não tomar uma decisão pedagógica por ele.
 
 
 ---
 
 2. Princípio fundamental
 
-O sistema deverá separar:
-
-Tendência quantitativa
-
-> "A quantidade de registros apresentou tendência de redução."
-
-
-
-de uma interpretação pedagógica:
-
-> "O aluno apresentou melhora."
-
-
-
-A primeira pode ser calculada pelo sistema.
-
-A segunda exige interpretação profissional.
-
-Portanto:
+O sistema deverá seguir:
 
 DADOS
   ↓
-ANÁLISE MATEMÁTICA
+INDICADOR
   ↓
-TENDÊNCIA QUANTITATIVA
+REGRA
   ↓
-INTERPRETAÇÃO PROFISSIONAL
+VERIFICAÇÃO
+  ↓
+ALERTA
+  ↓
+PROFISSIONAL
+  ↓
+INTERPRETAÇÃO / AÇÃO
+
+E não:
+
+DADOS
+  ↓
+IA
+  ↓
+DIAGNÓSTICO
 
 
 ---
@@ -119,1253 +99,1209 @@ ACT-009 — Sistema
 3. Usuário autorizado.
 
 
-4. Escopo definido.
+4. Aluno pertencente ao escopo do usuário.
 
 
-5. Período válido.
+5. Regras de alerta configuradas.
 
 
-6. Existência de dados suficientes para análise.
+6. Existência de dados suficientes para avaliação.
+
+
+
+
+---
+
+5. Gatilhos
+
+Os alertas poderão ser gerados por diferentes eventos.
+
+Gatilho automático
+
+Após o registro de uma nova observação:
+
+Registrar observação
+       ↓
+Atualizar indicadores
+       ↓
+Executar regras
+       ↓
+Gerar alerta, se aplicável
+
+Gatilho periódico
+
+Um processo automático poderá executar:
+
+Diariamente
+Semanalmente
+Mensalmente
+
+para verificar condições acumuladas.
+
+Gatilho manual
+
+Um usuário autorizado poderá solicitar:
+
+> Verificar indicadores agora.
 
 
 
 
 ---
 
-5. Gatilho
+6. Tipos de alerta
 
-O usuário acessa:
+Inicialmente proponho:
 
-Dashboard → Tendências
-
-ou:
-
-Aluno → Indicadores → Tendências
-
-ou:
-
-Relatórios → Análise de Tendências
+ALT-001 — Aumento relevante
+ALT-002 — Redução relevante
+ALT-003 — Alteração de intensidade
+ALT-004 — Concentração de registros
+ALT-005 — Ausência de registros
+ALT-006 — Mudança de distribuição
+ALT-007 — Variação temporal relevante
+ALT-008 — Regra personalizada
 
 
 ---
 
-6. Conceito de tendência
-
-Uma tendência representa uma direção predominante dos dados ao longo de um período.
+7. ALT-001 — Aumento relevante
 
 Exemplo:
 
-Semana 1     20
-Semana 2     18
-Semana 3     15
-Semana 4     12
-
-Existe uma tendência quantitativa de redução.
-
-
----
-
-7. Tipos de tendência
-
-O sistema deverá inicialmente trabalhar com:
-
-T-001 — Crescente
-T-002 — Decrescente
-T-003 — Estável
-T-004 — Oscilante
-T-005 — Inconclusiva
-
-
----
-
-8. T-001 — Tendência crescente
-
-Exemplo:
-
-10
-15
-19
-25
-31
-
-O indicador apresenta aumento ao longo do período.
-
-Resultado:
-
-> Tendência quantitativa crescente.
-
-
-
-
----
-
-9. T-002 — Tendência decrescente
-
-Exemplo:
-
-35
-31
-27
-22
-18
-
-Resultado:
-
-> Tendência quantitativa decrescente.
-
-
-
-
----
-
-10. T-003 — Tendência estável
-
-Exemplo:
-
-20
-21
-19
-20
-21
-
-O comportamento permanece relativamente próximo.
-
-Resultado:
-
-> Comportamento quantitativamente estável.
-
-
-
-
----
-
-11. T-004 — Tendência oscilante
-
-Exemplo:
-
-10
-25
-12
-28
-11
-30
-
-Existe variação significativa entre períodos.
-
-Resultado:
-
-> Comportamento oscilante.
-
-
-
-
----
-
-12. T-005 — Tendência inconclusiva
-
-Quando:
-
-existem poucos dados;
-
-os dados são insuficientes;
-
-a variação não permite classificação confiável;
-
-existem períodos sem informação suficiente.
-
-
-Resultado:
-
-> Não foi possível determinar uma tendência.
-
-
-
-
----
-
-13. Indicadores analisáveis
-
-O sistema poderá analisar tendências de:
-
-quantidade de observações;
-
-categorias;
-
-intensidade;
-
-duração;
-
-contextos;
-
-estratégias;
-
-resultados;
-
-frequência de registros.
-
-
-Exemplo:
-
-Tendência de observações
-Tendência de intensidade
-Tendência de duração
-Tendência por categoria
-
-
----
-
-14. Granularidade
-
-A tendência poderá ser calculada sobre:
-
-Diário
-
-01/08
-02/08
-03/08
-...
-
-Semanal
-
-Semana 1
-Semana 2
-Semana 3
-...
-
-Mensal
-
-Maio
-Junho
-Julho
-Agosto
-
-Anual
-
-2024
-2025
-2026
-
-
----
-
-15. Período mínimo
-
-Para evitar conclusões inadequadas, o sistema deverá considerar uma quantidade mínima de pontos temporais.
-
-Por exemplo:
-
-2 pontos → insuficiente
-3 pontos → análise limitada
-4+ pontos → análise possível
-
-O valor definitivo deverá ser definido nas regras de negócio e poderá variar conforme o método utilizado.
-
-
----
-
-16. Método inicial de análise
-
-Para a primeira versão do sistema, recomendo começar com um método simples e transparente:
-
-Variação entre primeiro e último ponto
-
-Valor final - Valor inicial
-
-e:
-
-(Valor final - Valor inicial)
-────────────────────────── × 100
-       Valor inicial
-
-Exemplo:
-
-Primeiro = 20
-Último = 15
+Período anterior: 20 registros
+Período atual:    30 registros
 
 Variação:
 
-(15 - 20)
-───────── × 100
-   20
++50%
 
-= -25%
+Se a regra estiver configurada para alertar a partir de 30%:
 
-Resultado:
-
-> Redução quantitativa de 25%.
+> ⚠️ Variação quantitativa relevante identificada.
 
 
 
 
 ---
 
-17. Limitação desse método
-
-Imagine:
-
-20
-10
-25
-15
-
-Primeiro = 20
-Último = 15
-
-Apenas olhando os extremos:
-
-> -25%
-
-
-
-Mas os dados apresentam forte oscilação.
-
-Por isso, o sistema deverá considerar também a consistência da série, e não somente primeiro e último ponto.
-
-
----
-
-18. Análise de tendência — evolução
-
-A tendência deverá utilizar os dados produzidos pelo:
-
-UC-035 — Consultar Evolução Temporal.
-
-Fluxo:
-
-Observações
-     ↓
-UC-034
-Indicadores
-     ↓
-UC-035
-Série temporal
-     ↓
-UC-037
-Análise de tendência
-
-
----
-
-19. Exemplo
-
-Dados:
-
-Semana 1 = 30
-Semana 2 = 28
-Semana 3 = 25
-Semana 4 = 21
-Semana 5 = 20
-
-Sistema calcula:
-
-Variação = -33,3%
-
-E identifica:
-
-> Tendência quantitativa decrescente.
-
-
-
-
----
-
-20. Intensidade
-
-O sistema poderá analisar a evolução da distribuição de intensidade.
+8. ALT-002 — Redução relevante
 
 Exemplo:
 
-Semana	Baixa	Moderada	Alta
+Período anterior: 40
+Período atual:    25
 
-1	20	10	5
-2	22	9	4
-3	25	8	3
-4	27	6	2
+Variação:
 
+-37,5%
+
+Resultado:
+
+> ℹ️ Redução quantitativa relevante identificada.
+
+
+
+
+---
+
+9. ALT-003 — Alteração de intensidade
+
+Exemplo:
+
+Período anterior
+
+Baixa       60%
+Moderada    30%
+Alta        10%
+
+Período atual
+
+Baixa       40%
+Moderada    35%
+Alta        25%
 
 O sistema poderá identificar:
 
-> Redução quantitativa dos registros classificados como alta intensidade.
-
-
-
-Mas não deverá concluir:
-
-> "O aluno melhorou."
+> A participação dos registros classificados como alta intensidade aumentou.
 
 
 
 
 ---
 
-21. Categoria
+10. ALT-004 — Concentração de registros
 
 Exemplo:
 
-Participação
+100 registros
 
-Junho      12
-Julho      18
-Agosto     23
+Contexto:
+Sala de aula → 80
+Outros       → 20
 
-Tendência:
+Se existir uma regra:
 
-> Crescente.
+Concentração > 75%
+
+o sistema poderá gerar:
+
+> ⚠️ Alta concentração de registros em determinado contexto.
 
 
 
 
 ---
 
-22. Contexto
+11. ALT-005 — Ausência de registros
 
 Exemplo:
 
-Sala de aula
+Último registro:
+01/08/2026
 
-Junho      15
-Julho      20
-Agosto     28
+Data atual:
+23/08/2026
 
-O sistema poderá informar:
+Se a regra for:
 
-> Aumento quantitativo dos registros no contexto selecionado.
+mais de 14 dias sem registro
+
+o sistema poderá gerar:
+
+> ℹ️ Não foram identificados registros no período definido.
+
+
+
+Importante: isso não significa que não ocorreram eventos.
+
+Significa apenas:
+
+> não existem registros no sistema.
 
 
 
 
 ---
 
-23. Estratégias
+12. ALT-006 — Mudança de distribuição
 
 Exemplo:
 
-Mediação
+Categoria A
 
-Junho      8
-Julho      12
-Agosto     17
+Período anterior: 20%
+Período atual:    45%
 
-O sistema identifica:
-
-> Tendência crescente na quantidade de registros da estratégia.
-
-
-
-Isso não significa automaticamente que a estratégia esteja sendo mais necessária ou mais eficaz.
+O sistema identifica uma alteração relevante na composição.
 
 
 ---
 
-24. Resultados
+13. ALT-007 — Variação temporal relevante
 
-Também poderá analisar:
+Relaciona-se diretamente ao:
 
-Resultado A
+UC-037 — Analisar Tendências.
 
-Junho      10
-Julho      15
-Agosto     19
+Exemplo:
+
+Semana 1    10
+Semana 2    12
+Semana 3    18
+Semana 4    25
+
+O sistema identifica tendência crescente e, caso a regra esteja configurada, gera alerta.
+
+
+---
+
+14. ALT-008 — Regra personalizada
+
+Administradores autorizados poderão criar regras específicas.
+
+Exemplo:
+
+SE
+
+quantidade de registros
+da categoria X
+
+for maior que 20
+
+ENTÃO
+
+gerar alerta.
+
+Essa funcionalidade deverá possuir forte controle de permissões.
+
+
+---
+
+15. Fluxo principal
+
+FP-01 — Detectar condição
+
+1. Sistema recebe novo registro ou executa processamento periódico.
+
+
+2. Sistema atualiza os indicadores necessários.
+
+
+3. Sistema identifica regras aplicáveis.
+
+
+4. Sistema avalia as condições.
+
+
+
+
+---
+
+FP-02 — Condição atendida
+
+5. Sistema identifica que uma regra foi satisfeita.
+
+
+6. Sistema verifica se já existe alerta equivalente.
+
+
+7. Sistema determina a prioridade.
+
+
+8. Sistema cria o alerta.
+
+
+
+
+---
+
+FP-03 — Disponibilizar alerta
+
+9. Sistema associa o alerta ao escopo correto.
+
+
+10. Sistema disponibiliza o alerta ao usuário autorizado.
+
+
+11. Sistema registra data e hora.
+
+
+12. Sistema registra a regra responsável pela geração.
+
+
+
+
+---
+
+16. Exemplo completo
+
+Uma nova observação é registrada.
+
+UC-028
+Registrar Observação
+
+Sistema atualiza:
+
+Total do período anterior = 20
+Total atual = 30
+
+Calcula:
+
++50%
+
+Regra:
+
+ALERTA se variação >= 30%
 
 Resultado:
 
-> Tendência quantitativa crescente.
-
-
-
-A interpretação deverá ser feita pelo profissional.
+ALERTA GERADO
 
 
 ---
 
-25. Fluxo principal
+17. Estrutura do alerta
 
-FP-01 — Acessar análise
+Cada alerta deverá possuir, conceitualmente:
 
-1. Usuário acessa Tendências.
-
-
-2. Sistema verifica autenticação.
-
-
-3. Sistema verifica autorização.
-
-
-4. Sistema identifica escopo.
-
-
+ID
+Aluno
+Turma
+Tipo
+Título
+Descrição
+Indicador
+Valor anterior
+Valor atual
+Variação
+Regra
+Prioridade
+Data/hora
+Status
+Usuário responsável
 
 
 ---
 
-FP-02 — Selecionar indicador
+18. Exemplo de alerta
 
-5. Sistema apresenta indicadores disponíveis.
+┌────────────────────────────────────────────┐
+│ ⚠ ALERTA DE INDICADOR                      │
+├────────────────────────────────────────────┤
+│ Aluno: [Aluno autorizado]                  │
+│ Indicador: Total de registros              │
+│                                            │
+│ Período anterior: 20                       │
+│ Período atual: 30                          │
+│                                            │
+│ Variação: +50%                             │
+│                                            │
+│ Regra: Variação superior a 30%             │
+│                                            │
+│ Status: NÃO LIDO                           │
+└────────────────────────────────────────────┘
 
 
-6. Usuário seleciona um indicador.
+---
+
+19. Prioridade
+
+Proponho inicialmente:
+
+BAIXA
+INFORMATIVA
+ATENÇÃO
+ALTA
+
+Porém, a nomenclatura poderá ser simplificada para:
+
+INFO
+ATENÇÃO
+ALTA
+
+durante a arquitetura.
 
 
+---
+
+20. Regra importante sobre prioridade
+
+A prioridade deverá estar associada à regra objetiva, e não à interpretação subjetiva do sistema.
 
 Exemplo:
 
-Total de observações
+Variação 10%
+→ INFO
+
+Variação 30%
+→ ATENÇÃO
+
+Variação 50%
+→ ALTA
+
+Mas esses valores são exemplos. Precisaremos defini-los na FASE 3 — Regras de Negócio.
 
 
 ---
 
-FP-03 — Selecionar período
+21. Status do alerta
 
-7. Usuário seleciona o período.
+Cada alerta poderá possuir:
+
+NAO_LIDO
+LIDO
+EM_ANALISE
+RESOLVIDO
+ARQUIVADO
 
 
-8. Sistema valida as datas.
+---
 
+22. Ciclo de vida
+
+GERADO
+  ↓
+NÃO LIDO
+  ↓
+LIDO
+  ↓
+EM ANÁLISE
+  ↓
+RESOLVIDO
+
+Opcionalmente:
+
+GERADO
+  ↓
+ARQUIVADO
+
+
+---
+
+23. Ação sobre o alerta
+
+Ao abrir um alerta, o usuário poderá:
+
+visualizar detalhes;
+
+consultar registros relacionados;
+
+consultar evolução;
+
+consultar distribuição;
+
+marcar como lido;
+
+adicionar observação profissional;
+
+encaminhar para análise;
+
+resolver;
+
+arquivar, se autorizado.
 
 
 
 ---
 
-FP-04 — Selecionar granularidade
+24. Relação com observações
 
-9. Usuário seleciona:
-
-
-
-semanal;
-
-mensal;
-
-etc.
-
-
-
----
-
-FP-05 — Processar tendência
-
-10. Sistema obtém a série temporal.
-
-
-11. Sistema verifica quantidade de pontos.
-
-
-12. Sistema calcula variações.
-
-
-13. Sistema classifica a tendência.
-
-
-14. Sistema determina o nível de confiabilidade da análise.
-
-
-
-
----
-
-FP-06 — Apresentar resultado
-
-15. Sistema apresenta gráfico.
-
-
-16. Sistema apresenta tendência.
-
-
-17. Sistema apresenta variação.
-
-
-18. Sistema apresenta período analisado.
-
-
-19. Sistema apresenta observação metodológica quando necessário.
-
-
-
-
----
-
-26. Exemplo de resultado
-
-ANÁLISE DE TENDÊNCIA
-
-Indicador:
-Total de observações
-
-Período:
-Julho → Agosto
-
-Granularidade:
-Semanal
-
-Tendência:
-↓ DECRESCENTE
-
-Variação:
--22,5%
-
-Pontos analisados:
-8 semanas
-
-
----
-
-27. Grau de confiança
-
-Na primeira versão podemos utilizar uma classificação simples:
-
-Dados suficientes
-Dados limitados
-Dados insuficientes
-
-Em vez de apresentar uma falsa precisão como:
-
-> "87% de confiança"
-
-
-
-sem um método estatístico apropriado.
-
-
----
-
-28. Dados insuficientes
+O alerta deverá permitir acessar os registros que contribuíram para sua geração.
 
 Exemplo:
 
-Semana 1 = 10
-Semana 2 = 12
+ALERTA
+  ↓
+30 registros
+  ↓
+Visualizar registros relacionados
+  ↓
+UC-032 — Histórico de Observações
 
-O sistema poderá informar:
-
-> Dados insuficientes para determinar tendência confiável.
-
-
-
-Ainda poderá apresentar a variação:
-
-> +20%
-
-
-
-mas não necessariamente classificar como tendência.
+Isso garante rastreabilidade.
 
 
 ---
 
-29. Dados ausentes
+25. Relação com UC-034
 
-Exemplo:
-
-Semana 1 = 10
-Semana 2 = sem dados
-Semana 3 = 15
-Semana 4 = 20
-
-O sistema deverá distinguir:
-
-sem registros
-
-de:
-
-sem informação disponível.
+UC-034
+Consultar Indicadores
+       ↓
+indicador apresenta
+variação relevante
+       ↓
+UC-038
+Gerar Alerta
 
 
 ---
 
-30. Oscilação
+26. Relação com UC-035
 
-Exemplo:
-
-20
-35
-18
-40
-22
-38
-
-Embora primeiro e último valores sejam semelhantes, a série é altamente oscilante.
-
-Resultado:
-
-> Comportamento oscilante.
-
-
+UC-035
+Evolução Temporal
+       ↓
+identifica alteração
+       ↓
+UC-038
+Alerta
 
 
 ---
 
-31. Estabilidade
+27. Relação com UC-036
 
-Exemplo:
-
-20
-21
-20
-19
-21
-20
-
-Resultado:
-
-> Comportamento quantitativamente estável.
-
-
-
-A definição de estabilidade deverá utilizar uma margem de variação previamente estabelecida.
+UC-036
+Distribuição
+       ↓
+mudança significativa
+       ↓
+UC-038
+Alerta
 
 
 ---
 
-32. Limite de estabilidade
+28. Relação com UC-037
 
-Podemos definir inicialmente uma regra como:
+Essa é uma das relações mais importantes:
 
-> variação inferior a determinado percentual será considerada estabilidade.
+UC-037
+Analisar Tendências
+       ↓
+Tendência crescente/decrescente
+       ↓
+Regra de alerta
+       ↓
+UC-038
 
+Portanto:
 
-
-Por exemplo:
-
-±10%
-
-Mas esse percentual é uma hipótese inicial, não uma regra definitiva.
-
-Precisaremos validá-lo durante a definição das regras de negócio.
-
-
----
-
-33. Tendência × diagnóstico
-
-Esta regra deverá ser explícita:
-
-Permitido
-
-> "A quantidade de registros apresentou tendência crescente."
-
-
-
-Não permitido
-
-> "O aluno está piorando."
-
-
-
-Permitido
-
-> "Os registros classificados como alta intensidade apresentaram redução quantitativa."
-
-
-
-Não permitido
-
-> "O aluno apresentou melhora clínica."
-
-
-
-Isso protege o sistema contra interpretações indevidas.
-
-
----
-
-34. Alertas de tendência
-
-Podemos futuramente criar alertas informativos.
-
-Exemplo:
-
-⚠ Variação quantitativa relevante
-
-Os registros do indicador X
-aumentaram 35% em relação
-ao período anterior.
-
-O alerta deverá ser:
-
-objetivo;
-
-neutro;
-
-baseado em regra;
-
-rastreável.
-
-
-
----
-
-35. Limite de alerta
-
-Poderemos definir:
-
-Aumento ≥ 30%
-
-gera:
-
-> Variação quantitativa relevante.
-
-
-
-Porém, esse valor deverá ser configurável.
-
-Não devemos assumir que 30% tenha significado universal.
-
-
----
-
-36. Tendência por categoria
-
-O usuário poderá selecionar:
-
-Categoria:
-Interação
-
-E visualizar:
-
-Junho      10
-Julho      14
-Agosto     18
-
-Resultado:
-
-> Tendência crescente.
+> UC-037 analisa. UC-038 notifica.
 
 
 
 
 ---
 
-37. Múltiplas séries
+29. Filtros de alerta
 
-O sistema poderá permitir:
-
-Participação ─────
-Interação    ─────
-Comunicação  ─────
-
-Isso permitirá comparação visual entre categorias.
-
-Porém, devemos limitar a quantidade de séries simultâneas para preservar legibilidade.
-
-
----
-
-38. Filtros
-
-O usuário poderá filtrar:
+O usuário poderá filtrar alertas por:
 
 aluno;
 
 turma;
 
-categoria;
-
-contexto;
-
-intensidade;
-
-estratégia;
-
-resultado;
-
 período;
 
-granularidade.
+tipo;
+
+prioridade;
+
+status;
+
+indicador;
+
+data de geração.
 
 
 
 ---
 
-39. Regras de negócio
+30. Central de alertas
 
-RN-TEND-001 — Data
+Poderemos criar uma tela:
 
-Utilizar data_ocorrencia.
-
-
----
-
-RN-TEND-002 — Escopo
-
-Somente dados autorizados serão analisados.
-
-
----
-
-RN-TEND-003 — Período
-
-Todos os pontos deverão pertencer ao período solicitado.
-
-
----
-
-RN-TEND-004 — Granularidade
-
-A série deverá respeitar a granularidade escolhida.
+┌──────────────────────────────────────────────┐
+│ CENTRAL DE ALERTAS                           │
+├──────────────────────────────────────────────┤
+│                                              │
+│ 🔴 2    ⚠ 5    ℹ 8                          │
+│                                              │
+├──────────────────────────────────────────────┤
+│ ⚠ Aumento relevante                         │
+│    50% acima do período anterior             │
+│                                              │
+│ ℹ Ausência de registros                     │
+│    15 dias sem registros                     │
+│                                              │
+│ ⚠ Alteração de distribuição                 │
+│    Categoria X +25%                          │
+└──────────────────────────────────────────────┘
 
 
 ---
 
-RN-TEND-005 — Dados insuficientes
+31. Notificações
 
-O sistema não deverá declarar tendência quando os dados não forem suficientes para o método definido.
+O alerta poderá gerar:
 
+Internamente
 
----
+dashboard;
 
-RN-TEND-006 — Neutralidade
+central de alertas;
 
-Tendência quantitativa não deverá ser convertida automaticamente em conclusão pedagógica.
+badge;
 
-
----
-
-RN-TEND-007 — Rastreabilidade
-
-A tendência deverá ser reproduzível a partir da série de dados utilizada.
+notificação no sistema.
 
 
----
+Externamente
 
-RN-TEND-008 — Arredondamento
+Posteriormente:
 
-Percentuais deverão seguir a regra global de arredondamento dos indicadores.
+e-mail;
+
+WhatsApp.
 
 
----
-
-RN-TEND-009 — Oscilação
-
-Séries com variações significativas e inconsistentes não deverão ser classificadas simplesmente pela diferença entre primeiro e último ponto.
+Isso se conecta diretamente ao requisito que você definiu anteriormente.
 
 
 ---
 
-RN-TEND-010 — Ausência de dados
+32. Comunicação por e-mail
 
-Ausência de informação deverá ser distinguida de valor zero.
+Um alerta poderá, conforme configuração:
 
+Sistema
+   ↓
+Alerta
+   ↓
+Regra de notificação
+   ↓
+E-mail
+   ↓
+Responsável autorizado
 
----
+Entretanto, devemos diferenciar:
 
-40. Critérios de aceite
+Alerta interno
 
-CA-001 — Tendência crescente
+Informação para profissional do sistema.
 
-Dado que os valores apresentam crescimento consistente,
-quando a análise for executada,
-então o sistema deverá identificar tendência crescente conforme os critérios definidos.
+Comunicação externa
 
+Mensagem enviada ao responsável pelo aluno.
 
----
-
-CA-002 — Tendência decrescente
-
-Dado que os valores apresentam redução consistente,
-quando a análise for executada,
-então o sistema deverá identificar tendência decrescente.
-
-
----
-
-CA-003 — Estabilidade
-
-Dado que os valores permanecem dentro da margem definida,
-quando a análise for executada,
-então o sistema deverá classificar o comportamento como estável.
+Não devemos enviar automaticamente todo alerta interno ao responsável.
 
 
 ---
 
-CA-004 — Oscilação
+33. Comunicação via WhatsApp
 
-Dado que os valores apresentam variações alternadas relevantes,
-quando a análise for executada,
-então o sistema deverá classificá-los como oscilantes.
+Da mesma forma:
 
+Alerta
+   ↓
+Verificação da regra
+   ↓
+Necessidade de comunicação?
+   ↓
+SIM
+   ↓
+WhatsApp
 
----
-
-CA-005 — Dados insuficientes
-
-Dado que não existem pontos suficientes,
-quando a análise for executada,
-então o sistema deverá informar que a tendência não pode ser determinada.
-
-
----
-
-CA-006 — Neutralidade
-
-Dado que uma tendência decrescente foi identificada,
-quando o resultado for apresentado,
-então o sistema deverá utilizar linguagem quantitativa e não diagnóstico ou conclusão pedagógica.
+Isso deverá ser desenvolvido com integração oficial e controle de consentimento, especialmente porque estamos tratando de informações relacionadas a alunos.
 
 
 ---
 
-CA-007 — Controle de acesso
+34. Situações de emergência
 
-Dado que o usuário não possui acesso aos dados,
-quando solicitar a análise,
-então o sistema deverá bloquear a operação.
+Aqui temos uma funcionalidade diferente do simples alerta de indicador.
 
+Poderemos posteriormente criar:
 
----
+UC específico de Comunicação de Emergência.
 
-41. Exemplo de tela
+Por exemplo:
 
-┌───────────────────────────────────────────────┐
-│ ANÁLISE DE TENDÊNCIA                          │
-├───────────────────────────────────────────────┤
-│ Indicador: Total de observações               │
-│                                               │
-│ Período: 01/06/2026 → 31/08/2026             │
-│ Granularidade: Semanal                        │
-├───────────────────────────────────────────────┤
-│                                               │
-│ 40 │                         ●                 │
-│ 35 │                  ●                       │
-│ 30 │            ●                             │
-│ 25 │       ●                                  │
-│ 20 │  ●                                       │
-│    └────────────────────────────              │
-│                                               │
-├───────────────────────────────────────────────┤
-│ Tendência: ↓ DECRESCENTE                     │
-│ Variação: -28,4%                             │
-│ Pontos analisados: 12                        │
-│                                               │
-│ Análise quantitativa baseada nos registros.  │
-└───────────────────────────────────────────────┘
+Ocorrência de emergência
+        ↓
+Registro
+        ↓
+Classificação
+        ↓
+Regra de comunicação
+        ↓
+Responsável
+        ↓
+E-mail / WhatsApp
 
+Minha recomendação é não colocar toda a lógica de emergência dentro do UC-038.
 
----
+Devemos manter:
 
-42. Relatórios
+UC-038
+Alertas de indicadores
 
-O resultado poderá ser incorporado aos relatórios:
+UC futuro
+Comunicação de emergência
 
-Semanal
-
-Tendência da semana
-
-Mensal
-
-Tendência das semanas do mês
-
-Anual
-
-Tendência dos meses do ano
-
-Comparativo
-
-Período A × Período B
+Isso deixa a arquitetura muito mais organizada.
 
 
 ---
 
-43. PDF
+35. Regras de negócio
 
-O PDF poderá apresentar:
+RN-ALT-001 — Autorização
 
-ANÁLISE TEMPORAL
+Somente usuários autorizados poderão visualizar alertas.
+
+
+---
+
+RN-ALT-002 — Escopo
+
+Um usuário somente poderá visualizar alertas relacionados aos dados aos quais possui acesso.
+
+
+---
+
+RN-ALT-003 — Rastreabilidade
+
+Todo alerta deverá possuir referência à regra que o gerou.
+
+
+---
+
+RN-ALT-004 — Duplicidade
+
+O sistema deverá evitar a geração excessiva do mesmo alerta dentro de um intervalo definido.
+
+
+---
+
+RN-ALT-005 — Repetição
+
+Uma mesma condição poderá gerar novo alerta somente após período definido ou mudança relevante da condição.
+
+
+---
+
+RN-ALT-006 — Dados
+
+Alertas deverão ser baseados em dados efetivamente registrados.
+
+
+---
+
+RN-ALT-007 — Neutralidade
+
+O sistema não deverá utilizar linguagem diagnóstica.
+
+
+---
+
+RN-ALT-008 — Auditoria
+
+A geração, leitura, alteração de status e resolução deverão ser registradas.
+
+
+---
+
+RN-ALT-009 — Notificação externa
+
+Nenhum alerta deverá ser enviado automaticamente para terceiros sem que exista uma regra de comunicação autorizada.
+
+
+---
+
+RN-ALT-010 — Responsável
+
+O sistema deverá validar se o contato do responsável está habilitado para determinada comunicação antes do envio.
+
+
+---
+
+36. Evitando "spam" de alertas
+
+Imagine:
+
+20 observações
+↓
+alerta
+
+21 observações
+↓
+alerta
+
+22 observações
+↓
+alerta
+
+23 observações
+↓
+alerta
+
+Isso seria péssimo para o usuário.
+
+Precisamos de deduplicação.
+
+Exemplo:
+
+Regra:
+Aumento > 30%
+
+Primeiro alerta:
++35%
+
+Novo alerta somente quando:
+a condição for normalizada
+e posteriormente ultrapassar novamente o limite.
+
+
+---
+
+37. Silenciamento
+
+Usuários autorizados poderão futuramente silenciar determinado tipo de alerta.
+
+Exemplo:
+
+Silenciar:
+Ausência de registros
+
+Período:
+7 dias
+
+O sistema continuará registrando a condição, mas não apresentará novas notificações durante o período definido.
+
+
+---
+
+38. Critérios de aceite
+
+CA-001 — Geração
+
+Dado que uma regra seja satisfeita,
+quando o processamento ocorrer,
+então o sistema deverá gerar o alerta correspondente.
+
+
+---
+
+CA-002 — Não geração
+
+Dado que a condição não seja satisfeita,
+quando o processamento ocorrer,
+então nenhum alerta deverá ser criado.
+
+
+---
+
+CA-003 — Rastreabilidade
+
+Dado que um alerta foi criado,
+quando seus detalhes forem consultados,
+então deverá ser possível identificar a regra que o originou.
+
+
+---
+
+CA-004 — Duplicidade
+
+Dado que já exista alerta ativo para a mesma condição,
+quando a regra for executada novamente,
+então o sistema não deverá gerar duplicação indevida.
+
+
+---
+
+CA-005 — Acesso
+
+Dado que um usuário não tenha permissão,
+quando tentar consultar o alerta,
+então o sistema deverá impedir o acesso.
+
+
+---
+
+CA-006 — Histórico
+
+Dado que um alerta foi resolvido,
+quando o histórico for consultado,
+então a resolução deverá permanecer registrada.
+
+
+---
+
+CA-007 — Linguagem
+
+Dado que o sistema apresente um alerta,
+quando o usuário visualizar a mensagem,
+então ela deverá utilizar linguagem quantitativa e não diagnóstica.
+
+
+---
+
+39. Exemplo de regra
+
+Uma regra poderá ser representada conceitualmente:
+
+REGRA:
 
 Indicador:
 Total de observações
 
-Período:
-Julho/2026
+Comparação:
+Período atual × período anterior
 
-Tendência:
-Decrescente
+Condição:
+Variação >= 30%
 
-Variação:
--18,4%
+Ação:
+Gerar alerta
 
-Observação:
-A classificação representa tendência
-quantitativa dos registros e não constitui
-interpretação clínica ou pedagógica.
+Prioridade:
+ATENÇÃO
 
-Isso é uma boa prática de governança do sistema.
-
-
----
-
-44. Arquitetura conceitual
-
-OBSERVAÇÕES
-                       │
-                       ▼
-                INDICADORES
-                  UC-034
-                       │
-                       ▼
-              EVOLUÇÃO TEMPORAL
-                  UC-035
-                       │
-                       ▼
-             ANÁLISE DE TENDÊNCIA
-                  UC-037
-                       │
-          ┌────────────┼────────────┐
-          ▼            ▼            ▼
-      Dashboard     Relatório      PDF
+Notificação:
+Sistema
 
 
 ---
 
-45. Relação com Laravel
+40. Estrutura conceitual do banco
 
-Uma implementação futura poderá seguir:
+Posteriormente poderemos ter entidades como:
 
-TrendController
-       ↓
-TrendService
-       ↓
-IndicatorService
-       ↓
-Evolution Query
-       ↓
-PostgreSQL
+regras_alerta
+alertas
+historico_alertas
+notificacoes
 
-O TrendService poderá receber uma série temporal:
+Relacionamentos:
 
-[
-    20,
-    18,
-    15,
-    12,
-    10
-]
+regras_alerta
+      │
+      ▼
+    alertas
+      │
+      ├──────────────► usuarios
+      │
+      ├──────────────► alunos
+      │
+      └──────────────► indicadores
 
-e produzir algo conceitualmente semelhante a:
+Não vamos criar o SQL ainda.
 
-{
-    tendencia: "DECRESCENTE",
-    variacao_percentual: -50,
-    pontos_analisados: 5
-}
-
-A estrutura definitiva será definida na fase de arquitetura.
+Isso ficará para a FASE 3 — Modelagem do Banco de Dados.
 
 
 ---
 
-46. Performance
+41. Arquitetura Laravel
 
-A análise poderá exigir:
+Uma possível organização:
 
-GROUP BY período
-COUNT()
-AVG()
-SUM()
+app/
+├── Models/
+│   ├── Alerta.php
+│   ├── RegraAlerta.php
+│   └── Notificacao.php
+│
+├── Services/
+│   ├── AlertaService.php
+│   ├── RegraAlertaService.php
+│   └── NotificacaoService.php
+│
+├── Jobs/
+│   └── ProcessarAlertas.php
+│
+└── Notifications/
+    └── AlertaNotification.php
 
-Por isso, deverá utilizar os mecanismos de consulta já definidos para os indicadores.
+Para processamento automático:
 
-Em volumes maiores, poderemos posteriormente avaliar:
+Scheduler
+    ↓
+Job
+    ↓
+AlertaService
+    ↓
+Regras
+    ↓
+Alertas
 
-agregações;
+Essa arquitetura combina muito bem com Laravel.
 
-índices;
 
-cache;
+---
 
-tabelas de resumo;
+42. Processamento assíncrono
 
-processamento assíncrono para relatórios.
+Para não deixar o usuário esperando:
+
+Registro
+   ↓
+Salvar
+   ↓
+Fila
+   ↓
+Processar indicadores
+   ↓
+Avaliar alertas
+
+O processamento poderá ser feito em background.
+
+Isso será particularmente importante quando o sistema crescer.
+
+
+---
+
+43. Segurança
+
+O UC-038 deverá considerar:
+
+autenticação;
+
+autorização;
+
+RBAC;
+
+escopo por aluno;
+
+escopo por turma;
+
+auditoria;
+
+criptografia de comunicação;
+
+controle de notificações;
+
+proteção de dados pessoais.
 
 
 
 ---
 
-47. Auditoria
+44. LGPD
 
-Quando aplicável:
+Como o IncluiEdu envolve informações potencialmente sensíveis relacionadas ao acompanhamento educacional, devemos aplicar:
 
-TENDENCIA_CONSULTADA
+Minimização
+Finalidade
+Controle de acesso
+Rastreabilidade
+Segurança
+Retenção adequada
 
-Usuário
-Data/hora
-Aluno/Turma
-Indicador
-Período
-Granularidade
-Filtros
-Resultado
+Especialmente nas notificações externas.
 
-Isso permitirá posteriormente saber como determinada análise foi produzida.
+Uma mensagem de WhatsApp ou e-mail não deverá expor mais informações do que o necessário.
 
 
 ---
 
-48. Dependências
+45. Exemplo de comunicação externa
 
-Casos anteriores
+Em vez de:
 
-UC-034 — Consultar Indicadores
-UC-035 — Consultar Evolução Temporal
-UC-036 — Consultar Distribuição
+> "O aluno apresentou X comportamento em determinado contexto..."
 
-Casos relacionados
 
-UC-038 — Gerar Alertas de Indicadores
-UC-039 — Comparar Períodos
-UC-044 — Gerar Relatório Semanal
-UC-045 — Gerar Relatório Mensal
-UC-046 — Gerar Relatório Anual
-UC-048 — Gerar Relatório Comparativo
-UC-049 — Exportar Relatório PDF
+
+uma comunicação inicial poderia ser mais restrita:
+
+> "Olá. A escola solicita contato com o responsável pelo aluno. Por favor, entre em contato com a instituição."
+
+
+
+Para situações de emergência, a mensagem poderá seguir um template aprovado e configurável.
+
+Isso reduz exposição desnecessária de dados.
 
 
 ---
 
-49. Resumo do UC-037
+46. Relação com os relatórios
+
+Os alertas poderão aparecer nos relatórios:
+
+RELATÓRIO MENSAL
+        ↓
+Indicadores
+        ↓
+Evolução
+        ↓
+Distribuição
+        ↓
+Tendências
+        ↓
+Alertas relevantes
+
+Exemplo:
+
+Alertas registrados no período:
+
+• 02 variações quantitativas relevantes
+• 01 alteração de distribuição
+• 01 período sem registros
+
+
+---
+
+47. Dashboard
+
+No dashboard principal:
+
+┌────────────────────────────────────────────┐
+│ ALERTAS                                    │
+├────────────────────────────────────────────┤
+│                                            │
+│ 🔴 2  Alta prioridade                      │
+│ ⚠  5  Atenção                              │
+│ ℹ  8  Informativos                         │
+│                                            │
+│ [Visualizar todos]                         │
+└────────────────────────────────────────────┘
+
+
+---
+
+48. Relação com o UC-037
+
+A arquitetura analítica ficará:
+
+REGISTROS
+                      │
+                      ▼
+               UC-034 INDICADORES
+                      │
+          ┌───────────┴───────────┐
+          ▼                       ▼
+ UC-035 EVOLUÇÃO             UC-036 DISTRIBUIÇÃO
+          │                       │
+          └───────────┬───────────┘
+                      ▼
+              UC-037 TENDÊNCIAS
+                      │
+                      ▼
+               UC-038 ALERTAS
+                      │
+          ┌───────────┴────────────┐
+          ▼                        ▼
+      DASHBOARD              NOTIFICAÇÕES
+
+Essa sequência está ficando bastante consistente do ponto de vista de engenharia de software.
+
+
+---
+
+49. Resumo do UC-038
 
 ┌──────────────────────────────────────────────┐
-│       UC-037 — ANALISAR TENDÊNCIAS          │
+│      UC-038 — GERAR ALERTAS DE INDICADORES  │
 ├──────────────────────────────────────────────┤
 │                                              │
 │ Objetivo:                                    │
-│ Identificar padrões quantitativos nos        │
-│ registros ao longo do tempo.                 │
+│ Identificar condições quantitativas           │
+│ relevantes e informar usuários autorizados. │
 │                                              │
-│ Classificações:                              │
-│ • Crescente                                  │
-│ • Decrescente                                │
-│ • Estável                                    │
-│ • Oscilante                                  │
-│ • Inconclusiva                               │
-│                                              │
-│ Entradas:                                    │
-│ • Indicador                                  │
-│ • Período                                    │
-│ • Granularidade                              │
-│ • Filtros                                    │
+│ Tipos:                                       │
+│ • Aumento                                    │
+│ • Redução                                    │
+│ • Intensidade                                │
+│ • Concentração                               │
+│ • Ausência                                   │
+│ • Distribuição                               │
+│ • Tendência                                  │
+│ • Regras personalizadas                      │
 │                                              │
 │ Saídas:                                      │
-│ • Tendência                                  │
-│ • Variação                                   │
-│ • Série temporal                             │
-│ • Grau de suficiência dos dados              │
+│ • Alertas                                    │
+│ • Prioridade                                 │
+│ • Histórico                                  │
+│ • Notificações                               │
 │                                              │
-│ Consumidores:                                │
-│ • Dashboard                                  │
-│ • Relatórios                                 │
-│ • PDF                                        │
+│ Canais:                                      │
+│ • Sistema                                    │
+│ • E-mail                                     │
+│ • WhatsApp*                                  │
+│                                              │
+│ * Conforme regras, permissões e integração.  │
 └──────────────────────────────────────────────┘
 
-✅ UC-037 — concluído, versão 1.0
+✅ UC-038 — concluído, versão 1.0
 
-Chegamos a um ponto importante da especificação:
+Agora temos:
 
-UC-034 → Indicadores
-       ↓
-UC-035 → Evolução temporal
-       ↓
-UC-036 → Distribuição
-       ↓
-UC-037 → Tendências
+UC	Função
 
-O próximo caso é o UC-038 — Gerar Alertas de Indicadores. Ele poderá transformar determinadas condições quantitativas — por exemplo, uma variação relevante em relação ao período anterior — em alertas informativos para o profissional responsável, sempre respeitando as permissões e sem transformar o alerta em diagnóstico ou conclusão automática.
+UC-034	Consultar Indicadores
+UC-035	Consultar Evolução Temporal
+UC-036	Consultar Distribuição
+UC-037	Analisar Tendências
+UC-038	Gerar Alertas de Indicadores
+
+
+Próximo passo: UC-039 — Comparar Períodos
+
+Esse será particularmente importante para o que você definiu no início do projeto: comparativos semanais, mensais e anuais, inclusive como base para os futuros relatórios PDF com gráficos. A partir dele, começamos a consolidar a camada de análise comparativa do IncluiEdu.
