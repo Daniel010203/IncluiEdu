@@ -1,0 +1,1230 @@
+Perfeito. Vamos seguir exatamente do ponto em que paramos.
+
+FASE 2 — CASOS DE USO
+
+UC-036 — Consultar Distribuição
+
+Código: UC-036
+Nome: Consultar Distribuição
+Versão: 1.0
+Status: Em especificação
+Prioridade: Alta
+Módulo: Indicadores e Análise
+
+
+---
+
+1. Objetivo
+
+Permitir que usuários autorizados consultem a distribuição dos registros de acompanhamento segundo diferentes dimensões, possibilitando compreender como as observações estão distribuídas entre:
+
+categorias;
+
+contextos;
+
+níveis de intensidade;
+
+estratégias utilizadas;
+
+resultados registrados;
+
+períodos;
+
+alunos;
+
+turmas.
+
+
+O UC-036 complementa o UC-034 — Consultar Indicadores e o UC-035 — Consultar Evolução Temporal.
+
+A diferença principal é:
+
+UC-034
+→ Quanto?
+
+UC-035
+→ Como varia ao longo do tempo?
+
+UC-036
+→ Como os registros estão distribuídos?
+
+
+---
+
+2. Objetivo analítico
+
+Exemplo:
+
+Suponha que existam:
+
+100 observações
+
+O UC-034 poderá informar:
+
+> Total = 100.
+
+
+
+O UC-035 poderá informar:
+
+> Agosto = 40, Setembro = 35, Outubro = 25.
+
+
+
+O UC-036 poderá informar:
+
+Categoria
+
+Participação     40%
+Interação        30%
+Comunicação      20%
+Autonomia        10%
+
+Assim, o usuário consegue entender a composição dos registros.
+
+
+---
+
+3. Atores
+
+Ator principal
+
+ACT-002 — Professor
+
+Atores secundários
+
+ACT-001 — Administrador
+
+ACT-003 — Profissional de Apoio
+
+ACT-006 — Auditor
+
+ACT-009 — Sistema
+
+
+---
+
+4. Pré-condições
+
+1. Usuário autenticado.
+
+
+2. Usuário ativo.
+
+
+3. Usuário autorizado.
+
+
+4. Escopo de acesso definido.
+
+
+5. Período válido.
+
+
+6. Existência de dados ou consulta válida.
+
+
+
+
+---
+
+5. Gatilho
+
+O usuário acessa:
+
+Dashboard → Distribuição
+
+ou:
+
+Aluno → Indicadores → Distribuição
+
+ou:
+
+Turma → Indicadores → Distribuição
+
+
+---
+
+6. Dimensões de distribuição
+
+A primeira versão deverá contemplar:
+
+D-001 — Categoria
+D-002 — Contexto
+D-003 — Intensidade
+D-004 — Estratégia
+D-005 — Resultado
+D-006 — Aluno
+D-007 — Turma
+D-008 — Período
+
+
+---
+
+7. Distribuição por Categoria
+
+É uma das principais distribuições do sistema.
+
+Exemplo:
+
+Categoria	Quantidade	Percentual
+
+Participação	40	40%
+Interação	30	30%
+Comunicação	20	20%
+Autonomia	10	10%
+Total	100	100%
+
+
+O sistema deverá permitir visualizar tanto:
+
+quantidade;
+
+percentual.
+
+
+
+---
+
+8. Distribuição por Contexto
+
+Exemplo:
+
+Contexto	Quantidade	%
+
+Sala de aula	55	55%
+Recreio	20	20%
+Educação Física	15	15%
+Atividade externa	10	10%
+
+
+Isso permitirá identificar em quais contextos os registros estão mais concentrados.
+
+
+---
+
+9. Distribuição por Intensidade
+
+Exemplo:
+
+Intensidade	Quantidade	%
+
+Baixa	50	50%
+Moderada	35	35%
+Alta	15	15%
+
+
+A intensidade deverá ser apresentada conforme a classificação definida pelas regras de negócio.
+
+
+---
+
+10. Distribuição por Estratégia
+
+Exemplo:
+
+Estratégia	Quantidade	%
+
+Mediação	30	30%
+Adaptação	25	25%
+Orientação	20	20%
+Redirecionamento	15	15%
+Outras	10	10%
+
+
+Esse indicador poderá ser utilizado posteriormente nos relatórios.
+
+
+---
+
+11. Distribuição por Resultado
+
+Exemplo:
+
+Resultado	Quantidade	%
+
+Resultado A	45	45%
+Resultado B	30	30%
+Resultado C	15	15%
+Resultado D	10	10%
+
+
+A nomenclatura definitiva dependerá do catálogo de resultados do sistema.
+
+
+---
+
+12. Distribuição por Aluno
+
+No contexto de uma turma:
+
+Aluno A    25
+Aluno B    18
+Aluno C    12
+Aluno D     8
+
+⚠️ Esse recurso deverá respeitar rigorosamente o controle de acesso.
+
+Além disso, o sistema não deverá transformar a distribuição em um ranking de "melhores" ou "piores" alunos.
+
+O objetivo é descritivo e analítico.
+
+
+---
+
+13. Distribuição por Turma
+
+No nível institucional:
+
+Turma A    120
+Turma B     95
+Turma C     80
+Turma D     60
+
+Disponível apenas para perfis autorizados.
+
+
+---
+
+14. Distribuição temporal
+
+Embora o UC-035 seja responsável pela evolução temporal, o UC-036 poderá apresentar distribuição dentro de um período.
+
+Exemplo:
+
+Agosto
+
+Semana 1    20%
+Semana 2    35%
+Semana 3    25%
+Semana 4    20%
+
+A diferença é que:
+
+UC-035
+
+analisa evolução:
+
+20 → 30 → 40 → 50
+
+UC-036
+
+analisa composição:
+
+20%
+30%
+25%
+25%
+
+
+---
+
+15. Cruzamentos entre dimensões
+
+Aqui está uma das partes mais importantes deste caso de uso.
+
+O sistema deverá permitir cruzar dimensões.
+
+Exemplo:
+
+Categoria × Contexto
+
+ou:
+
+Categoria × Intensidade
+
+ou:
+
+Contexto × Intensidade
+
+
+---
+
+16. Distribuição Categoria × Contexto
+
+Exemplo:
+
+Categoria	Sala	Recreio	Ed. Física
+
+Participação	20	5	8
+Interação	8	15	3
+Comunicação	12	4	2
+
+
+Isso permite observar a distribuição de uma categoria em diferentes contextos.
+
+
+---
+
+17. Distribuição Categoria × Intensidade
+
+Exemplo:
+
+Categoria	Baixa	Moderada	Alta
+
+Participação	20	15	5
+Interação	12	10	8
+Comunicação	15	4	1
+
+
+
+---
+
+18. Distribuição Contexto × Intensidade
+
+Exemplo:
+
+Contexto	Baixa	Moderada	Alta
+
+Sala	30	18	5
+Recreio	10	12	7
+Ed. Física	8	5	3
+
+
+
+---
+
+19. Distribuição Estratégia × Resultado
+
+Também poderá ser disponibilizada:
+
+Estratégia	Resultado A	Resultado B	Resultado C
+
+Mediação	20	8	2
+Adaptação	15	7	3
+Orientação	10	8	2
+
+
+Essa visão poderá ser muito útil para análise dos registros.
+
+Entretanto, novamente:
+
+> O sistema não deverá afirmar automaticamente que uma estratégia "funciona melhor" apenas porque possui maior quantidade de determinado resultado.
+
+
+
+Quantidade de registros não é suficiente para estabelecer causalidade.
+
+
+---
+
+20. Filtros
+
+O usuário poderá filtrar por:
+
+Período
+
+01/08/2026
+até
+31/08/2026
+
+Aluno
+
+Aluno A
+
+Turma
+
+Turma B
+
+Categoria
+
+Interação
+
+Contexto
+
+Sala de aula
+
+Intensidade
+
+Moderada
+
+Estratégia
+
+Mediação
+
+Resultado
+
+Resultado A
+
+
+---
+
+21. Fluxo principal
+
+FP-01 — Acessar distribuição
+
+1. Usuário acessa a funcionalidade.
+
+
+2. Sistema verifica autenticação.
+
+
+3. Sistema verifica autorização.
+
+
+4. Sistema identifica o escopo.
+
+
+
+
+---
+
+FP-02 — Selecionar dimensão
+
+5. Sistema apresenta as dimensões disponíveis.
+
+
+6. Usuário seleciona uma dimensão.
+
+
+
+Exemplo:
+
+Categoria
+
+
+---
+
+FP-03 — Aplicar filtros
+
+7. Usuário seleciona o período.
+
+
+8. Usuário poderá selecionar filtros adicionais.
+
+
+9. Sistema valida os filtros.
+
+
+
+
+---
+
+FP-04 — Processar distribuição
+
+10. Sistema consulta os registros autorizados.
+
+
+11. Sistema agrupa os dados.
+
+
+12. Sistema calcula quantidades.
+
+
+13. Sistema calcula percentuais quando aplicável.
+
+
+
+
+---
+
+FP-05 — Apresentar resultado
+
+14. Sistema apresenta tabela.
+
+
+15. Sistema apresenta representação gráfica.
+
+
+16. Sistema apresenta total.
+
+
+17. Sistema apresenta filtros utilizados.
+
+
+
+
+---
+
+22. Fluxo alternativo — Cruzamento
+
+O usuário seleciona:
+
+Dimensão principal:
+Categoria
+
+Dimensão secundária:
+Contexto
+
+O sistema apresenta:
+
+Categoria × Contexto
+
+com:
+
+tabela;
+
+gráfico adequado;
+
+totais.
+
+
+
+---
+
+23. Fluxo alternativo — Percentual
+
+O usuário seleciona:
+
+Visualização:
+Percentual
+
+Sistema apresenta:
+
+Categoria A    45%
+Categoria B    35%
+Categoria C    20%
+
+
+---
+
+24. Fluxo alternativo — Quantidade
+
+O usuário seleciona:
+
+Visualização:
+Quantidade
+
+Sistema apresenta:
+
+Categoria A    45
+Categoria B    35
+Categoria C    20
+
+
+---
+
+25. Fluxo alternativo — Quantidade + percentual
+
+Recomendação:
+
+Permitir:
+
+Quantidade | Percentual
+
+simultaneamente.
+
+Exemplo:
+
+Categoria A    45    45%
+Categoria B    35    35%
+Categoria C    20    20%
+
+Essa será provavelmente a melhor visualização para relatórios.
+
+
+---
+
+26. Fluxo alternativo — Sem dados
+
+Caso não existam registros:
+
+> Nenhum dado disponível para os filtros selecionados.
+
+
+
+Não apresentar gráfico vazio como se fosse uma distribuição válida.
+
+
+---
+
+27. Fluxo alternativo — Categoria sem ocorrência
+
+Imagine que existam categorias cadastradas:
+
+A
+B
+C
+D
+
+mas somente:
+
+A = 10
+B = 5
+
+Temos duas possibilidades.
+
+Opção A
+
+Mostrar apenas categorias utilizadas.
+
+Opção B
+
+Mostrar todas:
+
+A = 10
+B = 5
+C = 0
+D = 0
+
+Recomendação inicial: mostrar somente categorias que possuem registros, com opção futura de incluir categorias zeradas.
+
+Isso evita poluir os gráficos.
+
+
+---
+
+28. Regras de negócio
+
+RN-DIST-001 — Escopo
+
+A distribuição deverá utilizar exclusivamente registros aos quais o usuário possui acesso.
+
+
+---
+
+RN-DIST-002 — Período
+
+Somente registros dentro do período selecionado serão considerados.
+
+
+---
+
+RN-DIST-003 — Data de referência
+
+Será utilizada:
+
+data_ocorrencia
+
+como referência temporal.
+
+
+---
+
+RN-DIST-004 — Percentual
+
+O percentual deverá ser calculado sobre o total de registros válidos do conjunto filtrado.
+
+Quantidade do grupo
+──────────────────── × 100
+Total válido
+
+
+---
+
+RN-DIST-005 — Soma percentual
+
+Quando todas as categorias forem exibidas, a soma deverá ser aproximadamente:
+
+100%
+
+Pequenas diferenças poderão ocorrer por arredondamento.
+
+
+---
+
+RN-DIST-006 — Dados inválidos
+
+Registros sem dimensão válida não deverão ser automaticamente classificados em uma categoria arbitrária.
+
+Poderão ser apresentados como:
+
+> Não informado
+
+
+
+caso essa regra seja definida.
+
+
+---
+
+RN-DIST-007 — Cruzamentos
+
+O cruzamento deverá considerar somente registros que possuam dados válidos nas duas dimensões.
+
+
+---
+
+RN-DIST-008 — Privacidade
+
+A agregação não deverá permitir acesso indireto a informações que o usuário não poderia consultar individualmente.
+
+
+---
+
+RN-DIST-009 — Neutralidade
+
+O sistema deverá apresentar distribuição quantitativa sem gerar conclusões pedagógicas automáticas.
+
+
+---
+
+29. Regra de dados ausentes
+
+Devemos diferenciar:
+
+0
+
+de:
+
+Não informado
+
+Exemplo:
+
+Intensidade
+
+Baixa       30
+Moderada    20
+Alta         5
+Não informado 2
+
+Isso é mais transparente do que simplesmente descartar os dois registros.
+
+
+---
+
+30. Indicadores utilizados
+
+O UC-036 utilizará principalmente:
+
+IND-004 — Total por Categoria
+IND-005 — Percentual por Categoria
+IND-006 — Total por Contexto
+IND-007 — Percentual por Contexto
+IND-008 — Total por Intensidade
+IND-009 — Percentual por Intensidade
+IND-013 — Total por Estratégia
+IND-014 — Distribuição de Resultados
+
+E poderá utilizar os indicadores multidimensionais:
+
+IND-027 — Categoria × Contexto
+IND-028 — Categoria × Intensidade
+IND-029 — Contexto × Intensidade
+
+
+---
+
+31. Visualizações
+
+O sistema poderá utilizar diferentes formas de representação.
+
+Gráfico de barras
+
+Ideal para:
+
+Categoria
+Contexto
+Estratégia
+
+
+---
+
+Gráfico de composição
+
+Útil para:
+
+Percentual por categoria
+Percentual por intensidade
+
+
+---
+
+Matriz / tabela
+
+Ideal para:
+
+Categoria × Contexto
+Categoria × Intensidade
+
+
+---
+
+Heatmap
+
+Poderá ser considerado futuramente para:
+
+Dia × Categoria
+Contexto × Intensidade
+
+A escolha definitiva será feita durante a arquitetura da interface.
+
+
+---
+
+32. Exemplo de dashboard
+
+┌──────────────────────────────────────────────┐
+│ DISTRIBUIÇÃO — AGOSTO/2026                  │
+├──────────────────────────────────────────────┤
+│ Total de observações: 100                    │
+├──────────────────────────────────────────────┤
+│                                              │
+│ CATEGORIAS                                   │
+│                                              │
+│ Participação     ████████████████  40%      │
+│ Interação        ████████████      30%      │
+│ Comunicação      ████████          20%      │
+│ Autonomia        ████              10%      │
+│                                              │
+├──────────────────────────────────────────────┤
+│ INTENSIDADE                                  │
+│                                              │
+│ Baixa            █████████████████ 50%      │
+│ Moderada         ███████████       35%      │
+│ Alta             █████              15%      │
+└──────────────────────────────────────────────┘
+
+
+---
+
+33. Cruzamento — exemplo
+
+CATEGORIA × CONTEXTO
+
+                 Sala   Recreio   Ed.Física
+Participação      20       5          8
+Interação          8      15          3
+Comunicação       12       4          2
+
+Isso poderá ser utilizado posteriormente para análise mais detalhada.
+
+
+---
+
+34. Comparação com UC-035
+
+É importante não confundirmos as responsabilidades.
+
+UC-035 — Evolução Temporal
+
+Pergunta:
+
+> Como os registros variaram ao longo do tempo?
+
+
+
+Exemplo:
+
+Junho → 20
+Julho → 35
+Agosto → 28
+
+UC-036 — Distribuição
+
+Pergunta:
+
+> Como os registros estão distribuídos?
+
+
+
+Exemplo:
+
+Participação → 40%
+Interação → 30%
+Comunicação → 20%
+
+Podemos inclusive combinar os dois:
+
+Evolução temporal
+        +
+Distribuição por categoria
+
+
+---
+
+35. Relação com relatórios PDF
+
+O UC-036 será fundamental para os relatórios.
+
+Relatório semanal
+
+Distribuição por categoria
+Distribuição por intensidade
+Distribuição por contexto
+
+Relatório mensal
+
+Categoria
+Contexto
+Intensidade
+Estratégia
+Resultado
+
+Relatório anual
+
+Distribuição anual
+Distribuição mensal
+Comparativos
+
+
+---
+
+36. Relação com comparação de períodos
+
+Posteriormente poderemos ter:
+
+JULHO
+Participação     45%
+Interação        30%
+Comunicação      25%
+
+AGOSTO
+Participação     40%
+Interação        35%
+Comunicação      25%
+
+Isso permitirá comparar a composição dos registros entre períodos.
+
+
+---
+
+37. Critérios de aceite
+
+CA-001 — Distribuição por categoria
+
+Dado que existem 100 observações,
+quando o usuário consultar distribuição por categoria,
+então o sistema deverá apresentar as categorias e respectivas quantidades.
+
+
+---
+
+CA-002 — Percentual
+
+Dado que uma categoria possui 40 registros de um total de 100,
+quando o percentual for solicitado,
+então deverá apresentar 40%.
+
+
+---
+
+CA-003 — Contexto
+
+Dado que existem registros em diferentes contextos,
+quando o usuário consultar a distribuição por contexto,
+então o sistema deverá agrupar corretamente os registros.
+
+
+---
+
+CA-004 — Cruzamento
+
+Dado que o usuário selecionou Categoria × Contexto,
+quando consultar a distribuição,
+então o sistema deverá apresentar os valores cruzados.
+
+
+---
+
+CA-005 — Filtro temporal
+
+Dado que o usuário selecionou agosto,
+quando consultar a distribuição,
+então somente registros de agosto deverão ser considerados.
+
+
+---
+
+CA-006 — Sem dados
+
+Dado que não existem registros,
+quando a distribuição for consultada,
+então o sistema deverá informar ausência de dados.
+
+
+---
+
+CA-007 — Controle de acesso
+
+Dado que o usuário não possui acesso aos dados,
+quando tentar consultar a distribuição,
+então a operação deverá ser bloqueada.
+
+
+---
+
+CA-008 — Consistência
+
+Dado que o dashboard e o relatório utilizam os mesmos filtros,
+quando a distribuição for apresentada,
+então os valores deverão ser consistentes entre as duas interfaces.
+
+
+---
+
+38. Auditoria
+
+Quando aplicável, registrar:
+
+DISTRIBUICAO_CONSULTADA
+
+Usuário
+Data/hora
+Escopo
+Dimensão
+Dimensão secundária
+Período
+Filtros
+
+
+---
+
+39. Performance
+
+Os cruzamentos podem gerar consultas mais pesadas:
+
+GROUP BY categoria
+GROUP BY contexto
+GROUP BY categoria, contexto
+GROUP BY categoria, intensidade
+
+Por isso, durante a modelagem do PostgreSQL devemos pensar cuidadosamente nos índices.
+
+Não significa criar um índice para cada combinação.
+
+Primeiro devemos identificar os padrões de consulta mais frequentes.
+
+
+---
+
+40. Relação com Laravel
+
+Uma arquitetura possível:
+
+DistributionController
+          ↓
+DistributionService
+          ↓
+IndicatorService
+          ↓
+Queries
+          ↓
+PostgreSQL
+
+Conceitualmente:
+
+distributionByCategory()
+distributionByContext()
+distributionByIntensity()
+distributionByStrategy()
+distributionByResult()
+distributionByCategoryAndContext()
+distributionByCategoryAndIntensity()
+
+Novamente, essa estrutura é apenas uma proposta inicial.
+
+Durante a FASE 3 — Arquitetura, podemos decidir se utilizaremos Services, Query Objects, Repositories ou outra abordagem.
+
+
+---
+
+41. Segurança e LGPD
+
+Este caso merece atenção especial porque o sistema trabalha com informações relacionadas ao acompanhamento de alunos.
+
+O usuário deverá somente visualizar:
+
+Usuário
+   ↓
+Permissão
+   ↓
+Escopo
+   ↓
+Dados autorizados
+   ↓
+Distribuição
+
+Nunca:
+
+Todos os dados
+   ↓
+Agrupamento
+   ↓
+Verificação posterior de permissão
+
+A autorização deve fazer parte da consulta ou da camada de acesso aos dados.
+
+
+---
+
+42. Dependências
+
+Casos anteriores
+
+UC-028 — Registrar Observação
+UC-032 — Consultar Histórico
+UC-033 — Consultar Dashboard
+UC-034 — Consultar Indicadores
+UC-035 — Consultar Evolução Temporal
+
+Casos relacionados
+
+UC-037 — Analisar Tendências
+UC-039 — Comparar Períodos
+
+UC-044 — Gerar Relatório Semanal
+UC-045 — Gerar Relatório Mensal
+UC-046 — Gerar Relatório Anual
+UC-048 — Gerar Relatório Comparativo
+UC-049 — Exportar Relatório PDF
+
+
+---
+
+43. Resumo do UC-036
+
+┌──────────────────────────────────────────────┐
+│      UC-036 — CONSULTAR DISTRIBUIÇÃO        │
+├──────────────────────────────────────────────┤
+│                                              │
+│ Objetivo:                                    │
+│ Analisar como os registros estão             │
+│ distribuídos entre diferentes dimensões.     │
+│                                              │
+│ Dimensões:                                   │
+│ • Categoria                                  │
+│ • Contexto                                   │
+│ • Intensidade                                │
+│ • Estratégia                                 │
+│ • Resultado                                  │
+│ • Aluno                                      │
+│ • Turma                                      │
+│ • Período                                    │
+│                                              │
+│ Cruzamentos:                                 │
+│ • Categoria × Contexto                       │
+│ • Categoria × Intensidade                    │
+│ • Contexto × Intensidade                     │
+│ • Estratégia × Resultado                     │
+│                                              │
+│ Saídas:                                      │
+│ • Quantidades                                │
+│ • Percentuais                                │
+│ • Tabelas                                    │
+│ • Gráficos                                   │
+│ • Matrizes                                   │
+│                                              │
+│ Consumidores:                                │
+│ • Dashboard                                  │
+│ • Relatórios                                 │
+│ • Comparativos                               │
+└──────────────────────────────────────────────┘
+
+✅ UC-036 — concluído, versão 1.0
+
+Com UC-034, UC-035 e UC-036, já estruturamos os três grandes blocos analíticos do IncluiEdu:
+
+REGISTROS
+                      │
+                      ▼
+              ┌───────────────┐
+              │  INDICADORES  │
+              │    UC-034     │
+              └───────┬───────┘
+                      │
+          ┌───────────┼───────────┐
+          ▼           ▼           ▼
+     EVOLUÇÃO    DISTRIBUIÇÃO  DASHBOARD
+      UC-035        UC-036      UC-033
+          │           │           │
+          └───────────┼───────────┘
+                      ▼
+                 RELATÓRIOS
+                      │
+                      ▼
+                 PDF + GRÁFICOS
+
+Próximo caso: UC-037 — Analisar Tendências.
+
+Aqui vamos avançar um nível: além de mostrar a evolução e a distribuição, vamos especificar como o IncluiEdu poderá identificar matematicamente tendências de aumento, redução, estabilidade e mudanças de padrão, sempre mantendo a regra de que o sistema não deve transformar uma tendência estatística em diagnóstico ou conclusão pedagógica automática.
