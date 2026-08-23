@@ -1,0 +1,1225 @@
+Perfeito. Vamos avançar para o UC-034 — Consultar Indicadores.
+
+Aqui começamos a transformar o que definimos no UC-033 — Dashboard em uma especificação mais precisa. O objetivo é que, futuramente, cada indicador possa ser implementado no Laravel sem ambiguidade sobre o que deve ser calculado, de onde vêm os dados e como o resultado deve ser apresentado.
+
+FASE 2 — CASOS DE USO
+
+UC-034 — Consultar Indicadores
+
+Código: UC-034
+Nome: Consultar Indicadores
+Versão: 1.0
+Status: Em especificação
+Prioridade: Crítica
+Módulo: Indicadores e Análise
+
+
+---
+
+1. Objetivo
+
+Permitir que usuários autorizados consultem indicadores quantitativos e consolidados relacionados aos registros de acompanhamento educacional.
+
+Os indicadores deverão permitir analisar:
+
+quantidade de observações;
+
+frequência;
+
+distribuição por categoria;
+
+distribuição por contexto;
+
+intensidade;
+
+duração;
+
+estratégias utilizadas;
+
+resultados observados;
+
+evolução temporal;
+
+comparação entre períodos.
+
+
+Os indicadores deverão servir como base para:
+
+Observações
+     ↓
+Indicadores
+     ↓
+Dashboard
+     ↓
+Relatórios
+     ↓
+PDF
+
+
+---
+
+2. Atores
+
+Ator principal
+
+ACT-002 — Professor
+
+Consulta indicadores dos alunos/turmas aos quais possui acesso.
+
+Atores secundários
+
+ACT-001 — Administrador
+
+Consulta indicadores dentro do seu escopo.
+
+ACT-003 — Profissional de Apoio
+
+Consulta indicadores conforme suas permissões.
+
+ACT-006 — Auditor
+
+Consulta indicadores quando autorizado.
+
+ACT-009 — Sistema
+
+Responsável pelo processamento e cálculo dos indicadores.
+
+
+---
+
+3. Pré-condições
+
+1. Usuário autenticado.
+
+
+2. Usuário ativo.
+
+
+3. Usuário possui permissão.
+
+
+4. Escopo de acesso definido.
+
+
+5. Dados disponíveis ou consulta válida.
+
+
+6. Período informado ou período padrão definido.
+
+
+
+
+---
+
+4. Gatilho
+
+O usuário poderá acessar os indicadores através de:
+
+Dashboard → Indicadores
+
+ou:
+
+Aluno → Acompanhamento → Indicadores
+
+ou:
+
+Turma → Indicadores
+
+
+---
+
+5. Conceito de indicador
+
+Um indicador deverá possuir uma definição formal.
+
+Exemplo:
+
+IND-001 — Total de Observações
+
+Descrição: quantidade de observações registradas no período selecionado.
+
+Fonte: observações.
+
+Unidade: quantidade.
+
+Fórmula:
+
+COUNT(observações)
+
+Filtro temporal:
+
+data_ocorrencia
+
+
+---
+
+6. Estrutura de um indicador
+
+Recomendo que cada indicador seja documentado com:
+
+Código
+Nome
+Descrição
+Objetivo
+Fonte dos dados
+Campo utilizado
+Fórmula
+Unidade
+Periodicidade
+Filtros
+Dimensão
+Regra de arredondamento
+Tratamento de dados ausentes
+
+Exemplo:
+
+IND-001
+
+Nome:
+Total de Observações
+
+Fonte:
+observações
+
+Campo temporal:
+data_ocorrencia
+
+Fórmula:
+COUNT(id)
+
+Unidade:
+registros
+
+Periodicidade:
+diária / semanal / mensal / anual
+
+
+---
+
+7. Catálogo inicial de indicadores
+
+Vamos estabelecer uma primeira versão do catálogo.
+
+IND-001 — Total de Observações
+
+Quantidade de observações registradas no período.
+
+COUNT(observacao.id)
+
+
+---
+
+IND-002 — Média de Observações por Dia
+
+Quantidade média de observações por dia no período.
+
+Conceitualmente:
+
+Total de observações
+────────────────────
+Quantidade de dias
+
+Exemplo:
+
+60 observações
+÷
+20 dias
+
+= 3 observações/dia
+
+
+---
+
+IND-003 — Total de Categorias Utilizadas
+
+Quantidade de categorias distintas utilizadas no período.
+
+COUNT(DISTINCT categoria_id)
+
+
+---
+
+IND-004 — Total por Categoria
+
+Quantidade de observações agrupadas por categoria.
+
+Exemplo:
+
+Categoria	Quantidade
+
+Participação	32
+Interação	21
+Comunicação	15
+Autonomia	10
+
+
+
+---
+
+8. IND-005 — Percentual por Categoria
+
+Representa a participação de cada categoria no total.
+
+Fórmula:
+
+Quantidade da categoria
+──────────────────────── × 100
+Total de observações
+
+Exemplo:
+
+Participação:
+
+32
+── × 100 = 40%
+80
+
+
+---
+
+9. IND-006 — Total por Contexto
+
+Quantidade de observações agrupadas pelo contexto.
+
+Exemplo:
+
+Contexto	Registros
+
+Sala de aula	52
+Recreio	18
+Educação física	11
+Outros	9
+
+
+
+---
+
+10. IND-007 — Percentual por Contexto
+
+Representa a participação de cada contexto.
+
+Observações do contexto
+──────────────────────── × 100
+Total de observações
+
+
+---
+
+11. IND-008 — Total por Intensidade
+
+Quantidade de registros por nível de intensidade.
+
+Baixa       45
+Moderada    27
+Alta        12
+
+
+---
+
+12. IND-009 — Percentual por Intensidade
+
+Exemplo:
+
+Baixa       53,6%
+Moderada    32,1%
+Alta        14,3%
+
+
+---
+
+13. IND-010 — Intensidade Média
+
+Quando a escala numérica estiver formalmente definida, poderemos calcular uma média.
+
+Exemplo:
+
+Baixa = 1
+Moderada = 2
+Alta = 3
+
+Fórmula:
+
+Σ intensidade
+──────────────
+quantidade de registros válidos
+
+Importante: este indicador só deverá ser utilizado se a equipe pedagógica validar que uma média numérica possui significado adequado.
+
+Não devemos assumir isso automaticamente.
+
+
+---
+
+14. IND-011 — Duração Total
+
+Soma da duração registrada nas observações aplicáveis.
+
+SUM(duração)
+
+Exemplo:
+
+Total:
+320 minutos
+
+
+---
+
+15. IND-012 — Duração Média
+
+Duração total
+─────────────
+Registros com duração válida
+
+Exemplo:
+
+320 min
+─────── = 16 min
+20
+
+Observações sem duração aplicável não deverão entrar no denominador.
+
+
+---
+
+16. IND-013 — Total por Estratégia
+
+Quantidade de vezes que cada estratégia foi registrada.
+
+Exemplo:
+
+Estratégia	Quantidade
+
+Mediação	24
+Adaptação	18
+Redirecionamento	12
+
+
+
+---
+
+17. IND-014 — Resultado das Estratégias
+
+Distribuição dos resultados registrados.
+
+Exemplo:
+
+Melhora observada          60%
+Melhora parcial            20%
+Sem alteração              12%
+Necessita acompanhamento    8%
+
+
+---
+
+18. IND-015 — Taxa de Resultado Favorável
+
+Este indicador merece atenção.
+
+Podemos definir inicialmente:
+
+Registros classificados como
+"resultado favorável"
+────────────────────────────── × 100
+Registros com resultado válido
+
+Mas não devemos definir ainda quais resultados são "favoráveis".
+
+Isso deverá virar uma regra de negócio validada pelo domínio pedagógico.
+
+
+---
+
+19. IND-016 — Observações por Dia
+
+Quantidade de observações agrupadas por data.
+
+Exemplo:
+
+Data	Registros
+
+18/08	5
+19/08	7
+20/08	3
+21/08	8
+
+
+Esse indicador alimentará o gráfico temporal.
+
+
+---
+
+20. IND-017 — Observações por Semana
+
+Agrupa os registros por semana.
+
+Exemplo:
+
+Semana 1     18
+Semana 2     24
+Semana 3     15
+Semana 4     29
+
+
+---
+
+21. IND-018 — Observações por Mês
+
+Exemplo:
+
+Janeiro      35
+Fevereiro    42
+Março        31
+Abril        28
+
+Esse será essencial para o relatório anual.
+
+
+---
+
+22. IND-019 — Variação entre Períodos
+
+Permite comparar dois períodos.
+
+Fórmula:
+
+Valor período atual
+-
+Valor período anterior
+
+Exemplo:
+
+Período A = 40
+Período B = 32
+
+Variação absoluta = -8
+
+
+---
+
+23. IND-020 — Variação Percentual
+
+Fórmula:
+
+(B - A)
+─────── × 100
+   A
+
+Exemplo:
+
+A = 40
+B = 32
+
+(32 - 40)
+───────── × 100
+   40
+
+= -20%
+
+A apresentação deverá deixar claro que isso representa variação quantitativa, não necessariamente melhora ou piora pedagógica.
+
+
+---
+
+24. IND-021 — Distribuição por Aluno
+
+Em um dashboard de turma:
+
+Aluno       Observações
+-----------------------
+Aluno A         18
+Aluno B         12
+Aluno C         25
+Aluno D          7
+
+Esse indicador deverá possuir controle rigoroso de acesso.
+
+
+---
+
+25. IND-022 — Distribuição por Turma
+
+No nível institucional:
+
+Turma A     72
+Turma B     58
+Turma C     91
+
+Somente perfis autorizados poderão visualizar esse nível de consolidação.
+
+
+---
+
+26. IND-023 — Frequência de Registro
+
+Quantidade de dias em que houve pelo menos uma observação.
+
+Exemplo:
+
+Período:
+30 dias
+
+Dias com registros:
+18
+
+Frequência:
+60%
+
+Fórmula:
+
+Dias com ≥ 1 registro
+───────────────────── × 100
+Dias do período
+
+Esse indicador é diferente da quantidade de observações.
+
+
+---
+
+27. IND-024 — Média de Observações nos Dias com Registro
+
+Diferente do IND-002.
+
+Fórmula:
+
+Total de observações
+─────────────────────
+Dias que possuem registros
+
+Exemplo:
+
+60 observações
+18 dias com registros
+
+= 3,33 observações
+por dia com registro
+
+
+---
+
+28. IND-025 — Distribuição por Dia da Semana
+
+Permite identificar a quantidade de registros por:
+
+Segunda
+Terça
+Quarta
+Quinta
+Sexta
+
+Exemplo:
+
+Segunda    12
+Terça      18
+Quarta     10
+Quinta     21
+Sexta       9
+
+Pode ser muito útil para identificar padrões temporais.
+
+
+---
+
+29. IND-026 — Distribuição por Horário
+
+Quando a hora da ocorrência estiver disponível.
+
+Exemplo:
+
+07h–09h     8
+09h–11h    17
+11h–13h     6
+13h–15h    21
+15h–17h    10
+
+O agrupamento exato deverá ser definido posteriormente.
+
+
+---
+
+30. IND-027 — Categoria × Contexto
+
+Indicador multidimensional.
+
+Exemplo:
+
+Categoria	Sala	Recreio	Educação Física
+
+Participação	20	5	8
+Interação	8	14	3
+Comunicação	12	4	2
+
+
+Esse tipo de indicador será muito útil para os dashboards.
+
+
+---
+
+31. IND-028 — Categoria × Intensidade
+
+Exemplo:
+
+Categoria	Baixa	Moderada	Alta
+
+Participação	15	8	2
+Interação	7	9	4
+Comunicação	11	3	1
+
+
+
+---
+
+32. IND-029 — Contexto × Intensidade
+
+Exemplo:
+
+Contexto	Baixa	Moderada	Alta
+
+Sala	21	12	4
+Recreio	5	8	6
+Educação Física	8	4	2
+
+
+
+---
+
+33. Indicadores derivados
+
+Nem todos os indicadores precisam ser armazenados no banco.
+
+Essa é uma decisão arquitetural importante.
+
+Por exemplo:
+
+Total de observações
+
+pode ser calculado diretamente.
+
+Enquanto:
+
+Percentual por categoria
+
+pode ser derivado de:
+
+Total da categoria
+÷
+Total geral
+
+Portanto:
+
+> Indicador calculado não significa necessariamente coluna no banco.
+
+
+
+Na maioria dos casos, recomendo calcular esses indicadores através de consultas/serviços.
+
+
+---
+
+34. Indicadores × Banco de Dados
+
+A arquitetura conceitual ficará:
+
+┌────────────────────────┐
+│      OBSERVAÇÕES       │
+└───────────┬────────────┘
+            │
+            ▼
+┌────────────────────────┐
+│ SERVIÇO DE INDICADORES │
+└───────────┬────────────┘
+            │
+       ┌────┼────┐
+       ▼    ▼    ▼
+     KPI  Gráfico Relatório
+
+Isso evita duplicação de lógica.
+
+
+---
+
+35. Filtros dos indicadores
+
+Todos os indicadores deverão considerar os filtros aplicados.
+
+Exemplo:
+
+Aluno:
+João
+
+Período:
+01/08 → 31/08
+
+Categoria:
+Interação social
+
+Então:
+
+IND-001 Total de Observações
+
+deverá retornar apenas registros que satisfaçam esses filtros.
+
+
+---
+
+36. Escopo de segurança
+
+O indicador deverá respeitar:
+
+Usuário
+   ↓
+Perfil
+   ↓
+Permissões
+   ↓
+Instituição
+   ↓
+Turma
+   ↓
+Aluno
+   ↓
+Observações
+
+Um usuário não autorizado não poderá obter indiretamente informações protegidas através de indicadores agregados.
+
+Esse ponto será muito importante na implementação.
+
+
+---
+
+37. Risco de reidentificação
+
+Imagine uma turma com apenas um aluno dentro de determinado filtro.
+
+Mostrar:
+
+Turma A
+Categoria X
+Alta intensidade
+1 ocorrência
+
+pode acabar revelando informação sobre aquele aluno.
+
+Por isso, indicadores institucionais e de turma deverão ser avaliados sob a ótica de privacidade e controle de acesso.
+
+Essa regra será aprofundada posteriormente no módulo de segurança/LGPD.
+
+
+---
+
+38. Tratamento de dados ausentes
+
+Devemos distinguir:
+
+Zero
+
+Existem dados e o resultado é zero.
+
+Sem dados
+
+Não existem registros suficientes para calcular.
+
+Não aplicável
+
+O indicador não se aplica àquela consulta.
+
+Exemplo:
+
+Duração média:
+Não aplicável
+
+é diferente de:
+
+Duração média:
+0 minutos
+
+Essa distinção será fundamental nos relatórios.
+
+
+---
+
+39. Arredondamento
+
+Indicadores percentuais poderão utilizar, por exemplo:
+
+1 casa decimal
+
+Exemplo:
+
+37,5%
+
+Médias:
+
+2,4
+
+Mas essa regra deverá ser padronizada para todo o sistema.
+
+
+---
+
+40. Periodicidade
+
+Os indicadores deverão suportar:
+
+Diário
+Semanal
+Mensal
+Anual
+Personalizado
+
+Isso atende diretamente ao requisito que você definiu anteriormente para os relatórios.
+
+
+---
+
+41. Relatórios
+
+Os indicadores deverão ser reutilizáveis nos relatórios.
+
+Semanal
+
+IND-001
+IND-002
+IND-004
+IND-008
+IND-016
+
+Mensal
+
+IND-001
+IND-004
+IND-005
+IND-006
+IND-008
+IND-011
+IND-014
+IND-018
+
+Anual
+
+IND-018
+IND-019
+IND-020
+IND-021
+IND-022
+
+O conjunto definitivo será definido quando especificarmos os casos de uso de relatórios.
+
+
+---
+
+42. Comparação entre períodos
+
+O sistema deverá permitir:
+
+PERÍODO A
+01/07 → 31/07
+
+versus
+
+PERÍODO B
+01/08 → 31/08
+
+Para cada indicador aplicável:
+
+Valor A
+Valor B
+Diferença
+Variação %
+
+Exemplo:
+
+Indicador	Julho	Agosto	Variação
+
+Observações	42	35	-16,7%
+Alta intensidade	8	5	-37,5%
+Duração total	180	140	-22,2%
+
+
+
+---
+
+43. Importante: interpretação
+
+O sistema deverá evitar transformar automaticamente:
+
+-20% de registros
+
+em:
+
+> "Melhora de 20%."
+
+
+
+A especificação deverá utilizar termos neutros:
+
+> Variação quantitativa de -20%.
+
+
+
+A interpretação pedagógica deverá ser realizada pelo profissional.
+
+
+---
+
+44. Critérios de aceite
+
+CA-001 — Total
+
+Dado que existem 50 observações no período,
+quando o usuário consultar o IND-001,
+então o sistema deverá retornar 50.
+
+
+---
+
+CA-002 — Filtro
+
+Dado que existem 50 observações gerais e 20 da categoria selecionada,
+quando o usuário filtrar essa categoria,
+então o indicador deverá retornar 20.
+
+
+---
+
+CA-003 — Percentual
+
+Dado que existem 20 observações de determinada categoria e 50 no total,
+quando o percentual for calculado,
+então o resultado deverá ser 40%.
+
+
+---
+
+CA-004 — Período
+
+Dado que o usuário selecionou agosto,
+quando consultar os indicadores,
+então somente registros cuja data de ocorrência esteja em agosto deverão ser considerados.
+
+
+---
+
+CA-005 — Dados ausentes
+
+Dado que não existem registros,
+quando um indicador for consultado,
+então o sistema deverá diferenciar ausência de dados de valor zero.
+
+
+---
+
+CA-006 — Controle de acesso
+
+Dado que o usuário não possui acesso aos dados,
+quando solicitar o indicador,
+então o sistema deverá impedir a consulta.
+
+
+---
+
+CA-007 — Consistência
+
+Dado que o dashboard e o relatório utilizam o mesmo período e filtros,
+quando o indicador for apresentado nos dois,
+então os valores deverão ser consistentes.
+
+
+---
+
+45. Auditoria
+
+Quando necessário, o sistema poderá registrar:
+
+INDICADORES_CONSULTADOS
+
+Usuário
+Data/hora
+Escopo
+Período
+Filtros
+Tipo de dashboard
+
+Não precisamos necessariamente registrar cada cálculo individual, mas devemos manter rastreabilidade suficiente para auditoria.
+
+
+---
+
+46. Performance
+
+Os indicadores poderão exigir consultas como:
+
+COUNT
+SUM
+AVG
+GROUP BY
+COUNT DISTINCT
+
+Por isso, durante a modelagem física do PostgreSQL avaliaremos índices principalmente sobre:
+
+aluno_id
+data_ocorrencia
+categoria_id
+contexto_id
+intensidade
+estrategia_id
+resultado_id
+turma_id
+
+Também avaliaremos índices compostos conforme os padrões reais de consulta.
+
+
+---
+
+47. Relação com Laravel
+
+A implementação poderá seguir conceitualmente:
+
+DashboardController
+        ↓
+IndicadorService
+        ↓
+Queries / Eloquent
+        ↓
+PostgreSQL
+
+Por exemplo:
+
+IndicadorService
+ ├── totalObservacoes()
+ ├── mediaDiaria()
+ ├── porCategoria()
+ ├── porContexto()
+ ├── porIntensidade()
+ ├── duracaoTotal()
+ ├── porSemana()
+ ├── porMes()
+ └── variacaoPeriodos()
+
+Isso é apenas uma proposta arquitetural inicial.
+
+Não vamos transformar cada indicador obrigatoriamente em um método antes de analisarmos a arquitetura completa.
+
+
+---
+
+48. Relação com UC-033
+
+A relação fica:
+
+UC-028
+Registrar Observação
+        ↓
+UC-032
+Consultar Histórico
+        ↓
+UC-034
+Consultar Indicadores
+        ↓
+UC-033
+Dashboard
+        ↓
+Relatórios PDF
+
+Mas conceitualmente existe uma pequena correção arquitetural:
+
+┌── Dashboard
+                    │
+Observações → Indicadores
+                    │
+                    └── Relatórios
+
+Ou seja, Dashboard e Relatório são consumidores dos indicadores.
+
+Isso evitará duplicação de regras.
+
+
+---
+
+49. Catálogo inicial de indicadores
+
+Neste momento temos:
+
+Código	Indicador
+
+IND-001	Total de Observações
+IND-002	Média de Observações por Dia
+IND-003	Total de Categorias
+IND-004	Total por Categoria
+IND-005	Percentual por Categoria
+IND-006	Total por Contexto
+IND-007	Percentual por Contexto
+IND-008	Total por Intensidade
+IND-009	Percentual por Intensidade
+IND-010	Intensidade Média
+IND-011	Duração Total
+IND-012	Duração Média
+IND-013	Total por Estratégia
+IND-014	Distribuição de Resultados
+IND-015	Taxa de Resultado Favorável
+IND-016	Observações por Dia
+IND-017	Observações por Semana
+IND-018	Observações por Mês
+IND-019	Variação entre Períodos
+IND-020	Variação Percentual
+IND-021	Distribuição por Aluno
+IND-022	Distribuição por Turma
+IND-023	Frequência de Registro
+IND-024	Média nos Dias com Registro
+IND-025	Distribuição por Dia da Semana
+IND-026	Distribuição por Horário
+IND-027	Categoria × Contexto
+IND-028	Categoria × Intensidade
+IND-029	Contexto × Intensidade
+
+
+⚠️ Observação importante
+
+IND-015 — Taxa de Resultado Favorável fica propositalmente pendente de validação.
+
+Não devemos implementar esse indicador até definirmos, junto às regras de negócio, o que será considerado "favorável". Isso evita inserir uma interpretação pedagógica arbitrária no software.
+
+
+---
+
+50. Resumo do UC-034
+
+┌──────────────────────────────────────────────┐
+│       UC-034 — CONSULTAR INDICADORES        │
+├──────────────────────────────────────────────┤
+│                                              │
+│ Objetivo:                                    │
+│ Transformar registros em métricas            │
+│ quantitativas e consolidadas                 │
+│                                              │
+│ Entradas:                                    │
+│ • Aluno                                      │
+│ • Turma                                      │
+│ • Instituição                                │
+│ • Período                                    │
+│ • Filtros                                    │
+│                                              │
+│ Processamento:                               │
+│ • COUNT                                      │
+│ • SUM                                        │
+│ • AVG                                        │
+│ • GROUP BY                                   │
+│ • Comparações                                │
+│                                              │
+│ Saídas:                                      │
+│ • KPIs                                       │
+│ • Métricas                                   │
+│ • Distribuições                              │
+│ • Evoluções                                  │
+│ • Comparativos                               │
+│                                              │
+│ Consumidores:                                │
+│ • Dashboard                                  │
+│ • Relatórios                                 │
+│ • Gráficos                                   │
+└──────────────────────────────────────────────┘
+
+✅ UC-034 concluído — versão 1.0
+
+E aqui temos uma decisão importante para o projeto: a partir deste ponto, já temos matéria suficiente para começar a consolidar um “Catálogo de Indicadores do IncluiEdu”, que será uma documentação própria e servirá futuramente como referência para PostgreSQL, Laravel, dashboards e geração dos PDFs.
+
+O próximo caso da sequência é o UC-035 — Consultar Evolução Temporal. Nele vamos especificar como o sistema deverá apresentar a evolução dos registros ao longo de dias, semanas, meses e anos, inclusive os critérios para os gráficos de tendência e para os comparativos que você solicitou.
