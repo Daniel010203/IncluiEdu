@@ -1,0 +1,904 @@
+
+UC-025 — Associar Responsável ao Aluno
+
+Código: UC-025
+Nome: Associar Responsável ao Aluno
+Versão: 1.0
+Status: Em especificação
+Prioridade: Crítica
+Módulo: Gestão de Alunos / Responsáveis
+
+Este caso de uso é especialmente importante porque será a base funcional para as futuras comunicações por e-mail, WhatsApp e comunicação emergencial.
+
+
+---
+
+1. Objetivo
+
+Permitir que um usuário autorizado associe um responsável a um aluno já cadastrado no IncluiEdu, definindo o vínculo entre ambos e os canais de comunicação autorizados.
+
+O caso de uso deverá garantir que:
+
+o aluno exista;
+
+o responsável esteja cadastrado ou possa ser cadastrado;
+
+o vínculo seja válido;
+
+os canais de comunicação sejam controlados;
+
+as informações sejam rastreáveis;
+
+o acesso respeite as permissões do usuário.
+
+
+
+---
+
+2. Atores
+
+Ator principal
+
+ACT-001 — Administrador
+
+Responsável pela administração dos vínculos entre alunos e responsáveis.
+
+Atores secundários
+
+ACT-002 — Professor
+
+Poderá realizar a associação caso possua permissão específica.
+
+ACT-003 — Profissional de Apoio
+
+Poderá realizar a operação caso possua autorização.
+
+ACT-009 — Sistema
+
+Responsável por validações, persistência e auditoria.
+
+
+---
+
+3. Pré-condições
+
+Para iniciar o caso de uso:
+
+1. Usuário deve estar autenticado.
+
+
+2. Usuário deve estar ativo.
+
+
+3. Usuário deve possuir permissão para associar responsáveis.
+
+
+4. O aluno deve existir.
+
+
+5. O aluno deve estar ativo, salvo regra específica.
+
+
+6. O responsável deve existir ou ser criado durante o processo, caso essa funcionalidade seja disponibilizada.
+
+
+7. A associação deve respeitar o escopo de acesso do usuário.
+
+
+
+
+---
+
+4. Gatilho
+
+O usuário acessa:
+
+Gestão de Alunos → Aluno → Responsáveis → Associar Responsável
+
+O sistema apresenta a tela de associação.
+
+
+---
+
+5. Dados envolvidos
+
+A associação deverá considerar pelo menos três conceitos:
+
+ALUNO
+   │
+   │
+   ▼
+VÍNCULO
+   ▲
+   │
+   │
+RESPONSÁVEL
+
+O vínculo é importante.
+
+Não devemos simplesmente colocar responsavel_id diretamente na tabela de alunos, porque um aluno poderá possuir mais de um responsável.
+
+Além disso, futuramente poderemos precisar registrar informações específicas da relação.
+
+
+---
+
+6. Dados do responsável
+
+O cadastro do responsável poderá contemplar:
+
+Dados pessoais
+
+Nome completo;
+
+CPF, quando aplicável;
+
+Data de nascimento, quando necessária;
+
+Status.
+
+
+Dados de contato
+
+E-mail;
+
+Telefone;
+
+WhatsApp.
+
+
+Dados de comunicação
+
+E-mail autorizado;
+
+WhatsApp autorizado;
+
+Telefone autorizado;
+
+Preferência de canal, quando aplicável.
+
+
+
+---
+
+7. Dados do vínculo
+
+O vínculo entre aluno e responsável deverá possuir informações próprias.
+
+Sugestão:
+
+Campo	Descrição
+
+Aluno	Aluno relacionado
+Responsável	Responsável relacionado
+Tipo de vínculo	Mãe, pai, tutor etc.
+Responsável principal	Indica responsável prioritário
+Status	Ativo/Inativo
+Recebe comunicações	Permite comunicação
+Recebe comunicação emergencial	Permite comunicação emergencial
+Data de início	Início do vínculo
+Data de término	Quando aplicável
+Observação	Informação complementar
+
+
+Essa estrutura será muito importante para o módulo de comunicação.
+
+
+---
+
+8. Fluxo principal
+
+FP-01 — Selecionar aluno
+
+1. Usuário acessa o módulo de alunos.
+
+
+2. Usuário localiza o aluno.
+
+
+3. Sistema apresenta o cadastro.
+
+
+4. Usuário acessa a área Responsáveis.
+
+
+5. Usuário seleciona Associar Responsável.
+
+
+
+
+---
+
+FP-02 — Localizar responsável
+
+6. Sistema apresenta campo de busca.
+
+
+7. Usuário informa os dados do responsável.
+
+
+8. Sistema pesquisa responsáveis cadastrados.
+
+
+9. Sistema apresenta os resultados.
+
+
+10. Usuário seleciona o responsável desejado.
+
+
+
+
+---
+
+FP-03 — Definir vínculo
+
+11. Sistema apresenta os dados do responsável.
+
+
+12. Usuário seleciona o tipo de vínculo.
+
+
+13. Usuário informa se é responsável principal.
+
+
+14. Usuário informa as permissões de comunicação.
+
+
+15. Usuário informa os canais autorizados.
+
+
+16. Usuário confirma a associação.
+
+
+
+
+---
+
+FP-04 — Validar associação
+
+17. Sistema verifica se o aluno existe.
+
+
+18. Sistema verifica se o responsável existe.
+
+
+19. Sistema verifica se ambos estão ativos.
+
+
+20. Sistema verifica se a associação já existe.
+
+
+21. Sistema valida as informações do vínculo.
+
+
+22. Sistema valida as permissões de comunicação.
+
+
+
+
+---
+
+FP-05 — Persistir
+
+23. Sistema cria o vínculo.
+
+
+24. Sistema registra o status.
+
+
+25. Sistema registra a data de criação.
+
+
+26. Sistema registra o usuário responsável pela operação.
+
+
+27. Sistema registra evento de auditoria.
+
+
+
+
+---
+
+FP-06 — Finalizar
+
+28. Sistema apresenta confirmação.
+
+
+29. Sistema atualiza a lista de responsáveis do aluno.
+
+
+
+Caso de uso encerrado.
+
+
+---
+
+9. Fluxo alternativo — Novo responsável
+
+FA-01 — Responsável ainda não cadastrado
+
+Durante a pesquisa:
+
+Usuário pesquisa responsável
+        ↓
+Nenhum resultado encontrado
+        ↓
+"Novo Responsável"
+        ↓
+Cadastro
+        ↓
+Validação
+        ↓
+Responsável criado
+        ↓
+Associação ao aluno
+
+Nesse cenário, o processo poderá utilizar um subfluxo equivalente ao:
+
+UC-051 — Consultar Responsável
+
+e futuramente poderemos criar um caso de uso específico:
+
+UC-0XX — Cadastrar Responsável
+
+Observação importante
+
+Eu recomendo criar posteriormente um UC específico para "Cadastrar Responsável".
+
+Na versão inicial do catálogo de 69 casos de uso, esse comportamento não foi separado. Durante o detalhamento, porém, percebemos que o responsável possui ciclo de vida próprio.
+
+Isso significa que nosso catálogo poderá evoluir de 69 para 70+ casos de uso sem problema. Isso é normal na Engenharia de Requisitos.
+
+
+---
+
+10. Fluxo alternativo — Mais de um responsável
+
+Um aluno poderá possuir múltiplos responsáveis.
+
+Exemplo:
+
+┌── Mãe
+                    │
+Aluno ──────────────┼── Pai
+                    │
+                    └── Tutor
+
+O sistema deverá permitir múltiplos vínculos simultâneos, desde que as regras institucionais permitam.
+
+
+---
+
+11. Fluxo alternativo — Responsável principal
+
+Caso o usuário marque o responsável como principal:
+
+1. Sistema verifica se já existe outro responsável principal.
+
+
+2. Caso não exista, cria a associação.
+
+
+3. Caso exista, aplica a regra definida.
+
+
+
+Sugestão de regra
+
+Um aluno poderá possuir somente um responsável principal ativo.
+
+Se outro responsável for definido como principal:
+
+Responsável A
+Principal = SIM
+        ↓
+Responsável B selecionado como principal
+        ↓
+Sistema solicita confirmação
+        ↓
+Responsável A → Principal = NÃO
+Responsável B → Principal = SIM
+
+Essa regra deverá ser formalizada posteriormente no catálogo de Regras de Negócio.
+
+
+---
+
+12. Fluxo alternativo — Canais de comunicação
+
+O usuário poderá definir:
+
+E-mail
+☑ Autorizado
+
+WhatsApp
+☑ Autorizado
+
+Telefone
+☐ Autorizado
+
+Porém, precisamos diferenciar:
+
+existência do contato de autorização para comunicação.
+
+Exemplo:
+
+> O responsável possui WhatsApp, mas não está autorizado a receber comunicações por esse canal.
+
+
+
+Portanto:
+
+whatsapp = "informação de contato"
+
+whatsapp_autorizado = "permissão de comunicação"
+
+Essa separação será fundamental.
+
+
+---
+
+13. Fluxos de exceção
+
+FE-01 — Usuário sem permissão
+
+1. Sistema verifica a autorização.
+
+
+2. Usuário não possui permissão.
+
+
+3. Sistema bloqueia a operação.
+
+
+4. Sistema informa acesso não autorizado.
+
+
+5. Evento poderá ser registrado em auditoria.
+
+
+
+
+---
+
+FE-02 — Aluno inexistente
+
+Caso o aluno não exista:
+
+1. Sistema rejeita a operação.
+
+
+2. Sistema informa que o aluno não foi localizado.
+
+
+
+
+---
+
+FE-03 — Responsável inexistente
+
+Caso o responsável não exista:
+
+1. Sistema informa que nenhum responsável foi encontrado.
+
+
+2. Sistema oferece a possibilidade de cadastro, caso o usuário possua essa permissão.
+
+
+
+
+---
+
+FE-04 — Associação já existente
+
+Caso o responsável já esteja associado:
+
+1. Sistema identifica o vínculo.
+
+
+2. Sistema impede a criação duplicada.
+
+
+3. Sistema apresenta o vínculo existente.
+
+
+
+
+---
+
+FE-05 — Aluno inativo
+
+Caso o aluno esteja inativo:
+
+1. Sistema identifica o status.
+
+
+2. Sistema bloqueia a associação, salvo regra específica.
+
+
+3. Sistema informa a situação.
+
+
+
+
+---
+
+FE-06 — Responsável inativo
+
+Caso o responsável esteja inativo:
+
+1. Sistema impede a associação.
+
+
+2. Sistema informa que o responsável não está ativo.
+
+
+
+
+---
+
+FE-07 — Nenhum canal autorizado
+
+O vínculo poderá existir sem comunicação autorizada.
+
+Porém:
+
+Responsável associado
+        +
+Nenhum canal autorizado
+        ↓
+Comunicação NÃO permitida
+
+Isso é diferente de erro cadastral.
+
+
+---
+
+14. Pós-condições
+
+Após uma associação bem-sucedida:
+
+responsável associado ao aluno;
+
+tipo de vínculo definido;
+
+status do vínculo definido;
+
+permissões de comunicação registradas;
+
+canais autorizados registrados;
+
+data/hora registrada;
+
+usuário responsável pela operação registrado;
+
+auditoria registrada.
+
+
+
+---
+
+15. Regras de negócio preliminares
+
+Aqui começamos a construir um conjunto importante de regras.
+
+RN-RES-001 — Responsável existente
+
+Um responsável deverá existir antes da criação do vínculo, salvo quando o fluxo permitir seu cadastro durante a associação.
+
+
+---
+
+RN-RES-002 — Múltiplos responsáveis
+
+Um aluno poderá possuir múltiplos responsáveis ativos.
+
+
+---
+
+RN-RES-003 — Responsável principal
+
+Um aluno poderá possuir somente um responsável principal ativo.
+
+
+---
+
+RN-RES-004 — Não duplicidade
+
+Não deverá existir mais de um vínculo ativo idêntico entre o mesmo aluno e responsável.
+
+aluno_id + responsavel_id
+
+deverá possuir controle de unicidade conforme o modelo definitivo.
+
+
+---
+
+RN-RES-005 — Canal autorizado
+
+A existência de um telefone, e-mail ou WhatsApp não significa automaticamente autorização para comunicação.
+
+
+---
+
+RN-RES-006 — Comunicação emergencial
+
+Somente responsáveis com autorização explícita para comunicação emergencial poderão ser utilizados pelo:
+
+UC-057 — Iniciar Comunicação Emergencial
+
+
+---
+
+RN-RES-007 — Comunicação ordinária
+
+Somente canais autorizados poderão ser utilizados para comunicações normais.
+
+
+---
+
+RN-RES-008 — Responsável inativo
+
+Responsáveis inativos não deverão ser utilizados para novas comunicações.
+
+
+---
+
+RN-RES-009 — Rastreabilidade
+
+Alterações importantes no vínculo deverão ser rastreáveis.
+
+
+---
+
+RN-RES-010 — Auditoria
+
+Criação, alteração e inativação do vínculo deverão gerar registros de auditoria conforme a política definida.
+
+
+---
+
+16. Critérios de aceite
+
+CA-001 — Associação válida
+
+Dado que aluno e responsável estão ativos,
+quando usuário autorizado realizar a associação,
+então o vínculo deverá ser criado.
+
+
+---
+
+CA-002 — Usuário sem permissão
+
+Dado que o usuário não possui autorização,
+quando tentar associar um responsável,
+então o sistema deverá impedir a operação.
+
+
+---
+
+CA-003 — Associação duplicada
+
+Dado que já existe vínculo ativo entre aluno e responsável,
+quando o usuário tentar criar novamente a associação,
+então o sistema deverá impedir a duplicidade.
+
+
+---
+
+CA-004 — Responsável principal
+
+Dado que já existe responsável principal,
+quando outro responsável for definido como principal,
+então o sistema deverá aplicar a regra de substituição definida.
+
+
+---
+
+CA-005 — Canal não autorizado
+
+Dado que o responsável possui um telefone,
+mas não autorizou comunicação por esse canal,
+quando o sistema tentar realizar uma comunicação,
+então o canal não deverá estar disponível para envio.
+
+
+---
+
+CA-006 — Comunicação emergencial
+
+Dado que o responsável não autorizou comunicação emergencial,
+quando um usuário tentar iniciar comunicação emergencial,
+então esse responsável não deverá ser disponibilizado como destinatário.
+
+
+---
+
+CA-007 — Auditoria
+
+Dado que o vínculo foi criado ou alterado,
+quando a operação for concluída,
+então deverá existir registro de auditoria correspondente.
+
+
+---
+
+17. Dependências
+
+Dependências anteriores
+
+UC-001 — Autenticar Usuário
+UC-015 — Controlar Acesso
+UC-022 — Cadastrar Aluno
+
+Casos de uso que dependem deste
+
+UC-051 — Consultar Responsável
+UC-052 — Consultar Canais Autorizados
+UC-053 — Enviar Comunicação por E-mail
+UC-054 — Enviar Comunicação via WhatsApp
+UC-055 — Enviar Comunicação por Múltiplos Canais
+UC-056 — Consultar Histórico de Comunicações
+
+UC-057 — Iniciar Comunicação Emergencial
+UC-058 — Identificar Responsável
+UC-059 — Selecionar Canal Emergencial
+UC-060 — Confirmar Comunicação
+UC-061 — Enviar Comunicação Emergencial
+UC-062 — Registrar Resultado do Envio
+UC-063 — Consultar Histórico de Emergência
+
+
+---
+
+18. Impacto no modelo de dados
+
+Este UC já revela uma decisão arquitetural importante.
+
+Não devemos modelar assim:
+
+alunos
+----------------
+id
+nome
+responsavel_id
+
+Porque isso limitaria o aluno a um único responsável.
+
+O modelo conceitual tende a ser:
+
+┌──────────────┐
+│    ALUNO     │
+└──────┬───────┘
+       │
+       │ 1:N
+       ▼
+┌─────────────────────┐
+│ VÍNCULO_RESPONSÁVEL │
+└──────────┬──────────┘
+           │ N:1
+           ▼
+┌─────────────────────┐
+│    RESPONSÁVEL      │
+└─────────────────────┘
+
+E teremos potencialmente:
+
+RESPONSÁVEL
+     │
+     ├── E-mail
+     │
+     ├── Telefone
+     │
+     └── WhatsApp
+
+VÍNCULO
+     │
+     ├── tipo_vinculo
+     ├── principal
+     ├── recebe_comunicacoes
+     ├── recebe_emergencial
+     └── status
+
+Ainda não vamos transformar isso em tabelas PostgreSQL.
+
+Primeiro vamos terminar a análise funcional.
+
+
+---
+
+19. Relação com comunicação emergencial
+
+Este é um dos pontos mais importantes deste UC.
+
+Quando chegarmos ao:
+
+UC-057 — Iniciar Comunicação Emergencial
+
+o sistema não deverá simplesmente consultar:
+
+"Qual é o telefone do aluno?"
+
+Ele deverá executar algo conceitualmente próximo de:
+
+Aluno
+  ↓
+Responsáveis ativos
+  ↓
+Vínculos ativos
+  ↓
+Responsáveis autorizados
+  ↓
+Canal autorizado
+  ↓
+Canal autorizado para emergência
+  ↓
+Envio
+  ↓
+Registro
+  ↓
+Auditoria
+
+Isso proporciona uma separação muito mais segura entre dado de contato e autorização de comunicação.
+
+
+---
+
+20. Relação com LGPD
+
+Como o sistema trabalhará com dados de alunos, responsáveis e contatos, a arquitetura deverá considerar desde a modelagem:
+
+finalidade de utilização;
+
+controle de acesso;
+
+minimização de dados;
+
+rastreabilidade;
+
+autorização de comunicação;
+
+proteção das informações;
+
+retenção e descarte conforme política definida.
+
+
+Não devemos, neste momento, assumir que toda informação cadastrada poderá ser utilizada para qualquer finalidade.
+
+
+---
+
+21. Resumo do UC-025
+
+┌──────────────────────────────────────────────┐
+│       UC-025 — ASSOCIAR RESPONSÁVEL         │
+├──────────────────────────────────────────────┤
+│                                              │
+│ Entrada:                                     │
+│ • Aluno                                      │
+│ • Responsável                                │
+│ • Tipo de vínculo                            │
+│ • Canais autorizados                         │
+│                                              │
+│ Validações:                                  │
+│ • Usuário autorizado                         │
+│ • Aluno válido                               │
+│ • Responsável válido                         │
+│ • Não duplicidade                            │
+│ • Canais autorizados                         │
+│                                              │
+│ Processamento:                               │
+│ • Criar vínculo                              │
+│ • Definir permissões                         │
+│ • Registrar auditoria                        │
+│                                              │
+│ Saída:                                       │
+│ • Responsável associado                      │
+│ • Vínculo ativo                              │
+│ • Permissões de comunicação registradas      │
+└──────────────────────────────────────────────┘
+
+✅ UC-025 — concluído
+
+Um ponto importante surgiu durante o detalhamento: o catálogo inicial de 69 UCs poderá sofrer refinamentos. Identificamos que "Cadastrar Responsável" possui comportamento suficientemente independente para possivelmente se tornar um UC próprio. Isso é positivo: estamos descobrindo isso antes da implementação.
