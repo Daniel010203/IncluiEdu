@@ -1,0 +1,768 @@
+
+
+# IncluiEdu — Regras de Negócio
+
+> Documento resumido das regras de negócio do sistema IncluiEdu.
+
+**Projeto:** IncluiEdu  
+**Documento:** Regras de Negócio  
+**Versão:** 1.0  
+**Status:** Em desenvolvimento
+
+---
+
+# 1. Objetivo
+
+Este documento define as principais regras que determinam o comportamento do sistema IncluiEdu.
+
+As regras de negócio representam **o que deve ser permitido, bloqueado, calculado, registrado ou controlado pelo sistema**, independentemente da tecnologia utilizada.
+
+---
+
+# 2. Princípios Gerais
+
+O IncluiEdu deverá seguir os seguintes princípios:
+
+- Segurança;
+- Controle de acesso;
+- Privacidade;
+- Rastreabilidade;
+- Integridade dos dados;
+- Histórico das informações;
+- Não exclusão indevida de registros;
+- Controle de permissões;
+- Consistência dos indicadores;
+- Proteção das informações dos alunos.
+
+---
+
+# 3. Regras de Usuários e Acesso
+
+## RN-001 — Usuário Autenticado
+
+Somente usuários autenticados poderão acessar funcionalidades protegidas.
+
+---
+
+## RN-002 — Controle de Permissão
+
+Cada usuário deverá possuir permissões compatíveis com seu perfil.
+
+---
+
+## RN-003 — Acesso por Escopo
+
+O usuário somente poderá consultar ou alterar informações dentro do seu escopo autorizado.
+
+---
+
+## RN-004 — Usuário Inativo
+
+Usuários inativos não poderão acessar o sistema.
+
+---
+
+## RN-005 — Perfis
+
+O sistema deverá permitir diferentes perfis de acesso.
+
+Perfis previstos:
+
+- Administrador;
+- Professor;
+- Profissional de Apoio;
+- Auditor.
+
+---
+
+## RN-006 — Alteração de Permissões
+
+Alterações de permissões deverão ser realizadas somente por usuários autorizados.
+
+---
+
+# 4. Regras de Alunos
+
+## RN-007 — Cadastro de Aluno
+
+Cada aluno deverá possuir um identificador único no sistema.
+
+---
+
+## RN-008 — Dados Obrigatórios
+
+Campos definidos como obrigatórios deverão ser preenchidos antes da conclusão do cadastro.
+
+---
+
+## RN-009 — Aluno Inativo
+
+Um aluno desativado não deverá permitir novos registros de acompanhamento, salvo operações especificamente autorizadas.
+
+---
+
+## RN-010 — Histórico do Aluno
+
+A desativação de um aluno não deverá eliminar seu histórico.
+
+---
+
+## RN-011 — Identificação
+
+O sistema deverá evitar a criação de registros duplicados para o mesmo aluno conforme os critérios definidos no cadastro.
+
+---
+
+# 5. Regras de Responsáveis
+
+## RN-012 — Vínculo
+
+Um responsável deverá estar associado a pelo menos um aluno para participar do processo de comunicação relacionado ao acompanhamento.
+
+---
+
+## RN-013 — Responsável Principal
+
+Um aluno poderá possuir um responsável principal.
+
+---
+
+## RN-014 — Múltiplos Responsáveis
+
+Um aluno poderá possuir mais de um responsável.
+
+---
+
+## RN-015 — Prioridade de Contato
+
+Quando houver mais de um responsável, o sistema deverá respeitar a prioridade definida.
+
+---
+
+## RN-016 — Canal Autorizado
+
+Somente canais autorizados poderão ser utilizados para comunicação.
+
+---
+
+## RN-017 — Contato Inválido
+
+Um canal com dados inválidos ou desativados não deverá ser utilizado.
+
+---
+
+# 6. Regras de Observações
+
+## RN-018 — Registro de Observação
+
+Toda observação deverá estar vinculada a um aluno.
+
+---
+
+## RN-019 — Data e Hora
+
+Toda observação deverá possuir data e hora do registro.
+
+---
+
+## RN-020 — Autor do Registro
+
+Toda observação deverá identificar o usuário responsável pelo registro.
+
+---
+
+## RN-021 — Classificação
+
+A observação poderá ser classificada conforme categorias e contextos previamente configurados.
+
+---
+
+## RN-022 — Intensidade
+
+Quando aplicável, a observação deverá possuir nível de intensidade.
+
+---
+
+## RN-023 — Integridade
+
+Após registrada, uma observação não deverá ser alterada por usuários sem permissão.
+
+---
+
+## RN-024 — Histórico
+
+Alterações relevantes realizadas em observações deverão possuir rastreabilidade.
+
+---
+
+# 7. Regras de Estratégias
+
+## RN-025 — Registro de Estratégia
+
+Uma estratégia deverá estar vinculada a uma observação ou situação de acompanhamento.
+
+---
+
+## RN-026 — Estratégia Ativa
+
+Somente estratégias ativas poderão ser utilizadas em novos registros.
+
+---
+
+## RN-027 — Resultado
+
+Quando aplicável, uma estratégia deverá possuir um resultado associado.
+
+---
+
+## RN-028 — Histórico
+
+O resultado de uma estratégia deverá permanecer associado ao histórico do acompanhamento.
+
+---
+
+# 8. Regras de Indicadores
+
+## RN-029 — Origem dos Indicadores
+
+Indicadores deverão ser calculados a partir de dados registrados no sistema.
+
+---
+
+## RN-030 — Fórmula
+
+Cada indicador deverá possuir uma regra de cálculo definida.
+
+---
+
+## RN-031 — Consistência
+
+O mesmo conjunto de dados deverá produzir resultados consistentes para o mesmo período e parâmetros.
+
+---
+
+## RN-032 — Período
+
+Todo indicador temporal deverá possuir um período de referência.
+
+---
+
+## RN-033 — Indicador Inativo
+
+Indicadores desativados não deverão ser utilizados em novos processamentos, salvo consulta histórica.
+
+---
+
+## RN-034 — Versionamento
+
+Alterações relevantes na fórmula de um indicador deverão permitir identificação da versão utilizada.
+
+---
+
+# 9. Regras de Comparação
+
+## RN-035 — Comparação entre Períodos
+
+O sistema deverá permitir comparar indicadores entre períodos válidos.
+
+---
+
+## RN-036 — Períodos
+
+Os períodos comparados deverão possuir datas inicial e final válidas.
+
+---
+
+## RN-037 — Variação Percentual
+
+Quando aplicável, a variação percentual deverá ser calculada pela fórmula:
+
+```text
+((Valor Atual - Valor Anterior) / Valor Anterior) × 100
+
+
+---
+
+RN-038 — Valor Anterior Igual a Zero
+
+Quando o valor anterior for zero, o sistema não deverá apresentar uma variação percentual matemática inválida.
+
+Nesse caso, deverá apresentar a diferença absoluta ou uma indicação de que o percentual não é calculável.
+
+
+---
+
+10. Regras de Relatórios
+
+RN-039 — Relatório Semanal
+
+O sistema deverá permitir gerar relatórios referentes a períodos semanais.
+
+
+---
+
+RN-040 — Relatório Mensal
+
+O sistema deverá permitir gerar relatórios referentes a períodos mensais.
+
+
+---
+
+RN-041 — Relatório Anual
+
+O sistema deverá permitir gerar relatórios referentes a períodos anuais.
+
+
+---
+
+RN-042 — Relatório Personalizado
+
+O usuário autorizado poderá definir filtros e períodos para geração de relatórios personalizados.
+
+
+---
+
+RN-043 — Relatório Comparativo
+
+Relatórios comparativos deverão apresentar claramente os períodos analisados.
+
+
+---
+
+RN-044 — Gráficos
+
+Quando aplicável, os relatórios deverão apresentar gráficos relacionados aos indicadores.
+
+
+---
+
+RN-045 — PDF
+
+O sistema deverá permitir exportar relatórios para PDF.
+
+
+---
+
+RN-046 — Consistência do PDF
+
+Os dados apresentados no PDF deverão corresponder aos dados apresentados no relatório do sistema.
+
+
+---
+
+RN-047 — Identificação do Relatório
+
+Todo relatório deverá apresentar informações que permitam identificar:
+
+tipo;
+
+período;
+
+data de geração;
+
+usuário responsável.
+
+
+
+---
+
+11. Regras de Comunicação
+
+RN-048 — Comunicação Autorizada
+
+O sistema somente poderá enviar mensagens para responsáveis utilizando canais autorizados.
+
+
+---
+
+RN-049 — E-mail
+
+O envio por e-mail deverá utilizar endereço válido e autorizado.
+
+
+---
+
+RN-050 — WhatsApp
+
+O envio via WhatsApp deverá utilizar número válido e autorizado através da integração configurada.
+
+
+---
+
+RN-051 — Registro do Envio
+
+Toda comunicação deverá possuir registro de tentativa de envio.
+
+
+---
+
+RN-052 — Resultado
+
+O sistema deverá registrar o resultado da comunicação.
+
+Exemplos:
+
+PENDENTE
+ENVIADO
+ENTREGUE
+FALHA
+CANCELADO
+
+
+---
+
+RN-053 — Falha
+
+Uma falha de envio deverá ser registrada e apresentada de forma identificável.
+
+
+---
+
+RN-054 — Histórico
+
+As comunicações realizadas deverão permanecer disponíveis para consulta conforme as permissões do usuário.
+
+
+---
+
+12. Regras de Comunicação Emergencial
+
+RN-055 — Situação Emergencial
+
+Comunicações emergenciais somente poderão ser iniciadas por usuários autorizados.
+
+
+---
+
+RN-056 — Identificação do Responsável
+
+O sistema deverá identificar o responsável conforme os vínculos e prioridades cadastrados.
+
+
+---
+
+RN-057 — Canal Emergencial
+
+Somente canais autorizados e disponíveis poderão ser utilizados.
+
+
+---
+
+RN-058 — Confirmação
+
+O envio de uma comunicação emergencial deverá exigir confirmação explícita do usuário.
+
+
+---
+
+RN-059 — Registro da Emergência
+
+A comunicação emergencial deverá possuir registro próprio para fins de rastreabilidade.
+
+
+---
+
+RN-060 — Resultado
+
+O resultado da comunicação emergencial deverá ser registrado.
+
+
+---
+
+13. Regras de Auditoria
+
+RN-061 — Registro de Eventos
+
+Operações relevantes deverão gerar eventos de auditoria.
+
+
+---
+
+RN-062 — Identificação do Usuário
+
+O evento de auditoria deverá identificar o usuário responsável pela operação, quando aplicável.
+
+
+---
+
+RN-063 — Data e Hora
+
+Eventos de auditoria deverão possuir data e hora.
+
+
+---
+
+RN-064 — Histórico de Alterações
+
+Alterações relevantes deverão permitir identificar o estado anterior e posterior quando aplicável.
+
+
+---
+
+RN-065 — Histórico de Acessos
+
+Acessos relevantes deverão possuir registro para fins de segurança e auditoria.
+
+
+---
+
+RN-066 — Proteção da Auditoria
+
+Usuários comuns não poderão excluir ou alterar registros de auditoria.
+
+
+---
+
+14. Regras de Segurança e Privacidade
+
+RN-067 — Proteção de Dados
+
+Dados pessoais dos alunos e responsáveis deverão ser protegidos contra acesso não autorizado.
+
+
+---
+
+RN-068 — Princípio do Menor Privilégio
+
+Usuários deverão possuir somente as permissões necessárias para executar suas atividades.
+
+
+---
+
+RN-069 — Dados Sensíveis
+
+Informações que possam expor indevidamente alunos ou responsáveis deverão possuir controle de acesso adequado.
+
+
+---
+
+RN-070 — Logs
+
+Operações relevantes deverão possuir registros técnicos suficientes para investigação e auditoria.
+
+
+---
+
+RN-071 — Sessão
+
+Sessões de usuários deverão possuir mecanismos de proteção contra acesso indevido.
+
+
+---
+
+15. Regras de Integridade
+
+RN-072 — Integridade Referencial
+
+Registros relacionados deverão respeitar os vínculos definidos no modelo de dados.
+
+
+---
+
+RN-073 — Exclusão Lógica
+
+Quando necessário preservar histórico, o sistema deverá utilizar desativação ou exclusão lógica em vez de exclusão física.
+
+
+---
+
+RN-074 — Identificadores
+
+Entidades principais deverão possuir identificadores únicos.
+
+
+---
+
+RN-075 — Datas
+
+Datas e horários deverão ser armazenados de forma consistente.
+
+
+---
+
+16. Regras de Auditoria de Relatórios
+
+RN-076 — Geração de Relatório
+
+A geração de relatórios deverá ser rastreável.
+
+
+---
+
+RN-077 — Exportação
+
+A exportação para PDF deverá ser registrada quando a política de auditoria exigir.
+
+
+---
+
+RN-078 — Histórico
+
+O sistema deverá permitir consultar o histórico de relatórios gerados.
+
+
+---
+
+17. Regras de Comunicação e Privacidade
+
+RN-079 — Destinatário
+
+O sistema deverá confirmar que o destinatário possui vínculo autorizado com o aluno.
+
+
+---
+
+RN-080 — Conteúdo da Mensagem
+
+A comunicação deverá utilizar somente as informações necessárias para a finalidade da mensagem.
+
+
+---
+
+RN-081 — Comunicação Emergencial
+
+Mesmo em situações emergenciais, o sistema deverá manter registro da operação.
+
+
+---
+
+18. Matriz Resumida
+
+Código	Regra	Categoria
+
+RN-001	Usuário autenticado	Segurança
+RN-002	Controle de permissão	Segurança
+RN-003	Acesso por escopo	Segurança
+RN-004	Usuário inativo	Segurança
+RN-005	Perfis	Segurança
+RN-006	Alteração de permissões	Segurança
+RN-007	Cadastro de aluno	Alunos
+RN-008	Dados obrigatórios	Alunos
+RN-009	Aluno inativo	Alunos
+RN-010	Histórico do aluno	Alunos
+RN-011	Identificação	Alunos
+RN-012	Vínculo do responsável	Responsáveis
+RN-013	Responsável principal	Responsáveis
+RN-014	Múltiplos responsáveis	Responsáveis
+RN-015	Prioridade de contato	Responsáveis
+RN-016	Canal autorizado	Comunicação
+RN-017	Contato inválido	Comunicação
+RN-018	Registro de observação	Acompanhamento
+RN-019	Data e hora	Acompanhamento
+RN-020	Autor do registro	Acompanhamento
+RN-021	Classificação	Acompanhamento
+RN-022	Intensidade	Acompanhamento
+RN-023	Integridade	Acompanhamento
+RN-024	Histórico	Acompanhamento
+RN-025	Registro de estratégia	Estratégias
+RN-026	Estratégia ativa	Estratégias
+RN-027	Resultado	Estratégias
+RN-028	Histórico	Estratégias
+RN-029	Origem dos indicadores	Indicadores
+RN-030	Fórmula	Indicadores
+RN-031	Consistência	Indicadores
+RN-032	Período	Indicadores
+RN-033	Indicador inativo	Indicadores
+RN-034	Versionamento	Indicadores
+RN-035	Comparação	Indicadores
+RN-036	Períodos válidos	Indicadores
+RN-037	Variação percentual	Indicadores
+RN-038	Valor anterior zero	Indicadores
+RN-039	Relatório semanal	Relatórios
+RN-040	Relatório mensal	Relatórios
+RN-041	Relatório anual	Relatórios
+RN-042	Relatório personalizado	Relatórios
+RN-043	Relatório comparativo	Relatórios
+RN-044	Gráficos	Relatórios
+RN-045	Exportação PDF	Relatórios
+RN-046	Consistência do PDF	Relatórios
+RN-047	Identificação do relatório	Relatórios
+RN-048	Comunicação autorizada	Comunicação
+RN-049	E-mail	Comunicação
+RN-050	WhatsApp	Comunicação
+RN-051	Registro do envio	Comunicação
+RN-052	Resultado	Comunicação
+RN-053	Falha	Comunicação
+RN-054	Histórico	Comunicação
+RN-055	Situação emergencial	Emergência
+RN-056	Identificação do responsável	Emergência
+RN-057	Canal emergencial	Emergência
+RN-058	Confirmação	Emergência
+RN-059	Registro da emergência	Emergência
+RN-060	Resultado	Emergência
+RN-061	Registro de eventos	Auditoria
+RN-062	Identificação do usuário	Auditoria
+RN-063	Data e hora	Auditoria
+RN-064	Histórico de alterações	Auditoria
+RN-065	Histórico de acessos	Auditoria
+RN-066	Proteção da auditoria	Auditoria
+RN-067	Proteção de dados	Segurança
+RN-068	Menor privilégio	Segurança
+RN-069	Dados sensíveis	Segurança
+RN-070	Logs	Segurança
+RN-071	Sessão	Segurança
+RN-072	Integridade referencial	Banco de Dados
+RN-073	Exclusão lógica	Banco de Dados
+RN-074	Identificadores únicos	Banco de Dados
+RN-075	Datas	Banco de Dados
+RN-076	Geração de relatório	Auditoria
+RN-077	Exportação	Auditoria
+RN-078	Histórico de relatórios	Auditoria
+RN-079	Destinatário autorizado	Comunicação
+RN-080	Conteúdo da mensagem	Comunicação
+RN-081	Registro de emergência	Comunicação
+
+
+
+---
+
+19. Relação com os Casos de Uso
+
+As regras de negócio serão posteriormente relacionadas aos casos de uso.
+
+Exemplo:
+
+Caso de Uso	Regras Principais
+
+UC-017 — Cadastrar Aluno	RN-007, RN-008, RN-011
+UC-025 — Associar Responsável ao Aluno	RN-012, RN-013, RN-014
+UC-028 — Registrar Observação	RN-018, RN-019, RN-020, RN-021
+UC-034 — Consultar Indicadores	RN-029, RN-030, RN-031
+UC-039 — Comparar Períodos	RN-035, RN-036, RN-037, RN-038
+UC-049 — Exportar Relatório para PDF	RN-045, RN-046, RN-047
+UC-054 — Enviar Comunicação via WhatsApp	RN-048, RN-050, RN-051, RN-052
+UC-061 — Enviar Comunicação Emergencial	RN-055, RN-056, RN-057, RN-058, RN-060
+UC-064 — Registrar Evento de Auditoria	RN-061, RN-062, RN-063
+UC-065 — Consultar Auditoria	RN-061, RN-065, RN-066
+
+
+A matriz completa de rastreabilidade será construída posteriormente.
+
+
+---
+
+20. Status da FASE 3
+
+FASE 3 — REGRAS DE NEGÓCIO
+
+Status:
+
+CONSOLIDADA — VERSÃO 1.0
+
+Total de regras:
+
+81
+
+Próxima etapa recomendada:
+
+FASE 4 — REQUISITOS NÃO FUNCIONAIS
+
+### Observação importante
+
+Eu manteria **este documento simplificado** como a versão oficial do GitHub. As 81 regras são suficientes para estabelecer o comportamento do sistema sem transformar a documentação em centenas de páginas.
+
+Depois da FASE 4, teremos uma base muito boa para montar a **matriz de rastreabilidade**:
+
+**Requisito → Caso de Uso → Regra de Negócio → Entidade do Banco → Endpoint Laravel → Teste**
+
+Essa matriz será especialmente importante quando começarmos a implementação em **PHP + Laravel**.
