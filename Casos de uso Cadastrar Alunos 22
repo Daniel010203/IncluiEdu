@@ -1,0 +1,659 @@
+
+Vou tratar este documento com nível de detalhe suficiente para posteriormente servir de base para Laravel, PostgreSQL, testes e critérios de aceite.
+
+FASE 2 — CASOS DE USO
+
+UC-022 — Cadastrar Aluno
+
+Código: UC-022
+Nome: Cadastrar Aluno
+Versão: 1.0
+Status: Em especificação
+Prioridade: Alta
+Módulo: Gestão de Alunos
+
+
+---
+
+1. Objetivo
+
+Permitir que um usuário autorizado cadastre um novo aluno no IncluiEdu, vinculando-o à estrutura educacional correspondente e disponibilizando o aluno para posterior associação com responsáveis, profissionais e registros de acompanhamento.
+
+
+---
+
+2. Atores
+
+Ator principal
+
+ACT-001 — Administrador
+
+Responsável pela administração dos cadastros do sistema.
+
+Atores secundários
+
+ACT-002 — Professor
+
+Poderá realizar o cadastro caso possua essa permissão.
+
+ACT-003 — Profissional de Apoio
+
+Poderá realizar o cadastro caso possua autorização específica.
+
+ACT-009 — Sistema
+
+Responsável pelas validações, persistência e registro de auditoria.
+
+
+---
+
+3. Pré-condições
+
+Antes de iniciar o cadastro:
+
+1. O usuário deve estar autenticado.
+
+
+2. O usuário deve estar ativo.
+
+
+3. O usuário deve possuir permissão para cadastrar alunos.
+
+
+4. A instituição de ensino deve existir.
+
+
+5. A instituição deve estar ativa.
+
+
+6. Caso seja informado, a turma deve existir.
+
+
+7. Caso seja informado, a turma deve pertencer à instituição selecionada.
+
+
+
+
+---
+
+4. Gatilho
+
+O usuário acessa:
+
+Gestão de Alunos → Novo Aluno
+
+O sistema apresenta o formulário de cadastro.
+
+
+---
+
+5. Dados necessários
+
+O cadastro deverá possuir inicialmente os seguintes grupos de informações.
+
+5.1 Dados pessoais
+
+Nome completo;
+
+Data de nascimento;
+
+Identificador do aluno, quando aplicável;
+
+Status.
+
+
+5.2 Dados educacionais
+
+Instituição;
+
+Turma;
+
+Ano letivo;
+
+Turno, quando aplicável.
+
+
+5.3 Dados de acompanhamento
+
+Neste momento, não devemos misturar observações com o cadastro do aluno.
+
+As informações de acompanhamento serão registradas posteriormente através do:
+
+UC-028 — Registrar Observação
+
+Essa separação será importante para nossa modelagem do banco.
+
+
+---
+
+6. Fluxo principal
+
+FP-01 — Acessar cadastro
+
+1. Usuário acessa o módulo Gestão de Alunos.
+
+
+2. Sistema verifica a autorização.
+
+
+3. Sistema apresenta a opção Novo Aluno.
+
+
+4. Usuário seleciona a opção.
+
+
+
+FP-02 — Preencher dados
+
+5. Sistema apresenta o formulário.
+
+
+6. Usuário informa o nome completo.
+
+
+7. Usuário informa a data de nascimento.
+
+
+8. Usuário informa o identificador, quando aplicável.
+
+
+9. Usuário seleciona a instituição.
+
+
+10. Sistema apresenta as turmas disponíveis.
+
+
+11. Usuário seleciona a turma, quando aplicável.
+
+
+12. Usuário informa o ano letivo.
+
+
+13. Usuário informa o turno, quando aplicável.
+
+
+14. Usuário confirma o cadastro.
+
+
+
+FP-03 — Validar
+
+15. Sistema verifica os campos obrigatórios.
+
+
+16. Sistema valida os formatos.
+
+
+17. Sistema verifica se a instituição existe.
+
+
+18. Sistema verifica se a instituição está ativa.
+
+
+19. Sistema verifica se a turma pertence à instituição.
+
+
+20. Sistema verifica possíveis duplicidades.
+
+
+
+FP-04 — Persistir
+
+21. Sistema cria o registro do aluno.
+
+
+22. Sistema define o status inicial.
+
+
+23. Sistema registra a data/hora de criação.
+
+
+24. Sistema registra o usuário responsável pela operação.
+
+
+25. Sistema registra o evento de auditoria.
+
+
+
+FP-05 — Finalizar
+
+26. Sistema apresenta mensagem de sucesso.
+
+
+27. Sistema apresenta o cadastro do aluno.
+
+
+
+Caso de uso encerrado.
+
+
+---
+
+7. Fluxos alternativos
+
+FA-01 — Cadastro sem turma
+
+O aluno poderá ser cadastrado sem turma quando essa informação ainda não estiver disponível ou quando a regra institucional permitir.
+
+Aluno
+  ↓
+Instituição
+  ↓
+Sem turma
+  ↓
+Cadastro concluído
+
+Posteriormente poderá ser executado:
+
+UC-021 — Associar Aluno à Turma
+
+
+---
+
+FA-02 — Usuário possui acesso a várias instituições
+
+Caso o usuário esteja vinculado a mais de uma instituição:
+
+1. Sistema apresenta as instituições autorizadas.
+
+
+2. Usuário seleciona uma instituição.
+
+
+3. Sistema carrega somente os dados pertencentes à instituição selecionada.
+
+
+
+
+---
+
+FA-03 — Usuário possui escopo restrito
+
+Caso o usuário possua acesso somente a determinada instituição:
+
+1. Sistema identifica o escopo.
+
+
+2. Sistema apresenta somente a instituição autorizada.
+
+
+3. Usuário não consegue selecionar outra instituição.
+
+
+
+
+---
+
+8. Fluxos de exceção
+
+FE-01 — Usuário sem permissão
+
+1. Usuário tenta acessar o cadastro.
+
+
+2. Sistema verifica as permissões.
+
+
+3. Sistema identifica ausência de autorização.
+
+
+4. Sistema bloqueia a operação.
+
+
+5. Sistema apresenta mensagem de acesso negado.
+
+
+6. Sistema registra o evento conforme a política de auditoria.
+
+
+
+
+---
+
+FE-02 — Instituição inexistente
+
+Caso a instituição informada não exista:
+
+1. Sistema identifica inconsistência.
+
+
+2. Sistema rejeita o cadastro.
+
+
+3. Sistema informa o problema.
+
+
+4. Usuário deverá selecionar uma instituição válida.
+
+
+
+
+---
+
+FE-03 — Instituição inativa
+
+Caso a instituição esteja inativa:
+
+1. Sistema identifica o status.
+
+
+2. Sistema impede o cadastro.
+
+
+3. Sistema informa que a instituição não está disponível.
+
+
+
+
+---
+
+FE-04 — Turma pertence a outra instituição
+
+1. Usuário seleciona instituição A.
+
+
+2. Usuário tenta utilizar turma da instituição B.
+
+
+3. Sistema identifica inconsistência.
+
+
+4. Sistema rejeita a operação.
+
+
+
+Essa validação é importante para evitar inconsistências de relacionamento no banco.
+
+
+---
+
+FE-05 — Dados obrigatórios não preenchidos
+
+1. Usuário tenta salvar.
+
+
+2. Sistema identifica campos obrigatórios vazios.
+
+
+3. Sistema não grava o registro.
+
+
+4. Sistema destaca os campos que precisam ser preenchidos.
+
+
+5. Usuário corrige os dados.
+
+
+
+
+---
+
+FE-06 — Aluno possivelmente duplicado
+
+O sistema identifica que já existe um aluno com combinação de dados potencialmente conflitante.
+
+Nesse cenário:
+
+1. Sistema alerta o usuário.
+
+
+2. Sistema apresenta possíveis registros existentes.
+
+
+3. Usuário decide se deve cancelar ou prosseguir, conforme a regra definida.
+
+
+
+Importante: não devemos simplesmente impedir qualquer aluno com o mesmo nome, pois podem existir pessoas diferentes com nomes iguais.
+
+
+---
+
+9. Pós-condições
+
+Após o sucesso:
+
+Aluno cadastrado;
+
+Aluno associado à instituição;
+
+Turma associada, quando aplicável;
+
+Status inicial definido;
+
+Data de criação registrada;
+
+Usuário responsável registrado;
+
+Evento de auditoria registrado.
+
+
+O aluno estará disponível para:
+
+UC-024 → Consultar Aluno
+UC-025 → Associar Responsável
+UC-026 → Associar Profissional
+UC-028 → Registrar Observação
+UC-032 → Consultar Histórico
+
+
+---
+
+10. Regras de negócio preliminares
+
+Vamos começar a construir aqui nosso catálogo de regras.
+
+RN-ALU-001 — Usuário autorizado
+
+Somente usuários autenticados, ativos e autorizados poderão cadastrar alunos.
+
+RN-ALU-002 — Instituição válida
+
+Todo aluno deverá estar associado a uma instituição válida e ativa.
+
+RN-ALU-003 — Integridade da turma
+
+Quando uma turma for informada, ela deverá pertencer à instituição selecionada.
+
+RN-ALU-004 — Status inicial
+
+Todo novo aluno deverá receber um status inicial definido pelo sistema.
+
+Sugestão:
+
+ATIVO
+
+RN-ALU-005 — Rastreabilidade
+
+O sistema deverá registrar o usuário responsável pelo cadastro.
+
+RN-ALU-006 — Auditoria
+
+A criação do aluno deverá gerar um evento de auditoria.
+
+RN-ALU-007 — Não duplicidade indevida
+
+O sistema deverá possuir mecanismos para identificar possíveis cadastros duplicados sem impedir automaticamente alunos com nomes iguais.
+
+RN-ALU-008 — Separação de responsabilidades
+
+Informações de acompanhamento e observações não deverão ser armazenadas diretamente no cadastro principal do aluno.
+
+
+---
+
+11. Dados envolvidos
+
+Neste momento identificamos pelo menos:
+
+ALUNO
+  │
+  ├── INSTITUIÇÃO
+  │
+  ├── TURMA
+  │
+  └── USUÁRIO RESPONSÁVEL PELO CADASTRO
+
+Posteriormente teremos:
+
+ALUNO
+ │
+ ├── RESPONSÁVEIS
+ │
+ ├── PROFISSIONAIS
+ │
+ ├── OBSERVAÇÕES
+ │
+ ├── RELATÓRIOS
+ │
+ └── COMUNICAÇÕES
+
+Isso já começa a nos dar pistas importantes para o futuro Modelo Conceitual do Banco de Dados, mas ainda não vamos criar tabelas.
+
+
+---
+
+12. Critérios de aceite
+
+CA-001 — Cadastro válido
+
+Dado que o usuário possui permissão,
+quando informar os dados obrigatórios válidos,
+então o aluno deverá ser cadastrado.
+
+
+---
+
+CA-002 — Usuário não autorizado
+
+Dado que o usuário não possui permissão,
+quando tentar cadastrar um aluno,
+então o sistema deverá bloquear a operação.
+
+
+---
+
+CA-003 — Instituição inativa
+
+Dado que a instituição está inativa,
+quando o usuário tentar cadastrar um aluno nela,
+então o sistema deverá rejeitar o cadastro.
+
+
+---
+
+CA-004 — Turma incompatível
+
+Dado que a turma pertence a outra instituição,
+quando o usuário tentar utilizá-la,
+então o sistema deverá rejeitar a operação.
+
+
+---
+
+CA-005 — Dados obrigatórios
+
+Dado que existem campos obrigatórios vazios,
+quando o usuário tentar salvar,
+então o sistema deverá impedir o cadastro e informar os campos necessários.
+
+
+---
+
+CA-006 — Auditoria
+
+Dado que o cadastro foi concluído,
+quando a operação for finalizada,
+então deverá existir um registro de auditoria correspondente.
+
+
+---
+
+CA-007 — Rastreabilidade
+
+Dado que um aluno foi cadastrado,
+quando consultarmos seu registro,
+então deverá ser possível identificar o usuário responsável pelo cadastro.
+
+
+---
+
+13. Dependências
+
+O UC-022 possui dependência funcional de:
+
+UC-001 — Autenticar Usuário
+UC-015 — Controlar Acesso
+UC-016 — Cadastrar Escola
+UC-019 — Cadastrar Turma
+
+E será pré-requisito para:
+
+UC-021 — Associar Aluno à Turma
+UC-024 — Consultar Aluno
+UC-025 — Associar Responsável
+UC-026 — Associar Profissional
+UC-028 — Registrar Observação
+UC-032 — Consultar Histórico
+
+
+---
+
+14. Relação com o futuro Laravel
+
+Uma vez implementado, este caso de uso provavelmente será distribuído entre componentes como:
+
+HTTP Request
+      ↓
+Form Request
+      ↓
+Controller
+      ↓
+Service
+      ↓
+Policy
+      ↓
+Model / Eloquent
+      ↓
+PostgreSQL
+      ↓
+Audit Service
+
+Não vamos implementar isso agora.
+
+A especificação funcional vem antes da implementação, justamente para que a arquitetura seja derivada dos requisitos.
+
+
+---
+
+15. Resumo do UC-022
+
+┌─────────────────────────────────────────────┐
+│             UC-022 — CADASTRAR ALUNO        │
+├─────────────────────────────────────────────┤
+│ Ator: Administrador / Usuário autorizado    │
+│                                             │
+│ Entrada: Dados cadastrais                   │
+│                                             │
+│ Validações:                                 │
+│ • Autenticação                              │
+│ • Autorização                               │
+│ • Instituição                               │
+│ • Turma                                     │
+│ • Duplicidade                               │
+│                                             │
+│ Processamento:                              │
+│ • Validar                                   │
+│ • Persistir                                 │
+│ • Auditar                                   │
+│                                             │
+│ Saída:                                      │
+│ • Aluno cadastrado                          │
+│ • Registro de auditoria                    │
+└─────────────────────────────────────────────┘
+
+✅ UC-022 concluído — versão 1.0
+
+O próximo caso será o UC-025 — Associar Responsável ao Aluno.
+
+Esse é particularmente importante porque vai definir boa parte da estrutura necessária para os requisitos que você acrescentou de comunicação por e-mail/WhatsApp e comunicação emergencial. Depois dele, seguiremos para o UC-028 — Registrar Observação, que é o núcleo do acompanhamento do IncluiEdu.
